@@ -1,5 +1,7 @@
 # My-DAO-Dashboard
 
+[![Build Status](https://travis-ci.org/wslyvh/My-DAO-Dashboard.svg?branch=master)](https://travis-ci.org/wslyvh/My-DAO-Dashboard)
+
 ## Introduction
 
 You will soon be in a position where you are a voting member of more DAOs than you can possible manage.
@@ -21,7 +23,3 @@ It's going to get really messy really quickly.
 ## Idea description
 
 Please, ETHBerlin, buidl me a dashboard where I can see some information about all the DAOs I'm participating in, based on my Ethereum address.
-
-
-
-
