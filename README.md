@@ -21,3 +21,7 @@ It's going to get really messy really quickly.
 ## Idea description
 
 Please, ETHBerlin, buidl me a dashboard where I can see some information about all the DAOs I'm participating in, based on my Ethereum address.
+
+
+
+
