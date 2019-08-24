@@ -15,7 +15,8 @@ export interface DaoInstanceState {
     kind: DaoKind
     shareBalance: BigNumber,
     totalSupply: BigNumber,
-    balance: Array<IBalanceEntry>
+    balance: Array<IBalanceEntry>,
+    usdBalance: number
 }
 
 export interface DaosState {
