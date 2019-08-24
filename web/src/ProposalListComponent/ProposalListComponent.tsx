@@ -1,6 +1,10 @@
 import { Badge, Table, Tag } from "antd";
 import React from "react";
 import DaoTag from "../Components/DaoTag";
+import {State} from "../backbone/State";
+import {connect} from "react-redux";
+import {DaoListComponent} from "../DaoListComponent/DaoListComponent";
+import {votesService} from "../backbone/services";
 
 const data: any[] = [];
 for (let i = 0; i < 7; i++) {
@@ -62,6 +66,8 @@ const columns = [
 
 export default class ProposalListComponent extends React.Component {
   public render() {
+    // votesService.getVotes('0xb788256177F8398babdDb1118bc4aa0557Ed8c65')
+    votesService.getVotes('0xe0edce5a400c39d0a5bad239ccf361adddff0a0f')
     return (
       <>
         <div>
