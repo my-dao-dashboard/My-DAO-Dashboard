@@ -33,6 +33,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/react-redux": "^7.1.2",
+    "@types/web3": "^1.0.19",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",
@@ -44,7 +45,11 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "typescript-fsa": "^3.0.0-beta-2",
+    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-redux-thunk": "^2.1.2",
+    "web3": "^1.2.1"
   },
   "devDependencies": {
     "@types/redux-logger": "^3.0.7",
