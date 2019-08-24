@@ -12,7 +12,7 @@ interface StateProps {
 
 export class DaoListComponent extends React.Component<StateProps> {
     renderItem(dao: DaoInstanceState) {
-        return <p key={dao.address}>{dao.address}</p>
+        return <p key={dao.address}>{dao.address} {dao.name}</p>
     }
 
     render() {
