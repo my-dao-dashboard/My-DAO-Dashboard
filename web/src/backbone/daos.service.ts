@@ -63,7 +63,7 @@ export class DaosService {
   }
 
   async getDaos(address: string): Promise<Array<DaoInstanceState>> {
-    const endpoint = `http://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`;
+    const endpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`;
     const data = await fetch(endpoint);
     const body = await data.json();
     const tokenTransactions = body.result;
