@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {VoteProposal, VoteStatus} from "../../backbone/votes.service";
 import {DaoInstanceState, State} from "../../backbone/State";
 import {votesService} from "../../backbone/services";
+import Loader from "../Layout/Loader/Loader";
 
 export interface ProposalColumn {
   key: string,
@@ -127,7 +128,7 @@ export class ProposalListComponent extends React.Component<StateProps, Component
 
   public render() {
     if (this.state.isLoading) {
-      return <p>Loading Proposals...</p>
+      return <Loader />
     } else {
       return <>
         <div>
