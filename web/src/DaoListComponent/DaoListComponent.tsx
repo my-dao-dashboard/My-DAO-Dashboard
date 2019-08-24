@@ -3,6 +3,7 @@ import Meta from "antd/lib/card/Meta";
 import React from "react";
 import { connect } from "react-redux";
 import { DaoInstanceState, State } from "../backbone/State";
+import { Link } from "react-router-dom";
 
 interface StateProps {
   daos: Array<DaoInstanceState>;
@@ -27,23 +28,25 @@ export class DaoListComponent extends React.Component<StateProps> {
           renderItem={item => (
             <>
               <List.Item>
-                <Card hoverable>
-                  <Meta
-                    title={item.name}
-                    description={
-                      <>
-                        <p>Balance: {item.shareBalance.toNumber()}</p>
-                        <p>Supply: {item.totalSupply.toString()}</p>
-                        <p>
-                          <a href={`https://mainnet.aragon.org/#/${item.address}`} target="_blank">
-                            {item.address}
-                          </a>
-                        </p>
-                        <Tag color="cyan">{item.kind}</Tag>
-                      </>
-                    }
-                  />
-                </Card>
+                <Link to="/dao">
+                  <Card hoverable>
+                    <Meta
+                      title={item.name}
+                      description={
+                        <>
+                          <p>Balance: {item.shareBalance.toNumber()}</p>
+                          <p>Supply: {item.totalSupply.toString()}</p>
+                          <p>
+                            <a href={`https://mainnet.aragon.org/#/${item.address}`} target="_blank">
+                              {item.address}
+                            </a>
+                          </p>
+                          <Tag color="cyan">{item.kind}</Tag>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             </>
           )}
