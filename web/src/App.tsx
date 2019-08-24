@@ -7,7 +7,6 @@ import AccountComponent from "./AccountComponent/AccountComponent";
 import DaoList from "./DaoListComponent/DaoList";
 import "./App.css";
 import DaoListLoader from "./DaoListComponent/DaoListLoader";
-import DaoList from "./DaoListComponent/DaoList";
 import DaoListComponent from "./DaoListComponent/DaoListComponent";
 
 const { Header, Content, Footer } = Layout;
