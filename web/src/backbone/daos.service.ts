@@ -6,6 +6,7 @@ import ApolloClient, {gql} from 'apollo-boost';
 import BigNumber from "bignumber.js";
 import aragonKernelABI from './aragon-kernel.abi.json'
 import {AccountService} from "./account.service";
+import {BalanceService} from "./balance.service";
 
 function uniq<A>(array: Array<A>): Array<A> {
     return array.filter((v, i) => {
@@ -23,7 +24,7 @@ export class DaosService {
     private readonly ensApollo: ApolloClient<unknown>
     private names: any | undefined
 
-    constructor (private readonly accountService: AccountService) {
+    constructor (private readonly accountService: AccountService, private readonly balanceService: BalanceService) {
         this.web3 = accountService.web3()
         this.ensApollo = new ApolloClient({
             uri: 'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
@@ -78,7 +79,7 @@ export class DaosService {
                 const kernel: string = await controller.methods.kernel().call()
                 const kernelContract = new this.web3.eth.Contract(aragonKernelABI, kernel)
                 const vaultAddress = await kernelContract.methods.apps('0xd6f028ca0e8edb4a8c9757ca4fdccab25fa1e0317da1188108f7d2dee14902fb', '0x7e852e0fcfce6551c13800f1e7476f982525c2b5277ba14b24339c68416336d1').call()
-                console.log('kernel', kernel, vaultAddress)
+                const balance = await this.balanceService.balance(vaultAddress);
                 const a = await this.ensApollo.query({
                     query: gql`
                         query {
@@ -100,19 +101,19 @@ export class DaosService {
                 const hiveName = hiveEntity ? hiveEntity.name : null
                 const graphqlName = name ? `${name}.aragonid.eth` : null
 
-                const balance = await tokenContract.methods.balanceOf(address).call()
+                const shareBalance = await tokenContract.methods.balanceOf(address).call()
                 const totalSupply = await tokenContract.methods.totalSupply().call()
                 const dao: DaoInstanceState = {
                     address: kernel,
                     name: graphqlName || hiveName,
                     kind: DaoKind.ARAGON,
-                    balance: new BigNumber(balance),
-                    totalSupply: new BigNumber(totalSupply)
+                    shareBalance: new BigNumber(shareBalance),
+                    totalSupply: new BigNumber(totalSupply),
+                    balance: balance
                 }
                 aragonKernels.push(dao)
             }
         }
-        console.log(aragonKernels)
         return aragonKernels
     }
 }
