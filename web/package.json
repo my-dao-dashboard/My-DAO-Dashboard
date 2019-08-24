@@ -9,7 +9,7 @@
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "lint-fix": "tslint --fix -c tslint.json -p tsconfig.json",
-    "heroku-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "yarn install && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
