@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { DaoInstanceState, State } from "../../backbone/State";
 import ProposalListComponent from "../ProposalListComponent/ProposalListComponent";
 import { Tag, Row, Col } from "antd";
+import DaoLink from "../DaoLink";
 
 interface StateProps {
   dao: DaoInstanceState;
@@ -20,9 +21,7 @@ export class DaoOverview extends React.Component<StateProps> {
             <Tag color="cyan">{this.props.dao.kind}</Tag>
           </Col>
         </Row>
-        <a href={`https://mainnet.aragon.org/#/${this.props.dao.address}`} target="_blank" rel="noopener noreferrer">
-          <small>{this.props.dao.address}</small>
-        </a>
+        <DaoLink type={this.props.dao.kind} address={this.props.dao.address} />
         <p>
           Voting power: {this.props.dao.shareBalance.toNumber()} / {this.props.dao.totalSupply.toString()}
         </p>
