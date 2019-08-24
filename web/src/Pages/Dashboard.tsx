@@ -5,13 +5,9 @@ import ProposalListComponent from "../Components/ProposalListComponent/ProposalL
 
 export default class Dashboard extends Component {
   public render() {
-    return (
-      <>
-        <DaoListLoader>
-          <DaoListComponent />
-          <ProposalListComponent />
-        </DaoListLoader>
-      </>
-    );
+    return <DaoListLoader>
+        <DaoListComponent />
+        <ProposalListComponent />
+    </DaoListLoader>
   }
 }
