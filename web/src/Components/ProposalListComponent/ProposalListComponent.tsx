@@ -1,10 +1,10 @@
-import {Badge, Table, Tag} from "antd";
+import {Badge, Table} from "antd";
 import React from "react";
-import DaoTag from "../Components/DaoTag";
-import {DaoInstanceState, State} from "../backbone/State";
+import DaoTag from "../DaoTag";
 import {connect} from "react-redux";
-import {votesService} from "../backbone/services";
-import {VoteProposal, VoteStatus} from "../backbone/votes.service";
+import {VoteProposal, VoteStatus} from "../../backbone/votes.service";
+import {DaoInstanceState, State} from "../../backbone/State";
+import {votesService} from "../../backbone/services";
 
 export interface ProposalColumn {
   key: string,
@@ -54,7 +54,7 @@ const columns = [
     dataIndex: "type",
     key: "type",
     render: (item: any) => {
-      return <DaoTag type="ARAGON" />;
+      return <DaoTag type={item} />;
     }
   },
   {

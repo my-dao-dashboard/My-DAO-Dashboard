@@ -1,48 +1,48 @@
-import Web3 from 'web3'
-import {DaoInstanceState, DaoKind} from "./State";
-import aragonTokenABI from './aragon-token.abi.json'
-import aragonTokenControllerABI from './aragon-token-controller.abi.json'
-import ApolloClient, {gql} from 'apollo-boost';
+import Web3 from "web3";
+import { DaoInstanceState, DaoKind } from "./State";
+import aragonTokenABI from "./aragon-token.abi.json";
+import aragonTokenControllerABI from "./aragon-token-controller.abi.json";
+import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
-import aragonKernelABI from './aragon-kernel.abi.json'
-import {AccountService} from "./account.service";
-import {BalanceService} from "./balance.service";
+import aragonKernelABI from "./aragon-kernel.abi.json";
+import { AccountService } from "./account.service";
+import { BalanceService, IBalanceEntry } from "./balance.service";
 
 function uniq<A>(array: Array<A>): Array<A> {
-    return array.filter((v, i) => {
-        return array.indexOf(v) === i;
-    })
+  return array.filter((v, i) => {
+    return array.indexOf(v) === i;
+  });
 }
 
-async function hasMethod (web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
-    const code = await web3.eth.getCode(contractAddress);
-    return code.indexOf(signature.slice(2, signature.length)) > 0;
+async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
+  const code = await web3.eth.getCode(contractAddress);
+  return code.indexOf(signature.slice(2, signature.length)) > 0;
 }
 
 export class DaosService {
-    private readonly web3: Web3
-    private readonly ensApollo: ApolloClient<unknown>
-    private names: any | undefined
+  private readonly web3: Web3;
+  private readonly ensApollo: ApolloClient<unknown>;
+  private names: any | undefined;
 
-    constructor (private readonly accountService: AccountService, private readonly balanceService: BalanceService) {
-        this.web3 = accountService.web3()
-        this.ensApollo = new ApolloClient({
-            uri: 'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
-        })
+  constructor(private readonly accountService: AccountService, private readonly balanceService: BalanceService) {
+    this.web3 = accountService.web3();
+    this.ensApollo = new ApolloClient({
+      uri: "https://api.thegraph.com/subgraphs/name/ensdomains/ens"
+    });
+  }
+
+  async fetchAllNames() {
+    if (!this.names) {
+      const endpoint = `https://daolist.1hive.org`;
+      const data = await fetch(endpoint);
+      this.names = await data.json();
     }
+    return this.names;
+  }
 
-    async fetchAllNames() {
-        if (!this.names) {
-            const endpoint = `http://daolist.1hive.org`
-            const data = await fetch(endpoint)
-            this.names = await data.json()
-        }
-        return this.names
-    }
-
-    async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
-        const page = await this.ensApollo.query({
-            query: gql`
+  async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
+    const page = await this.ensApollo.query({
+      query: gql`
                 query {
                     domain(id: "${parent}") {
                         subdomains(orderBy: id, skip: ${skip}) {
@@ -52,15 +52,15 @@ export class DaosService {
                     }
                 }
             `
-        })
-        const subdomains = page.data.domain.subdomains as Array<{labelName: string, labelhash: string}>
-        const found = subdomains.find(s => s.labelhash === labelhash)
-        if (found) {
-            return found.labelName
-        } else {
-            return this.fetchName(parent, labelhash, skip + 100);
-        }
+    });
+    const subdomains = page.data.domain.subdomains as Array<{ labelName: string; labelhash: string }>;
+    const found = subdomains.find(s => s.labelhash === labelhash);
+    if (found) {
+      return found.labelName;
+    } else {
+      return this.fetchName(parent, labelhash, skip + 100);
     }
+  }
 
     async getDaos (address: string): Promise<Array<DaoInstanceState>> {
         const endpoint = `http://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`
@@ -116,5 +116,20 @@ export class DaosService {
             }
         }
         return aragonKernels
+    }
+
+    async getDao(address: string): Promise<DaoInstanceState> {
+        const balance: IBalanceEntry[] = [];
+        const dao: DaoInstanceState = {
+            address: address,
+            name: "mydaodashboard.aragonid.eth",
+            kind: DaoKind.ARAGON,
+            shareBalance: new BigNumber(1000000000000000001),
+            totalSupply: new BigNumber(4000000000000000000),
+            balance,
+            usdBalance: balance.reduce((acc, cur) => acc + cur.usdValue, 0)
+        };
+
+        return dao;
     }
 }
