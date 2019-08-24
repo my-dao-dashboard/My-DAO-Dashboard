@@ -5,7 +5,12 @@ import * as daos from "../../backbone/daos";
 import { State } from "../../backbone/State";
 import Loader from "../Layout/Loader/Loader";
 
+interface IProps {
+  address: string;
+}
+
 interface StateProps {
+  address: string;
   account: string;
   isLoading: boolean;
 }
@@ -16,7 +21,7 @@ interface DispatchProps {
 
 export class DaoOverviewLoader extends React.Component<StateProps & DispatchProps> {
   componentDidMount(): void {
-    this.props.getDao(this.props.account, "0xb788256177F8398babdDb1118bc4aa0557Ed8c65");
+    this.props.getDao(this.props.account, this.props.address);
   }
 
   render() {
@@ -28,8 +33,9 @@ export class DaoOverviewLoader extends React.Component<StateProps & DispatchProp
   }
 }
 
-function stateToProps(state: State): StateProps {
+function stateToProps(state: State, props: IProps): StateProps {
   return {
+    address: props.address!,
     account: state.account.address!,
     isLoading: state.daos.dao === undefined
   };

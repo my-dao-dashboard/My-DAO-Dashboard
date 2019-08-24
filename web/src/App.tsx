@@ -1,7 +1,7 @@
-import { Layout, Icon } from "antd";
+import { Icon, Layout } from "antd";
 import React from "react";
 import { Provider } from "react-redux";
-import { Route, Redirect } from "react-router";
+import { Redirect, Route } from "react-router";
 import "./App.css";
 import { store } from "./backbone/store";
 import AccountComponent from "./Components/AccountComponent/AccountComponent";
@@ -22,7 +22,7 @@ const App: React.FC = () => {
           <Content className="container">
             <div className="content">
               <Route exact path="/" component={Dashboard} />
-              <Route exact path="/dao/:id" component={DAO} />
+              <Route exact path="/dao/:address" component={DAO} />
               <Redirect to="/" />
             </div>
           </Content>
