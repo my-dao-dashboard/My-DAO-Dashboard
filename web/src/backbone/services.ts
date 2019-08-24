@@ -33,13 +33,22 @@ const rABI = [{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}]
 export class DaosService {
     private readonly web3: Web3
     private readonly ensApollo: ApolloClient<unknown>
-    private names: Map<string, Map<string, string>> = new Map()
+    private names: any | undefined
 
     constructor (private readonly accountService: AccountService) {
         this.web3 = accountService.web3()
         this.ensApollo = new ApolloClient({
             uri: 'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
         })
+    }
+
+    async fetchAllNames() {
+        if (!this.names) {
+            const endpoint = `http://daolist.1hive.org`
+            const data = await fetch(endpoint)
+            this.names = await data.json()
+        }
+        return this.names
     }
 
     async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
@@ -95,11 +104,16 @@ export class DaosService {
                 const labelHash = a.data.domains[0].labelhash
                 const parentId = a.data.domains[0].parent.id.toLowerCase()
                 const name = await this.fetchName(parentId, labelHash);
+                const hiveNames = await this.fetchAllNames()
+                const hiveEntity = hiveNames.find((t: any) => t.address.toLowerCase() === kernel.toLowerCase())
+                const hiveName = hiveEntity ? hiveEntity.name : null
+                const graphqlName = name ? `${name}.aragonid.eth` : null
+
                 const balance = await tokenContract.methods.balanceOf(address).call()
                 const totalSupply = await tokenContract.methods.totalSupply().call()
                 const dao: DaoInstanceState = {
                     address: kernel,
-                    name: name,
+                    name: graphqlName || hiveName,
                     kind: DaoKind.ARAGON,
                     balance: new BigNumber(balance),
                     totalSupply: new BigNumber(totalSupply)
