@@ -1,8 +1,16 @@
 export interface AccountState {
     address?: string
-    isLoading: boolean
+}
+
+export interface DaoInstanceState {
+    address: string
+}
+
+export interface DaosState {
+    daos: Array<DaoInstanceState> | undefined
 }
 
 export interface State {
     account: AccountState
+    daos: DaosState
 }

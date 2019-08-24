@@ -1,21 +1,20 @@
 import React from "react";
-import Web3 from "web3";
 import { connect } from 'react-redux'
 import {State} from "../backbone/State";
 import {ThunkDispatch} from "redux-thunk";
-import * as account from '../backbone/account'
+import DaoListLoader from "./DaoListLoader";
 
 export interface DaoListComponentState {
     isLoading: boolean
 }
 
 interface StateProps {
-    isLoading: boolean
-    account: string | undefined
+    account: string | undefined,
+    isLoading: boolean,
 }
 
 interface DispatchProps {
-    getAddress: () => void
+    getDaos: (address: string) => void
 }
 
 export type Props = StateProps & DispatchProps
@@ -29,36 +28,27 @@ export class DaoListComponent extends React.Component<Props, DaoListComponentSta
         }
     }
 
-    componentDidMount() {
-        this.props.getAddress()
-    }
-
     render() {
-        if (this.props.isLoading) {
-            return <>Loading...</>
-        } else {
-            return <p>{this.props.account}</p>
-        }
+        return <DaoListLoader>
+            <p>Loaded</p>
+        </DaoListLoader>
     }
 }
 
 function stateToProps (state: State): StateProps {
     return {
-        isLoading: state.account.isLoading,
+        // isLoading: state.daos.isLoading,
+        isLoading: true,
         account: state.account.address
     }
 }
 
 function dispatchToProps (dispatch: ThunkDispatch<any, any, any>): DispatchProps {
     return {
-        getAddress: () => {
-            dispatch(account.getAddress.action())
+        getDaos: (address: string) => {
+            console.log('getDaos')
         }
     }
-}
-
-function f() {
-
 }
 
 export default connect(stateToProps, dispatchToProps)(DaoListComponent)

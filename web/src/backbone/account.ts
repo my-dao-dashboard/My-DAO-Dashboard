@@ -8,8 +8,7 @@ const action = actionCreatorFactory('ACCOUNT')
 const asyncAction = asyncFactory<AccountState>(action)
 
 const INITIAL_STATE: AccountState = {
-    address: undefined,
-    isLoading: true
+    address: undefined
 }
 
 export const getAddress = asyncAction<void, string>('GET_ADDRESS', async () => {
@@ -19,20 +18,17 @@ export const getAddress = asyncAction<void, string>('GET_ADDRESS', async () => {
 export const reducers = reducerWithInitialState(INITIAL_STATE)
     .case(getAddress.async.started, (state) => {
         return {
-            ...state,
-            isLoading: true
+            ...state
         }
     })
     .case(getAddress.async.failed, (state) => {
         return {
-            ...state,
-            isLoading: true
+            ...state
         }
     })
     .case(getAddress.async.done, (state, payload) => {
         const address = payload.result
         return {
-            isLoading: false,
             address: address
         }
     })
