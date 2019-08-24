@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import * as daos from "../../backbone/daos";
 import { State } from "../../backbone/State";
+import Loader from "../Layout/Loader/Loader";
 
 interface StateProps {
   isLoading: boolean;
@@ -20,7 +21,7 @@ export class DaoListLoader extends React.Component<StateProps & DispatchProps> {
 
   render() {
     if (this.props.isLoading) {
-      return <p>Loading DAOs...</p>;
+      return <Loader />;
     } else {
       return this.props.children;
     }
