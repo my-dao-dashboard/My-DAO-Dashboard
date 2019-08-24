@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from './backbone/store'
 import AccountComponent from "./AccountComponent/AccountComponent";
 import DaoListLoader from "./DaoListComponent/DaoListLoader";
+import DaoListComponent from "./DaoListComponent/DaoListComponent";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,7 +21,7 @@ const App: React.FC = () => {
                 <p>My DAO Dashboard</p>
               </div>
                 <DaoListLoader>
-                    DAOS
+                    <DaoListComponent/>
                 </DaoListLoader>
             </Content>
             <Footer style={{ textAlign: "center" }}>ETH Berlin Zwei</Footer>

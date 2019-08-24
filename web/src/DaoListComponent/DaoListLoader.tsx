@@ -37,7 +37,7 @@ function stateToProps (state: State): StateProps {
 function dispatchToProps (dispatch: ThunkDispatch<any, any, any>): DispatchProps {
     return {
         getDaos: (address: string) => {
-            dispatch(daos.getDaos.action(address))
+            return dispatch(daos.getDaos.action(address))
         }
     }
 }
