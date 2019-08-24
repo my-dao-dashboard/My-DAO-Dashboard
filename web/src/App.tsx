@@ -5,7 +5,7 @@ import { Route } from "react-router";
 import "./App.css";
 import { store } from "./backbone/store";
 import AccountComponent from "./Components/AccountComponent/AccountComponent";
-import { AppHeader } from "./Components/Layout/AppHeader";
+import AppHeader from "./Components/Layout/AppHeader";
 import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
 
