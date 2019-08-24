@@ -76,9 +76,9 @@ export class VotesService {
         const kernelContract = new this.web3.eth.Contract(aragonKernelABI, kernelAddress)
         // kind appId
         const votingImplementationAddress = await kernelContract.methods.apps('0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f', '0x9fa3927f639745e587912d4b0fea7ef9013bf93fb907d29faeab57417ba6e1d4').call()
-        console.log('kernel', kernelAddress)
-        console.log('expected', '0xe9FB3a91a30b9B61EE9C50cDc20864EeB9d4c906', votingImplementationAddress)
-        console.log(kernelContract.options.address)
+        // console.log('kernel', kernelAddress)
+        // console.log('expected', '0xe9FB3a91a30b9B61EE9C50cDc20864EeB9d4c906', votingImplementationAddress)
+        // console.log(kernelContract.options.address)
         const setAppEvents = await kernelContract.getPastEvents('allEvents', {
             fromBlock: 0,
             toBlock: 'latest',

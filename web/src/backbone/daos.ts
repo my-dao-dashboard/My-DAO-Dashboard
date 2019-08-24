@@ -58,7 +58,6 @@ export const reducers = reducerWithInitialState(INITIAL_STATE)
   })
   .case(getDao.async.done, (state, payload) => {
     const dao = payload.result;
-    console.log(dao);
     return {
       ...state,
       dao
