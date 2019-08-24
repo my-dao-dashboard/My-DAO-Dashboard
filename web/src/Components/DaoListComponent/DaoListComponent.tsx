@@ -2,8 +2,8 @@ import { Card, List, Tag } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";
 import { connect } from "react-redux";
-import { DaoInstanceState, State } from "../backbone/State";
 import { Link } from "react-router-dom";
+import { DaoInstanceState, State } from "../../backbone/State";
 
 interface StateProps {
   daos: Array<DaoInstanceState>;

@@ -3,9 +3,9 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
-import AccountComponent from "./AccountComponent/AccountComponent";
 import "./App.css";
 import { store } from "./backbone/store";
+import AccountComponent from "./Components/AccountComponent/AccountComponent";
 import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
 

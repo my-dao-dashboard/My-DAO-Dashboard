@@ -1,6 +1,6 @@
-import { Badge, Table, Tag } from "antd";
+import { Badge, Table } from "antd";
 import React from "react";
-import DaoTag from "../Components/DaoTag";
+import DaoTag from "../DaoTag";
 
 const data: any[] = [];
 for (let i = 0; i < 7; i++) {
