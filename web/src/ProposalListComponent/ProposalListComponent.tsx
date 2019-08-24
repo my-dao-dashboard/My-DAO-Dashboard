@@ -39,7 +39,7 @@ const columns = [
     dataIndex: "type",
     key: "type",
     render: (item: any) => {
-      return <DaoTag type="ARAGON" />;
+      return <DaoTag type={item} />;
     }
   },
   {

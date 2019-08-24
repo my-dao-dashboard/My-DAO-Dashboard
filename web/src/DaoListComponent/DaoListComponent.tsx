@@ -33,7 +33,7 @@ export class DaoListComponent extends React.Component<StateProps> {
                     description={
                       <>
                         <p>Balance: {item.balance.toNumber()}</p>
-                        <p>Supply: {item.totalSupply.toString()}</p>
+                        <p>Supply: {item.totalSupply.toNumber()}</p>
                         <p>
                           <a href={`https://etherscan.io/address/${item.address}`} target="_blank">
                             {item.address}
