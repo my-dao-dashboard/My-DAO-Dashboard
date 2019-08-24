@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import {IBalanceEntry} from "./balance.service";
 
 export interface AccountState {
     address?: string
@@ -12,8 +13,9 @@ export interface DaoInstanceState {
     address: string
     name: string | null
     kind: DaoKind
-    balance: BigNumber,
-    totalSupply: BigNumber
+    shareBalance: BigNumber,
+    totalSupply: BigNumber,
+    balance: Array<IBalanceEntry>
 }
 
 export interface DaosState {

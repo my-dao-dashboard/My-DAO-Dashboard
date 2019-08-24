@@ -12,7 +12,7 @@ const INITIAL_STATE: DaosState = {
 };
 
 export const getDaos = asyncAction<string, Array<DaoInstanceState>>('GET_DAOS', async (address) => {
-    return services.dasosService.getDaos(address)
+    return services.daosService.getDaos(address)
 });
 
 export const reducers = reducerWithInitialState(INITIAL_STATE)
