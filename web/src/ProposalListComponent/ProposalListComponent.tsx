@@ -1,5 +1,6 @@
-import { Card, List, Table, Tag, Badge } from "antd";
+import { Badge, Table, Tag } from "antd";
 import React from "react";
+import DaoTag from "../Components/DaoTag";
 
 const data: any[] = [];
 for (let i = 0; i < 7; i++) {
@@ -38,11 +39,7 @@ const columns = [
     dataIndex: "type",
     key: "type",
     render: (item: any) => {
-      return (
-        <Tag color="blue" key={item}>
-          {item}
-        </Tag>
-      );
+      return <DaoTag type="ARAGON" />;
     }
   },
   {
@@ -50,7 +47,6 @@ const columns = [
     dataIndex: "deadline",
     key: "deadline",
     render: (item: any) => {
-      console.log(item);
       return item.toLocaleDateString();
     }
   },
@@ -69,7 +65,7 @@ export default class ProposalListComponent extends React.Component {
     return (
       <>
         <div>
-          <h3>Open Proposals</h3>
+          <h2>Open Proposals</h2>
           <Table columns={columns} dataSource={data} />
         </div>
       </>

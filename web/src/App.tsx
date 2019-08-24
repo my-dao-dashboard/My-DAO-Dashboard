@@ -1,13 +1,12 @@
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Layout } from "antd";
 import React from "react";
-import "./App.css";
-import { Provider } from 'react-redux'
-import { store } from './backbone/store'
+import { Provider } from "react-redux";
 import AccountComponent from "./AccountComponent/AccountComponent";
-import DaoList from "./DaoListComponent/DaoList";
 import "./App.css";
-import DaoListLoader from "./DaoListComponent/DaoListLoader";
+import { store } from "./backbone/store";
 import DaoListComponent from "./DaoListComponent/DaoListComponent";
+import DaoListLoader from "./DaoListComponent/DaoListLoader";
+import ProposalListComponent from "./ProposalListComponent/ProposalListComponent";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,10 +20,12 @@ const App: React.FC = () => {
           </Header>
           <Content style={{ padding: "0 50px", marginTop: 64 }}>
             <div style={{ background: "#fff", padding: 24, minHeight: 380 }}>
-              <p>My DAO Dashboard</p>
+              <h1>My DAO Dashboard</h1>
+              <DaoListLoader>
+                <DaoListComponent />
+              </DaoListLoader>
+              <ProposalListComponent />
             </div>
-            <DaoListLoader><DaoListComponent/></DaoListLoader>
-            <DaoList />
           </Content>
           <Footer style={{ textAlign: "center" }}>ETH Berlin Zwei</Footer>
         </Layout>
