@@ -109,7 +109,8 @@ export class DaosService {
                     kind: DaoKind.ARAGON,
                     shareBalance: new BigNumber(shareBalance),
                     totalSupply: new BigNumber(totalSupply),
-                    balance: balance
+                    balance: balance,
+                    usdBalance: balance.reduce((acc, cur) => acc + cur.usdValue, 0)
                 }
                 aragonKernels.push(dao)
             }
