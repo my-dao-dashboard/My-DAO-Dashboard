@@ -117,19 +117,4 @@ export class DaosService {
         }
         return aragonKernels
     }
-
-    async getDao(address: string): Promise<DaoInstanceState> {
-        const balance: IBalanceEntry[] = [];
-        const dao: DaoInstanceState = {
-            address: address,
-            name: "mydaodashboard.aragonid.eth",
-            kind: DaoKind.ARAGON,
-            shareBalance: new BigNumber(1000000000000000001),
-            totalSupply: new BigNumber(4000000000000000000),
-            balance,
-            usdBalance: balance.reduce((acc, cur) => acc + cur.usdValue, 0)
-        };
-
-        return dao;
-    }
 }
