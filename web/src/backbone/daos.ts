@@ -12,6 +12,14 @@ const INITIAL_STATE: DaosState = {
   dao: undefined
 };
 
+let DAOS_LIST: Array<DaoInstanceState> = []
+
+async function fillDaos (userAddress: string): Promise<void> {
+  if (DAOS_LIST.length === 0) {
+    DAOS_LIST = await services.daosService.getDaos(userAddress);
+  }
+}
+
 export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async address => {
   return services.daosService.getDaos(address);
 });
