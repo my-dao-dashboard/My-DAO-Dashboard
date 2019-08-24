@@ -38,7 +38,7 @@ function stateToProps(state: State): StateProps {
 function dispatchToProps(dispatch: ThunkDispatch<any, any, any>): DispatchProps {
   return {
     getDao: (account: string, daoAddress: string) => {
-      return dispatch(daos.getDao.action(account));
+      return dispatch(daos.getDao.action([account, daoAddress]));
     }
   };
 }

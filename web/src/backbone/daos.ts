@@ -20,12 +20,14 @@ async function fillDaos (userAddress: string): Promise<void> {
   }
 }
 
-export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async address => {
-  return services.daosService.getDaos(address);
+export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async account => {
+  await fillDaos(account)
+  return DAOS_LIST
 });
 
-export const getDao = asyncAction<string, DaoInstanceState>("GET_DAO", async address => {
-  return services.daosService.getDao(address);
+export const getDao = asyncAction<[string, string], DaoInstanceState>("GET_DAO", async ([account, daoAddress]) => {
+  await fillDaos(account)
+  return DAOS_LIST.find(d => d.address === daoAddress.toLowerCase())!
 });
 
 export const reducers = reducerWithInitialState(INITIAL_STATE)
