@@ -28,7 +28,7 @@ export class DaoListComponent extends React.Component<StateProps> {
           renderItem={item => (
             <>
               <List.Item>
-                <Link to="/dao">
+                <Link to={"/dao/" + item.address}>
                   <Card hoverable>
                     <Meta
                       title={item.name}

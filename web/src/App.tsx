@@ -25,6 +25,7 @@ const App: React.FC = () => {
             <div style={{ background: "#fff", padding: 24, minHeight: 380 }}>
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/dao" component={DAO} />
+              <Route exact path="/dao/:id" component={DAO} />
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>ETH Berlin Zwei</Footer>
