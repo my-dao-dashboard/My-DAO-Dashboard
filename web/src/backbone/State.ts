@@ -1,29 +1,30 @@
 import BigNumber from "bignumber.js";
-import {IBalanceEntry} from "./balance.service";
+import { IBalanceEntry } from "./balance.service";
 
 export interface AccountState {
-    address?: string
+  address?: string;
 }
 
 export enum DaoKind {
-    ARAGON = 'ARAGON'
+  ARAGON = "ARAGON"
 }
 
 export interface DaoInstanceState {
-    address: string
-    name: string | null
-    kind: DaoKind
-    shareBalance: BigNumber,
-    totalSupply: BigNumber,
-    balance: Array<IBalanceEntry>,
-    usdBalance: number
+  address: string;
+  name: string | null;
+  kind: DaoKind;
+  shareBalance: BigNumber;
+  totalSupply: BigNumber;
+  balance: IBalanceEntry[];
+  usdBalance: number;
 }
 
 export interface DaosState {
-    daos: Array<DaoInstanceState> | undefined
+  daos: DaoInstanceState[] | undefined;
+  dao: DaoInstanceState | undefined;
 }
 
 export interface State {
-    account: AccountState
-    daos: DaosState
+  account: AccountState;
+  daos: DaosState;
 }
