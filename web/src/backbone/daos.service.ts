@@ -104,7 +104,7 @@ export class DaosService {
                 const shareBalance = await tokenContract.methods.balanceOf(address).call()
                 const totalSupply = await tokenContract.methods.totalSupply().call()
                 const dao: DaoInstanceState = {
-                    address: kernel,
+                    address: kernel.toLowerCase(),
                     name: graphqlName || hiveName,
                     kind: DaoKind.ARAGON,
                     shareBalance: new BigNumber(shareBalance),

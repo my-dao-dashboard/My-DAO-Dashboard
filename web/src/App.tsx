@@ -23,8 +23,8 @@ const App: React.FC = () => {
               <h1>My DAO Dashboard</h1>
               <DaoListLoader>
                 <DaoListComponent />
+                <ProposalListComponent />
               </DaoListLoader>
-              <ProposalListComponent />
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>ETH Berlin Zwei</Footer>

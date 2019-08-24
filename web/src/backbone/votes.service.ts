@@ -3,10 +3,7 @@ import {AccountService} from "./account.service";
 import aragonKernelABI from "./aragon-kernel.abi.json";
 import aragonVotingABI from "./aragon-voting.abi.json";
 import BigNumber from "bignumber.js";
-
-function isMinting(txInput: string) {
-    return txInput.indexOf('d948d468') >= 0
-}
+import {DaoInstanceState} from "./State";
 
 export enum TransactionKind {
     MINTING = 'MINTING',
@@ -21,7 +18,18 @@ export enum VoteStatus {
 
 const MINTING_MARK = '40c10f19'
 
-async function parseMinting(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus) {
+export interface VoteProposal {
+    kind: TransactionKind,
+    dao: DaoInstanceState,
+    creator: string,
+    voteId: number,
+    title: string,
+    timestamp: Date,
+    votingAddress: string,
+    status: VoteStatus
+}
+
+async function parseMinting(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
     const markIndex = txInput.indexOf(MINTING_MARK)
     const txStuff = txInput.slice(markIndex, txInput.length)
     const amount = web3.eth.abi.decodeParameter('uint256', txStuff.slice(txStuff.length - 64, txStuff.length))
@@ -32,6 +40,7 @@ async function parseMinting(web3: Web3, voteId: number, creator: string, txInput
     const timestamp = new Date(block.timestamp * 1000)
     return {
         kind: TransactionKind.MINTING,
+        dao,
         creator,
         voteId,
         title,
@@ -41,11 +50,12 @@ async function parseMinting(web3: Web3, voteId: number, creator: string, txInput
     }
 }
 
-async function parseTx(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus) {
+async function parseTx(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
     const block = await web3.eth.getBlock(blockNumber)
     const timestamp = new Date(block.timestamp * 1000)
     return {
         kind: TransactionKind.WHATEVER,
+        dao,
         creator,
         voteId,
         title: `Proposal by ${creator}`,
@@ -61,7 +71,8 @@ export class VotesService {
         this.web3 = accountService.web3()
     }
 
-    async getVotes(kernelAddress: string) {
+    async getVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+        const kernelAddress = dao.address
         const kernelContract = new this.web3.eth.Contract(aragonKernelABI, kernelAddress)
         // kind appId
         const votingImplementationAddress = await kernelContract.methods.apps('0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f', '0x9fa3927f639745e587912d4b0fea7ef9013bf93fb907d29faeab57417ba6e1d4').call()
@@ -83,7 +94,7 @@ export class VotesService {
         const startVoteEvents = await votingContract.getPastEvents('StartVote', {
             fromBlock: 0, toBlock: 'latest'
         })
-        for await (const event of startVoteEvents) {
+        return Promise.all(startVoteEvents.map(async event => {
             const creator = event.returnValues.creator
             const voteId = Number(event.returnValues.voteId)
             const transactionHash = event.transactionHash
@@ -98,13 +109,10 @@ export class VotesService {
                 voteStatus = VoteStatus.OPEN
             }
             if (functionCallIndex >= 0) {
-                const parsed = await parseMinting(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus)
-                console.log(parsed)
+                return parseMinting(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
             } else {
-                const parsedWhatever = await parseTx(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus)
-                console.log(txInput)
-                console.log(parsedWhatever)
+                return parseTx(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
             }
-        }
+        }))
     }
 }
