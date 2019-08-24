@@ -33,7 +33,7 @@ export class DaosService {
 
   async fetchAllNames() {
     if (!this.names) {
-      const endpoint = `http://daolist.1hive.org`;
+      const endpoint = `https://daolist.1hive.org`;
       const data = await fetch(endpoint);
       this.names = await data.json();
     }
