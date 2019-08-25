@@ -22,7 +22,9 @@ async function hasMethod(web3: Web3, contractAddress: string, signature: string)
   return code.indexOf(signature.slice(2, signature.length)) > 0;
 }
 
-const MOLOCH_MEMBER_ADDRESS = '0x59a5493513ba2378ed57ae5ecfb8a027e9d80365'
+const MOLOCH_MEMBER_ADDRESS = '0x59a5493513ba2378ed57ae5ecfb8a027e9d80365' // MOLOCH
+// const MOLOCH_MEMBER_ADDRESS = '0x865c2f85c9fea1c6ac7f53de07554d68cb92ed88' // METACARTEL AND MOLOCH
+// const MOLOCH_MEMBER_ADDRESS = '0xd6e371526cdaee04cd8af225d42e37bc14688d9e' // METACARTEL ONLY
 
 export class DaosService {
   private readonly web3: Web3;
@@ -151,9 +153,10 @@ export class DaosService {
   }
 
   async getMolochDaos (account: string): Promise<Array<DaoInstanceState>> {
-      return Promise.all(knownMolochList.daos.map(daoDetails => {
+      const all = await Promise.all(knownMolochList.daos.map(daoDetails => {
           return this.getOneMolochDao(daoDetails.address, daoDetails.name, account)
       }))
+      return all.filter(dao => dao.shareBalance.toNumber() != 0)
   }
 
     async getDaos (address: string): Promise<Array<DaoInstanceState>> {
