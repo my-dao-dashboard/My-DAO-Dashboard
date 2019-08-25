@@ -16,7 +16,11 @@ export default class DaoIconLink extends Component<IProps> {
                 </a>
             );
         default:
-            return <small>{this.props.address}</small>;
+            return (
+              <a href={`https://etherscan.io/address/${this.props.address}`} target="_blank" rel="noopener noreferrer">
+                  <small><Icon type="select" /></small>
+              </a>
+          );
     }
   }
 }

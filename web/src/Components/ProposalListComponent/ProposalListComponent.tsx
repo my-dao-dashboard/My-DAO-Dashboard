@@ -34,6 +34,10 @@ function formatProposal(proposal: VoteProposal): ProposalColumn {
   }
 }
 
+interface Props { 
+  dao?: DaoInstanceState;
+}
+
 interface StateProps {
   daos: Array<DaoInstanceState>;
 }
@@ -105,9 +109,15 @@ export class ProposalListComponent extends React.Component<StateProps, Component
   }
 }
 
-function stateToProps(state: State): StateProps {
+function stateToProps(state: State, props?: Props): StateProps {
+  let daos = state.daos.daos!
+  if(props && props.dao) {
+    daos = [];
+    daos.push(props.dao);
+  }
+
   return {
-    daos: state.daos.daos!
+    daos
   };
 }
 
