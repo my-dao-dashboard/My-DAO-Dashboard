@@ -10,6 +10,7 @@ import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
 import DaoListLoader from "./Components/DaoListComponent/DaoListLoader";
 import ProposalLoader from "./Components/ProposalLoader";
+import Settings from "./Components/Settings/Settings";
 
 const { Header, Content, Footer } = Layout;
 
@@ -23,13 +24,15 @@ const App: React.FC = () => {
           </Header>
           <Content className="container">
             <div className="content">
-              <DaoListLoader>
-                <ProposalLoader>
-                  <Route exact path="/" component={Dashboard} />
-                  <Route exact path="/dao/:address" component={DAO} />
-                  <Redirect to="/" />
-                </ProposalLoader>
-              </DaoListLoader>
+              <Route exact path="/settings" component={Settings} />
+              {/*<DaoListLoader>*/}
+              {/*  <ProposalLoader>*/}
+              {/*    <Route exact path="/" component={Dashboard} />*/}
+              {/*    <Route exact path="/dao/:address" component={DAO} />*/}
+              {/*    <Route exact path="/settings" component={Settings} />*/}
+              {/*    <Redirect to="/" />*/}
+              {/*  </ProposalLoader>*/}
+              {/*</DaoListLoader>*/}
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
