@@ -4,6 +4,7 @@
 
 .link { 
   color: #1890ff;
+  cursor: pointer;
 }
 .container { 
   padding: 0 50px;
