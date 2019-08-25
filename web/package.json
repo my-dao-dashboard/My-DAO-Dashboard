@@ -27,6 +27,7 @@
     ]
   },
   "dependencies": {
+    "3box": "^1.10.7",
     "@apollo/react-hooks": "^3.0.1",
     "@aragon/api": "^2.0.0-beta.5",
     "@aragon/api-react": "^2.0.0-beta.4",
