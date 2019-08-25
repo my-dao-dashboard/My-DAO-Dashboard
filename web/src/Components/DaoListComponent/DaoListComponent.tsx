@@ -1,4 +1,4 @@
-import { Card, List, Tag } from "antd";
+import { Card, List } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";
 import { connect } from "react-redux";

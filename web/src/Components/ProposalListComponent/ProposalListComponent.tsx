@@ -1,6 +1,4 @@
-import {Badge, Table, Divider} from "antd";
 import React from "react";
-import DaoTag from "../DaoTag";
 import {connect} from "react-redux";
 import {VoteProposal, VoteStatus} from "../../backbone/votes.service";
 import {DaoInstanceState, State} from "../../backbone/State";
@@ -23,7 +21,7 @@ export interface ProposalColumn {
 
 function formatProposal(proposal: VoteProposal): ProposalColumn {
   return {
-    key: proposal.voteId.toString(),
+    key: `${proposal.dao.address}-${proposal.voteId}`,
     id: proposal.voteId,
     name: `${proposal.dao.name}: Proposal #${proposal.voteId}`,
     description: proposal.title,

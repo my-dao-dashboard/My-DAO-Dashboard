@@ -8,7 +8,7 @@ import aragonKernelABI from "./aragon-kernel.abi.json";
 import molochABI from "./moloch.abi.json";
 import erc20ABI from "./erc20.abi.json";
 import { AccountService } from "./account.service";
-import { BalanceService, IBalanceEntry } from "./balance.service";
+import { BalanceService } from "./balance.service";
 import knownMolochList from '../data/moloch-daos.json'
 
 function uniq<A>(array: Array<A>): Array<A> {
@@ -156,7 +156,7 @@ export class DaosService {
       const all = await Promise.all(knownMolochList.daos.map(daoDetails => {
           return this.getOneMolochDao(daoDetails.address, daoDetails.name, account)
       }))
-      return all.filter(dao => dao.shareBalance.toNumber() != 0)
+      return all.filter(dao => dao.shareBalance.toNumber() !== 0)
   }
 
     async getDaos (address: string): Promise<Array<DaoInstanceState>> {
