@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Row, Avatar, Tooltip } from "antd";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { State } from "../../backbone/State";
@@ -17,7 +17,11 @@ export class AppHeader extends Component<Props> {
             <Link to="/">My DAO Dashboard</Link>
           </Col>
           <Col span={12} style={{ textAlign: "right" }}>
-            <span>{this.props.account}</span>
+            <Tooltip title={this.props.account} placement="left">
+              <Avatar shape="square" style={{ color: '#000' }} size="large">
+                {this.props.account.substring(0, 5)}
+              </Avatar>
+            </Tooltip>
           </Col>
         </Row>
       </div>

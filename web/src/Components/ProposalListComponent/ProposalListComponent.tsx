@@ -28,58 +28,13 @@ function formatProposal(proposal: VoteProposal): ProposalColumn {
     name: `${proposal.dao.name}: Proposal #${proposal.voteId}`,
     description: proposal.title,
     status: proposal.status,
-    type: 'ARAGON',
+    type: proposal.dao.kind,
     created: proposal.timestamp,
     createdBy: proposal.creator,
     deadline: new Date(),
     dao: proposal.dao
   }
 }
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (item: any) => {
-      return (
-        <>
-          <Badge status="success" />
-          <a>{item}</a>
-        </>
-      );
-    }
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    key: "description"
-  },
-  {
-    title: "Type",
-    dataIndex: "type",
-    key: "type",
-    render: (item: any) => {
-      return <DaoTag type={item} />;
-    }
-  },
-  {
-    title: "Deadline",
-    dataIndex: "deadline",
-    key: "deadline",
-    render: (item: any) => {
-      return item.toLocaleDateString();
-    }
-  },
-  {
-    title: "Actions",
-    dataIndex: "actions",
-    key: "actions",
-    render: () => {
-      return <a>View</a>;
-    }
-  }
-];
 
 interface StateProps {
   daos: Array<DaoInstanceState>;
@@ -141,7 +96,7 @@ export class ProposalListComponent extends React.Component<StateProps, Component
           <ProposalTable open={true} source={this.state.openProposals} />
         </div>
 
-        <Divider />
+        <br/>
 
         <div>
           <h3>Stale Proposals</h3>
