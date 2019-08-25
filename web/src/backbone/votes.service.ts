@@ -4,6 +4,7 @@ import aragonKernelABI from "./aragon-kernel.abi.json";
 import aragonVotingABI from "./aragon-voting.abi.json";
 import BigNumber from "bignumber.js";
 import {DaoInstanceState, DaoKind} from "./State";
+import ApolloClient, { gql } from "apollo-boost";
 
 export enum TransactionKind {
     MINTING = 'MINTING',
@@ -71,8 +72,13 @@ async function parseTx(web3: Web3, voteId: number, creator: string, txInput: str
 
 export class VotesService {
     private readonly web3: Web3
+    private readonly molochApollo: ApolloClient<unknown>;
+
     constructor (private readonly accountService: AccountService) {
         this.web3 = accountService.web3()
+        this.molochApollo = new ApolloClient({
+            uri: "https://api.thegraph.com/subgraphs/name/molochventures/moloch"
+        });
     }
 
     async getAragonVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
