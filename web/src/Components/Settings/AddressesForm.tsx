@@ -3,7 +3,6 @@ import * as services from '../../backbone/services'
 
 interface Props {
   onSave: (addresses: string[]) => void
-  address: string
   boxed: string[]
 }
 
@@ -11,7 +10,7 @@ interface State {
   addresses: string[]
 }
 
-function uniq<A>(array: Array<A>): Array<A> {
+export function uniq<A>(array: Array<A>): Array<A> {
   return array.filter((v, i) => {
     return array.indexOf(v) === i;
   });
@@ -21,7 +20,7 @@ export class AddressesForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      addresses: uniq([this.props.address].concat(this.props.boxed))
+      addresses: uniq(this.props.boxed)
     }
   }
 
@@ -35,7 +34,7 @@ export class AddressesForm extends React.Component<Props, State> {
     const web3 = await services.accountService.web3()
     const addresses = uniq(value.replace(/\s+/g, '').split(',').filter(smth => {
       return web3.utils.isAddress(smth)
-    }).concat(this.props.address))
+    }))
     this.setState({
       addresses: addresses
     })

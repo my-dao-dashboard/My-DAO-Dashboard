@@ -5,6 +5,10 @@ import * as services from "./services";
 import {DaoInstanceState, DaosState} from "./State";
 import {VoteProposal} from "./votes.service";
 import {votesService} from "./services";
+import {uniq} from "../Components/DaoListComponent/DaoListLoader";
+import {Provider} from "web3/providers";
+
+const Box = require('3box')
 
 const action = actionCreatorFactory("DAOS");
 const asyncAction = asyncFactory<DaosState>(action);
@@ -17,19 +21,42 @@ const INITIAL_STATE: DaosState = {
 
 let DAOS_LIST: Array<DaoInstanceState> = []
 
-async function fillDaos(userAddress: string): Promise<void> {
+async function fillDaos(accounts: string[]): Promise<void> {
   if (DAOS_LIST.length === 0) {
-    DAOS_LIST = await services.daosService.getDaos(userAddress);
+    console.log('filling daos for accounts ', accounts)
+    for await (const acc of accounts) {
+      const daos = await services.daosService.getDaos(acc)
+      console.log('filling for account ', acc, daos)
+      DAOS_LIST = DAOS_LIST.concat(daos)
+    }
   }
 }
 
+export async function openBox(address: string, provider: Provider): Promise<any> {
+  return new Promise<any>((resolve, reject) => {
+    Box.openBox(address, provider).then((box: any) => {
+      console.log('opened box')
+      resolve(box)
+      // box.onSyncDone(() => {
+      //   console.log('synced box')
+      //   resolve(box)
+      // })
+    }).catch(reject)
+  })
+}
+
 export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async account => {
-  await fillDaos(account)
+  const box = await openBox(account, services.accountService.web3().currentProvider)
+  const space = await box.openSpace('my-dao-dashboard')
+  console.log('opened space')
+  const boxedAddresses = await space.private.get('watched-addresses') as string[] | undefined
+  const accounts = boxedAddresses || []
+  const realAccounts = uniq(accounts.concat(account).map(a => a.toLowerCase()))
+  await fillDaos(realAccounts)
   return DAOS_LIST
 });
 
 export const getDao = asyncAction<[string, string], DaoInstanceState>("GET_DAO", async ([account, daoAddress]) => {
-  await fillDaos(account)
   return DAOS_LIST.find(d => d.address === daoAddress.toLowerCase())!
 });
 
