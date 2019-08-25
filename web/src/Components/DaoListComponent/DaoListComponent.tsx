@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { DaoInstanceState, State } from "../../backbone/State";
 import DaoLink from "../DaoLink";
+import DaoTag from "../DaoTag";
 
 interface StateProps {
   daos: Array<DaoInstanceState>;
@@ -20,10 +21,10 @@ export class DaoListComponent extends React.Component<StateProps> {
             gutter: 16,
             xs: 1,
             sm: 2,
-            md: 3,
-            lg: 3,
-            xl: 4,
-            xxl: 4
+            md: 2,
+            lg: 2,
+            xl: 3,
+            xxl: 3
           }}
           dataSource={this.props.daos}
           renderItem={item => (
@@ -38,7 +39,7 @@ export class DaoListComponent extends React.Component<StateProps> {
                           <p>Balance: {item.shareBalance.toNumber()}</p>
                           <p>Supply: {item.totalSupply.toString()}</p>
                           <p><DaoLink type={item.kind} address={item.address} /></p>
-                          <Tag color="cyan">{item.kind}</Tag>
+                          <DaoTag type={item.kind} />
                         </>
                       }
                     />
