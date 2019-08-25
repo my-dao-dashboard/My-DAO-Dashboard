@@ -8,7 +8,8 @@ import ApolloClient, { gql } from "apollo-boost";
 
 export enum TransactionKind {
     MINTING = 'MINTING',
-    WHATEVER = 'WHATEVER'
+    WHATEVER = 'WHATEVER',
+    SPENDING = 'SPENDING'
 }
 
 export enum VoteStatus {
@@ -70,6 +71,15 @@ async function parseTx(web3: Web3, voteId: number, creator: string, txInput: str
     }
 }
 
+function molochProposalTitle(details: string): string {
+    try {
+        const payload = JSON.parse(details)
+        return payload.title || payload.description
+    } catch (e) {
+        return details
+    }
+}
+
 export class VotesService {
     private readonly web3: Web3
     private readonly molochApollo: ApolloClient<unknown>;
@@ -127,7 +137,46 @@ export class VotesService {
     }
 
     async getMolochVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
-        return []
+        const page = await this.molochApollo.query({
+            query: gql`
+                query {
+                    proposals {
+                        id
+                        timestamp
+                        proposalIndex
+                        startingPeriod
+                        delegateKey
+                        memberAddress
+                        applicantAddress
+                        tokenTribute
+                        sharesRequested
+                        processed
+                        didPass
+                        aborted
+                        details
+                    }
+                }
+            `
+        });
+        return page.data.proposals.map((p: any) => {
+            const kind = p.tokenTribute === "0" ? TransactionKind.SPENDING : TransactionKind.MINTING
+            let status = VoteStatus.OPEN
+            if (p.aborted || (!p.didPass && p.processed)) {
+                status = VoteStatus.REJECTED
+            } else if (p.didPass) {
+                status = VoteStatus.ENACTED
+            }
+            return {
+                kind: kind,
+                dao,
+                creator: p.applicantAddress,
+                voteId: p.id,
+                title: molochProposalTitle(p.details),
+                timestamp: new Date(Number(p.timestamp)),
+                votingAddress: p.memberAddress,
+                status: status
+            }
+        })
     }
 
     async getVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {

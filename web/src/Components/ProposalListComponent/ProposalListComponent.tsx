@@ -117,9 +117,9 @@ export class ProposalListComponent extends React.Component<StateProps, Component
     }
     const sorted = proposals.sort((a, b) => {
       if (a.created.valueOf() < b.created.valueOf()) {
-        return -1
-      } else if (a.created.valueOf() > b.created.valueOf()) {
         return 1
+      } else if (a.created.valueOf() > b.created.valueOf()) {
+        return -1
       } else {
         return 0
       }
@@ -142,7 +142,7 @@ export class ProposalListComponent extends React.Component<StateProps, Component
         </div>
 
         <Divider />
-        
+
         <div>
           <h3>Stale Proposals</h3>
           <ProposalTable open={false} source={this.state.proposals} />
