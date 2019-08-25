@@ -9,6 +9,7 @@ import AppHeader from "./Components/Layout/AppHeader";
 import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
 import DaoListLoader from "./Components/DaoListComponent/DaoListLoader";
+import ProposalLoader from "./Components/ProposalLoader";
 
 const { Header, Content, Footer } = Layout;
 
@@ -23,9 +24,11 @@ const App: React.FC = () => {
           <Content className="container">
             <div className="content">
               <DaoListLoader>
-                <Route exact path="/" component={Dashboard} />
-                <Route exact path="/dao/:address" component={DAO} />
-                <Redirect to="/" />
+                <ProposalLoader>
+                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/dao/:address" component={DAO} />
+                  <Redirect to="/" />
+                </ProposalLoader>
               </DaoListLoader>
             </div>
           </Content>
