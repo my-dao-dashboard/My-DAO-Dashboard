@@ -167,7 +167,7 @@ export class DaosService {
 
     async getDaos (address: string): Promise<Array<DaoInstanceState>> {
         const aragons = await this.getAragonDaos(address)
-        const molochs = await this.getMolochDaos(MOLOCH_MEMBER_ADDRESS)
+        const molochs = await this.getMolochDaos(MOLOCH_MEMBER_ADDRESS || address)
         return aragons.concat(molochs)
     }
 }
