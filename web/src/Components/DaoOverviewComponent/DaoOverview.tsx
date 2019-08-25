@@ -26,7 +26,7 @@ export class DaoOverview extends React.Component<StateProps> {
           Voting power: {this.props.dao.shareBalance} / {this.props.dao.totalSupply}
         </p>
         <div>
-          <ProposalListComponent />
+          <ProposalListComponent dao={this.props.dao} />
         </div>
       </div>
     );
