@@ -17,6 +17,7 @@ export class AppHeader extends Component<Props> {
             <Link to="/">My DAO Dashboard</Link>
           </Col>
           <Col span={12} style={{ textAlign: "right" }}>
+            <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
             <Tooltip title={this.props.account} placement="left">
               <Avatar shape="square" style={{ color: '#000' }} size="large">
                 {this.props.account.substring(0, 5)}
