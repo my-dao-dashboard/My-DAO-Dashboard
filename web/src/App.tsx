@@ -8,6 +8,7 @@ import AccountComponent from "./Components/AccountComponent/AccountComponent";
 import AppHeader from "./Components/Layout/AppHeader";
 import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
+import DaoListLoader from "./Components/DaoListComponent/DaoListLoader";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,15 +22,17 @@ const App: React.FC = () => {
           </Header>
           <Content className="container">
             <div className="content">
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/dao/:address" component={DAO} />
-              <Redirect to="/" />
+              <DaoListLoader>
+                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/dao/:address" component={DAO} />
+                <Redirect to="/" />
+              </DaoListLoader>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
             <a href="https://github.com/wslyvh/My-DAO-Dashboard" target="_blank" rel="noopener noreferrer" className="text-muted">
               <Icon type="github" />
-            </a> &nbsp; 
+            </a> &nbsp;
             ETHBerlin Zwei
           </Footer>
         </Layout>
