@@ -53,7 +53,8 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
   }
 
    async handleSave (addresses: string[]) {
-    await this.state.space.private.set(ADDRESS_KEY, addresses)
+    await this.state.space.private.set(ADDRESS_KEY, addresses.map(a => a.toLowerCase()))
+     alert('Saved!')
    }
 
   renderInternal () {
@@ -62,7 +63,7 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
     } else {
       return <>
         <p>Watched addresses:</p>
-        <AddressesForm onSave={this.handleSave.bind(this)} address={this.props.address} boxed={this.state.boxedAddresses}/>
+        <AddressesForm onSave={this.handleSave.bind(this)} boxed={this.state.boxedAddresses}/>
       </>
     }
   }

@@ -17,19 +17,23 @@ const INITIAL_STATE: DaosState = {
 
 let DAOS_LIST: Array<DaoInstanceState> = []
 
-async function fillDaos(userAddress: string): Promise<void> {
+async function fillDaos(accounts: string[]): Promise<void> {
   if (DAOS_LIST.length === 0) {
-    DAOS_LIST = await services.daosService.getDaos(userAddress);
+    console.log('filling daos for accounts ', accounts)
+    for await (const acc of accounts) {
+      const daos = await services.daosService.getDaos(acc)
+      console.log('filling for account ', acc, daos)
+      DAOS_LIST = DAOS_LIST.concat(daos)
+    }
   }
 }
 
-export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async account => {
-  await fillDaos(account)
+export const getDaos = asyncAction<string[], DaoInstanceState[]>("GET_DAOS", async accounts => {
+  await fillDaos(accounts)
   return DAOS_LIST
 });
 
 export const getDao = asyncAction<[string, string], DaoInstanceState>("GET_DAO", async ([account, daoAddress]) => {
-  await fillDaos(account)
   return DAOS_LIST.find(d => d.address === daoAddress.toLowerCase())!
 });
 

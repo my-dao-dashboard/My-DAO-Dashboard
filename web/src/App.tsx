@@ -25,14 +25,14 @@ const App: React.FC = () => {
           <Content className="container">
             <div className="content">
               <Route exact path="/settings" component={Settings} />
-              {/*<DaoListLoader>*/}
-              {/*  <ProposalLoader>*/}
-              {/*    <Route exact path="/" component={Dashboard} />*/}
-              {/*    <Route exact path="/dao/:address" component={DAO} />*/}
-              {/*    <Route exact path="/settings" component={Settings} />*/}
-              {/*    <Redirect to="/" />*/}
-              {/*  </ProposalLoader>*/}
-              {/*</DaoListLoader>*/}
+              <DaoListLoader>
+                <ProposalLoader>
+                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/dao/:address" component={DAO} />
+                  <Route exact path="/settings" component={Settings} />
+                  <Redirect to="/" />
+                </ProposalLoader>
+              </DaoListLoader>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
