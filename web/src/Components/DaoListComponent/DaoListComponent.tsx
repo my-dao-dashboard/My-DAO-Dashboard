@@ -36,8 +36,8 @@ export class DaoListComponent extends React.Component<StateProps> {
                       title={item.name}
                       description={
                         <>
-                          <p>Balance: {item.shareBalance.toNumber()}</p>
-                          <p>Supply: {item.totalSupply.toString()}</p>
+                          <p>Shares: {item.shareBalance} of {item.totalSupply}</p>
+                          <p>Worth: {item.usdBalance.toFixed(2)} USD</p>
                           <p><DaoLink type={item.kind} address={item.address} /></p>
                           <DaoTag type={item.kind} />
                         </>

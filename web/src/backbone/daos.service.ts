@@ -108,14 +108,15 @@ export class DaosService {
               const hiveName = hiveEntity ? hiveEntity.name : null
               const graphqlName = name ? `${name}.aragonid.eth` : null
 
-              const shareBalance = await tokenContract.methods.balanceOf(address).call()
-              const totalSupply = await tokenContract.methods.totalSupply().call()
+              const decimals = Number(await tokenContract.methods.decimals().call())
+              const shareBalance = new BigNumber(await tokenContract.methods.balanceOf(address).call()).dividedBy(10 ** decimals).toNumber()
+              const totalSupply = new BigNumber(await tokenContract.methods.totalSupply().call()).dividedBy(10 ** decimals).toNumber()
               const dao: DaoInstanceState = {
                   address: kernel.toLowerCase(),
-                  name: graphqlName || hiveName,
+                  name: graphqlName || hiveName || kernel,
                   kind: DaoKind.ARAGON,
-                  shareBalance: new BigNumber(shareBalance),
-                  totalSupply: new BigNumber(totalSupply),
+                  shareBalance: shareBalance,
+                  totalSupply: totalSupply,
                   balance: balance,
                   usdBalance: balance.reduce((acc, cur) => acc + cur.usdValue, 0)
               }
@@ -145,8 +146,8 @@ export class DaosService {
           address: daoAddress,
           name: daoName,
           kind: DaoKind.MOLOCH,
-          shareBalance: new BigNumber(memberInfo.shares),
-          totalSupply: new BigNumber(totalShares),
+          shareBalance: Number(memberInfo.shares),
+          totalSupply: Number(totalShares),
           balance: balance,
           usdBalance: ethBalanceUsd.toNumber()
       }
@@ -156,7 +157,7 @@ export class DaosService {
       const all = await Promise.all(knownMolochList.daos.map(daoDetails => {
           return this.getOneMolochDao(daoDetails.address, daoDetails.name, account)
       }))
-      return all.filter(dao => dao.shareBalance.toNumber() !== 0)
+      return all.filter(dao => dao.shareBalance !== 0)
   }
 
     async getDaos (address: string): Promise<Array<DaoInstanceState>> {
