@@ -9,7 +9,7 @@ export default class DaoTag extends Component<IProps> {
   public render() {
     return (
       <>
-        <Tag color={this.color()}>{this.props.type}</Tag>
+        <Tag color={this.color()}><small>{this.props.type}</small></Tag>
       </>
     );
   }
