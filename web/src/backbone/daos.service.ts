@@ -10,6 +10,7 @@ import erc20ABI from "./erc20.abi.json";
 import { AccountService } from "./account.service";
 import { BalanceService } from "./balance.service";
 import knownMolochList from '../data/moloch-daos.json'
+import daolist from '../data/daolist.json'
 
 function uniq<A>(array: Array<A>): Array<A> {
   return array.filter((v, i) => {
@@ -40,9 +41,13 @@ export class DaosService {
 
   async fetchAllNames() {
     if (!this.names) {
-      const endpoint = `https://daolist.1hive.org`;
-      const data = await fetch(endpoint);
-      this.names = await data.json();
+      try {
+        const endpoint = `https://daolist.1hive.org`;
+        const data = await fetch(endpoint);
+        this.names = await data.json();
+      } catch (e) {
+        this.names = daolist
+      }
     }
     return this.names;
   }
