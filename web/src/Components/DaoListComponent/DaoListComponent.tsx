@@ -39,7 +39,8 @@ export class DaoListComponent extends React.Component<StateProps> {
                         <p><DaoLink type={item.kind} address={item.address} /></p>
                         <div style={{ maxWidth: "60%"}}>
                           <Statistic title="Balance" value={item.usdBalance} precision={2} prefix={'$'} />
-                          <small>Voting power: {item.shareBalance} of {item.totalSupply}</small>
+                          
+                          <div className="ant-statistic-title">Voting power <small>({item.shareBalance} of {item.totalSupply})</small></div>
                           <Progress percent={
                               Math.round((item.shareBalance / item.totalSupply) * 100)} status="active" />
                         </div>
