@@ -6,7 +6,8 @@ export interface AccountState {
 }
 
 export enum DaoKind {
-  ARAGON = "ARAGON"
+  ARAGON = "ARAGON",
+  MOLOCH = "MOLOCH"
 }
 
 export interface DaoInstanceState {

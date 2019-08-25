@@ -3,7 +3,7 @@ import {AccountService} from "./account.service";
 import aragonKernelABI from "./aragon-kernel.abi.json";
 import aragonVotingABI from "./aragon-voting.abi.json";
 import BigNumber from "bignumber.js";
-import {DaoInstanceState} from "./State";
+import {DaoInstanceState, DaoKind} from "./State";
 
 export enum TransactionKind {
     MINTING = 'MINTING',
@@ -27,6 +27,10 @@ export interface VoteProposal {
     timestamp: Date,
     votingAddress: string,
     status: VoteStatus
+}
+
+function assertNever(x: never): never {
+    throw new Error("Unexpected object: " + x);
 }
 
 async function parseMinting(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
@@ -71,7 +75,7 @@ export class VotesService {
         this.web3 = accountService.web3()
     }
 
-    async getVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+    async getAragonVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
         const kernelAddress = dao.address
         const kernelContract = new this.web3.eth.Contract(aragonKernelABI, kernelAddress)
         // kind appId
@@ -114,5 +118,20 @@ export class VotesService {
                 return parseTx(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
             }
         }))
+    }
+
+    async getMolochVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+        return []
+    }
+
+    async getVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+        switch (dao.kind) {
+            case DaoKind.ARAGON:
+                return this.getAragonVotes(dao)
+            case DaoKind.MOLOCH:
+                return this.getMolochVotes(dao)
+            default:
+                return assertNever(dao.kind)
+        }
     }
 }
