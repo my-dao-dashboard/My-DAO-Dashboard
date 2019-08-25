@@ -167,7 +167,7 @@ export class VotesService {
                 creator: p.applicantAddress,
                 voteId: p.id,
                 title: molochProposalTitle(p.details),
-                timestamp: new Date(Number(p.timestamp)),
+                timestamp: new Date(Number(p.timestamp) * 1000),
                 votingAddress: p.memberAddress,
                 status: status
             }

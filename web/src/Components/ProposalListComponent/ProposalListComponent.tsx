@@ -29,7 +29,7 @@ function formatProposal(proposal: VoteProposal): ProposalColumn {
     type: proposal.dao.kind,
     created: proposal.timestamp,
     createdBy: proposal.creator,
-    deadline: new Date(),
+    deadline: proposal.timestamp,
     dao: proposal.dao
   }
 }

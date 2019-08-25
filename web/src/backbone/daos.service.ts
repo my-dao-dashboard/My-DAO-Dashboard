@@ -10,6 +10,7 @@ import erc20ABI from "./erc20.abi.json";
 import { AccountService } from "./account.service";
 import { BalanceService } from "./balance.service";
 import knownMolochList from '../data/moloch-daos.json'
+const daolist = require("../data/daolist.json")
 
 function uniq<A>(array: Array<A>): Array<A> {
   return array.filter((v, i) => {
@@ -39,12 +40,12 @@ export class DaosService {
   }
 
   async fetchAllNames() {
-    if (!this.names) {
-      const endpoint = `https://daolist.1hive.org`;
-      const data = await fetch(endpoint);
-      this.names = await data.json();
-    }
-    return this.names;
+    // if (!this.names) {
+    //   const endpoint = `https://daolist.1hive.org`;
+    //   const data = await fetch(endpoint);
+    //   this.names = await data.json();
+    // }
+    return daolist;
   }
 
   async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
