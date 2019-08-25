@@ -33,14 +33,15 @@ In order to use the dashboard the account that you're logged in with, needs to b
 
 * [Create or join a DAO](https://mainnet.aragon.org/)
 
-For demo-purposes you can add one of the following account via the settings page: 
+For demo-purposes you can add one of the following account via the [settings page](https://my-dao-dashboard.herokuapp.com/settings): 
 * `0x039ae2898d257f4c9d7e381d478ee1ed042fe2f4` // DAO Dashboard member (Aragon)
 * `0x59a5493513ba2378ed57ae5ecfb8a027e9d80365` // Moloch DAO member
 * `0x865c2f85c9fea1c6ac7f53de07554d68cb92ed88` // Moloch DAO -and- Metacartel member
 * `0xd6e371526cdaee04cd8af225d42e37bc14688d9e` // Metacartel member
 
+For demo use, e.g.; `0x039ae2898d257f4c9d7e381d478ee1ed042fe2f4, 0x59a5493513ba2378ed57ae5ecfb8a027e9d80365` to see both Aragon and Moloch DAO's combined.
 Adding this acts as if you're logged-in as one of those address and populates the dashboard with data.
-This is added as feature, to create an aggregated view for all accounts you have and joined a DAO with.
+This is added as a feature, to create an aggregated view for all accounts you have and joined a DAO with.
 
 ## Bounty integrations 
 
