@@ -24,7 +24,8 @@ async function hasMethod(web3: Web3, contractAddress: string, signature: string)
 const MOLOCH_MEMBER_ADDRESS = '0x59a5493513ba2378ed57ae5ecfb8a027e9d80365'
 
 const MOLOCH_DAO_ADDRESSES = [
-    '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1'
+    '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1', // Moloch
+    '0x0372f3696fa7dc99801f435fd6737e57818239f2' // MetaCartel
 ]
 
 export class DaosService {
