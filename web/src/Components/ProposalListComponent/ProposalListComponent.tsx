@@ -141,8 +141,8 @@ export class ProposalListComponent extends React.Component<StateProps, Component
           <ProposalTable open={true} source={this.state.openProposals} />
         </div>
 
-        <Divider />
-        
+        <br/>
+
         <div>
           <h3>Stale Proposals</h3>
           <ProposalTable open={false} source={this.state.proposals} />
