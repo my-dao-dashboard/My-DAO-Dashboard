@@ -9,6 +9,7 @@ import molochABI from "./moloch.abi.json";
 import erc20ABI from "./erc20.abi.json";
 import { AccountService } from "./account.service";
 import { BalanceService, IBalanceEntry } from "./balance.service";
+import knownMolochList from '../data/moloch-daos.json'
 
 function uniq<A>(array: Array<A>): Array<A> {
   return array.filter((v, i) => {
@@ -22,11 +23,6 @@ async function hasMethod(web3: Web3, contractAddress: string, signature: string)
 }
 
 const MOLOCH_MEMBER_ADDRESS = '0x59a5493513ba2378ed57ae5ecfb8a027e9d80365'
-
-const MOLOCH_DAO_ADDRESSES = [
-    '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1', // Moloch
-    '0x0372f3696fa7dc99801f435fd6737e57818239f2' // MetaCartel
-]
 
 export class DaosService {
   private readonly web3: Web3;
@@ -127,7 +123,7 @@ export class DaosService {
       return aragonKernels
   }
 
-  async getOneMolochDao (daoAddress: string, account: string): Promise<DaoInstanceState> {
+  async getOneMolochDao (daoAddress: string, daoName: string, account: string): Promise<DaoInstanceState> {
       const contract = new this.web3.eth.Contract(molochABI, daoAddress);
       const memberInfo = await contract.methods.members(account).call()
       const totalShares = await contract.methods.totalShares().call()
@@ -145,7 +141,7 @@ export class DaosService {
       }]
       return {
           address: daoAddress,
-          name: 'Moloch DAO',
+          name: daoName,
           kind: DaoKind.MOLOCH,
           shareBalance: new BigNumber(memberInfo.shares),
           totalSupply: new BigNumber(totalShares),
@@ -155,8 +151,8 @@ export class DaosService {
   }
 
   async getMolochDaos (account: string): Promise<Array<DaoInstanceState>> {
-      return Promise.all(MOLOCH_DAO_ADDRESSES.map(daoAddress => {
-          return this.getOneMolochDao(daoAddress, account)
+      return Promise.all(knownMolochList.daos.map(daoDetails => {
+          return this.getOneMolochDao(daoDetails.address, daoDetails.name, account)
       }))
   }
 
