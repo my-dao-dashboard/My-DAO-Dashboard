@@ -92,14 +92,14 @@ export class ProposalListComponent extends React.Component<StateProps, Component
     } else {
       return <>
         <div>
-          <h3>Open Proposals</h3>
+          <h3>Active Proposals</h3>
           <ProposalTable open={true} source={this.state.openProposals} />
         </div>
 
         <br/>
 
         <div>
-          <h3>Stale Proposals</h3>
+          <h3>Sealed Proposals</h3>
           <ProposalTable open={false} source={this.state.proposals} />
         </div>
       </>
