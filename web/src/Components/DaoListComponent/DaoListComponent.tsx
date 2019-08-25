@@ -1,4 +1,4 @@
-import { Card, List, Progress } from "antd";
+import { Card, List, Progress, Statistic } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";
 import { connect } from "react-redux";
@@ -38,7 +38,7 @@ export class DaoListComponent extends React.Component<StateProps> {
                         <>
                         <p><DaoLink type={item.kind} address={item.address} /></p>
                         <div style={{ maxWidth: "60%"}}>
-                          <p>Balance: {item.usdBalance.toFixed(2)} USD</p>
+                          <Statistic title="Balance" value={item.usdBalance} precision={2} />
                           <small>Voting power</small>
                           <Progress percent={
                               Math.round((item.shareBalance / item.totalSupply) * 100)} status="active" />

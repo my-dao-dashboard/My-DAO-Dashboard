@@ -27,7 +27,7 @@ export default class ProposalTable extends Component<IProps> {
               if(a.description > b.description) { return 1; }
               return 0; }} />
             <Column title="Type" dataIndex="type" key="type" render={(text) => <DaoTag type={text} /> } sorter={(a: any, b: any) => a.type - b.type } />
-            <Column title="Deadline" dataIndex="deadline" key="deadline" render={(text) => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline } />
+            <Column title="Created" dataIndex="deadline" key="deadline" render={(text) => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline } />
             <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} /> } />
         </Table>
       </>

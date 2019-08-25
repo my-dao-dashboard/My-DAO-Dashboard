@@ -25,13 +25,13 @@ export default class DaoLink extends Component<IProps> {
     switch (this.props.type) {
         case DaoKind.ARAGON:
           return (
-                <span onClick={this.handleAragonClick.bind(this)}>
+                <span onClick={this.handleAragonClick.bind(this)} className="link">
                     <small style={{color: 'light blue'}}>{this.props.address}</small>
                 </span>
             );
         case DaoKind.MOLOCH:
             return (
-                <span onClick={this.handleMolochClick.bind(this)}>
+                <span onClick={this.handleMolochClick.bind(this)} className="link">
                     <small style={{color: 'light blue'}}>{this.props.address}</small>
                 </span>
             );

@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+.link { 
+  color: #1890ff;
+}
 .container { 
   padding: 0 50px;
   margin: 64px 0 0 0;
