@@ -4,11 +4,11 @@ import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
 import DaoIconLink from "../DaoIconLink";
 import DaoTag from "../DaoTag";
-import { ProposalColumn } from "./ProposalListComponent";
+import {IProposalColumn} from "../IProposalColumn";
 
 interface IProps {
   open: boolean;
-  source: ProposalColumn[];
+  source: IProposalColumn[];
 }
 
 export default class ProposalTable extends Component<IProps> {

@@ -2,6 +2,7 @@ import React from "react";
 import {DaoInstanceState, State} from "../backbone/State";
 import {ThunkDispatch} from "redux-thunk";
 import {connect} from "react-redux";
+import * as daos from "../backbone/daos";
 
 interface StateProps {
     account: string
@@ -9,12 +10,12 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    // loadProposals: (daos: DaoInstanceState[]) => void
+    loadProposals: () => void
 }
 
-export class ProposalLoader extends React.Component {
+export class ProposalLoader extends React.Component<StateProps & DispatchProps> {
     componentDidMount(): void {
-
+      this.props.loadProposals()
     }
 
     render () {
@@ -32,6 +33,9 @@ function stateToProps(state: State): StateProps {
 
 function dispatchToProps(dispatch: ThunkDispatch<any, any, any>): DispatchProps {
     return {
+      loadProposals: () => {
+        return dispatch(daos.loadProposals.action())
+      }
     }
 }
 
