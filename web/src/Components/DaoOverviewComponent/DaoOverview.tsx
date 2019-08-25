@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { DaoInstanceState, State } from "../../backbone/State";
 import ProposalListComponent from "../ProposalListComponent/ProposalListComponent";
-import { Tag, Row, Col, Statistic, Progress } from "antd";
+import { Row, Col, Statistic, Progress } from "antd";
 import DaoLink from "../DaoLink";
 import DaoTag from "../DaoTag";
 
