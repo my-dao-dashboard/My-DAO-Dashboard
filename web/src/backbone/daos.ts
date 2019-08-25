@@ -5,6 +5,10 @@ import * as services from "./services";
 import {DaoInstanceState, DaosState} from "./State";
 import {VoteProposal} from "./votes.service";
 import {votesService} from "./services";
+import {uniq} from "../Components/DaoListComponent/DaoListLoader";
+import {Provider} from "web3/providers";
+
+const Box = require('3box')
 
 const action = actionCreatorFactory("DAOS");
 const asyncAction = asyncFactory<DaosState>(action);
@@ -28,8 +32,27 @@ async function fillDaos(accounts: string[]): Promise<void> {
   }
 }
 
-export const getDaos = asyncAction<string[], DaoInstanceState[]>("GET_DAOS", async accounts => {
-  await fillDaos(accounts)
+export async function openBox(address: string, provider: Provider): Promise<any> {
+  return new Promise<any>((resolve, reject) => {
+    Box.openBox(address, provider).then((box: any) => {
+      console.log('opened box')
+      resolve(box)
+      // box.onSyncDone(() => {
+      //   console.log('synced box')
+      //   resolve(box)
+      // })
+    }).catch(reject)
+  })
+}
+
+export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async account => {
+  const box = await openBox(account, services.accountService.web3().currentProvider)
+  const space = await box.openSpace('my-dao-dashboard')
+  console.log('opened space')
+  const boxedAddresses = await space.private.get('watched-addresses') as string[] | undefined
+  const accounts = boxedAddresses || []
+  const realAccounts = uniq(accounts.concat(account).map(a => a.toLowerCase()))
+  await fillDaos(realAccounts)
   return DAOS_LIST
 });
 

@@ -3,22 +3,10 @@ import {AddressesForm} from "./AddressesForm";
 import * as services from '../../backbone/services'
 import {State} from "../../backbone/State";
 import {connect} from "react-redux";
-import {Provider} from "web3/providers";
-
-const Box = require('3box')
+import {openBox} from "../../backbone/daos";
 
 const NAMESPACE = 'my-dao-dashboard'
 const ADDRESS_KEY = 'watched-addresses'
-
-async function openBox(address: string, provider: Provider): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
-    Box.openBox(address, provider).then((box: any) => {
-      box.onSyncDone(() => {
-        resolve(box)
-      })
-    }).catch(reject)
-  })
-}
 
 async function openSpace(box: any, name: string): Promise<any> {
   return box.openSpace(name)
