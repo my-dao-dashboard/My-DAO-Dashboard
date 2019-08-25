@@ -1,4 +1,5 @@
 import { IBalanceEntry } from "./balance.service";
+import {VoteProposal} from "./votes.service";
 
 export interface AccountState {
   address?: string;
@@ -22,6 +23,7 @@ export interface DaoInstanceState {
 export interface DaosState {
   daos: DaoInstanceState[] | undefined;
   dao: DaoInstanceState | undefined;
+  proposals: VoteProposal[] | undefined;
 }
 
 export interface State {

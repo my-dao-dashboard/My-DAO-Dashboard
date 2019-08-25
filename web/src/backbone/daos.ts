@@ -3,13 +3,16 @@ import { reducerWithInitialState } from "typescript-fsa-reducers";
 import asyncFactory from "typescript-fsa-redux-thunk";
 import * as services from "./services";
 import { DaoInstanceState, DaosState } from "./State";
+import {VoteProposal} from "./votes.service";
+import {votesService} from "./services";
 
 const action = actionCreatorFactory("DAOS");
 const asyncAction = asyncFactory<DaosState>(action);
 
 const INITIAL_STATE: DaosState = {
   daos: undefined,
-  dao: undefined
+  dao: undefined,
+  proposals: undefined
 };
 
 let DAOS_LIST: Array<DaoInstanceState> = []
@@ -29,6 +32,19 @@ export const getDao = asyncAction<[string, string], DaoInstanceState>("GET_DAO",
   await fillDaos(account)
   return DAOS_LIST.find(d => d.address === daoAddress.toLowerCase())!
 });
+
+export const loadProposals = asyncAction<undefined, VoteProposal[]>('LOAD_PROPOSALS', async (params, dispatch, getState) => {
+  const daos = getState().daos
+  if (daos) {
+    let allProposals: VoteProposal[] = []
+    for await (const dao of daos) {
+      allProposals = allProposals.concat(await votesService.getVotes(dao))
+    }
+    return allProposals
+  } else {
+    return []
+  }
+})
 
 export const reducers = reducerWithInitialState(INITIAL_STATE)
   .case(getDaos.async.started, state => {
@@ -62,4 +78,15 @@ export const reducers = reducerWithInitialState(INITIAL_STATE)
       ...state,
       dao
     };
-  });
+  }).case(loadProposals.async.started, state => {
+      return state
+    })
+    .case(loadProposals.async.failed, state => {
+      return state
+    })
+    .case(loadProposals.async.done, (state, payload) => {
+      return {
+        ...state,
+        proposals: payload.result
+      }
+    });
