@@ -1,4 +1,4 @@
-import {Badge, Table} from "antd";
+import {Badge, Table, Divider} from "antd";
 import React from "react";
 import DaoTag from "../DaoTag";
 import {connect} from "react-redux";
@@ -6,28 +6,33 @@ import {VoteProposal, VoteStatus} from "../../backbone/votes.service";
 import {DaoInstanceState, State} from "../../backbone/State";
 import {votesService} from "../../backbone/services";
 import Loader from "../Layout/Loader/Loader";
+import ProposalTable from "./ProposalTable";
 
 export interface ProposalColumn {
   key: string,
+  id: number,
   name: string,
   description: string,
   status: string,
   type: string,
   created: Date,
   createdBy: string,
-  deadline: Date
+  deadline: Date,
+  dao: DaoInstanceState,
 }
 
 function formatProposal(proposal: VoteProposal): ProposalColumn {
   return {
     key: proposal.voteId.toString(),
+    id: proposal.voteId,
     name: `${proposal.dao.name}: Proposal #${proposal.voteId}`,
     description: proposal.title,
     status: proposal.status,
-    type: 'Aragon DAO',
+    type: 'ARAGON',
     created: proposal.timestamp,
     createdBy: proposal.creator,
-    deadline: new Date()
+    deadline: new Date(),
+    dao: proposal.dao
   }
 }
 
@@ -132,13 +137,15 @@ export class ProposalListComponent extends React.Component<StateProps, Component
     } else {
       return <>
         <div>
-          <h2>Open Proposals</h2>
-          <Table columns={columns} dataSource={this.state.openProposals} />
+          <h3>Open Proposals</h3>
+          <ProposalTable open={true} source={this.state.openProposals} />
         </div>
 
+        <Divider />
+        
         <div>
-          <h2>Stale Proposals</h2>
-          <Table columns={columns} dataSource={this.state.proposals} />
+          <h3>Stale Proposals</h3>
+          <ProposalTable open={false} source={this.state.proposals} />
         </div>
       </>
     }
