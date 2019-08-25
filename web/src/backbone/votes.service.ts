@@ -20,11 +20,17 @@ export enum VoteStatus {
 
 const MINTING_MARK = '40c10f19'
 
+export interface VoteCount { 
+    yes: number,
+    no: number,
+    total: number,
+}
 export interface VoteProposal {
     kind: TransactionKind,
     dao: DaoInstanceState,
     creator: string,
     voteId: number,
+    votes: VoteCount,
     title: string,
     timestamp: Date,
     votingAddress: string,
@@ -35,7 +41,7 @@ function assertNever(x: never): never {
     throw new Error("Unexpected object: " + x);
 }
 
-async function parseMinting(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
+async function parseMinting(web3: Web3, voteId: number, yes: number, no: number, total: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
     const markIndex = txInput.indexOf(MINTING_MARK)
     const txStuff = txInput.slice(markIndex, txInput.length)
     const amount = web3.eth.abi.decodeParameter('uint256', txStuff.slice(txStuff.length - 64, txStuff.length))
@@ -44,11 +50,17 @@ async function parseMinting(web3: Web3, voteId: number, creator: string, txInput
     const title = `Minting ${humanAmount} tokens to ${address}`
     const block = await web3.eth.getBlock(blockNumber)
     const timestamp = new Date(block.timestamp * 1000)
+    const votes: VoteCount = {
+        yes,
+        no,
+        total
+    };
     return {
         kind: TransactionKind.MINTING,
         dao,
         creator,
         voteId,
+        votes,
         title,
         timestamp,
         votingAddress,
@@ -56,15 +68,22 @@ async function parseMinting(web3: Web3, voteId: number, creator: string, txInput
     }
 }
 
-async function parseTx(web3: Web3, voteId: number, creator: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
+async function parseTx(web3: Web3, voteId: number, yes: number, no: number, total: number, creator: string, metadata: string, txInput: string, blockNumber: number, votingAddress: string, voteStatus: VoteStatus, dao: DaoInstanceState): Promise<VoteProposal> {
     const block = await web3.eth.getBlock(blockNumber)
     const timestamp = new Date(block.timestamp * 1000)
+    const title = metadata ? metadata : `Proposal by ${creator}`;
+    const votes: VoteCount = {
+        yes,
+        no,
+        total
+    };
     return {
         kind: TransactionKind.WHATEVER,
         dao,
         creator,
         voteId,
-        title: `Proposal by ${creator}`,
+        votes,
+        title,
         timestamp,
         votingAddress,
         status: voteStatus
@@ -112,6 +131,13 @@ export class VotesService {
         return Promise.all(startVoteEvents.map(async event => {
             const creator = event.returnValues.creator
             const voteId = Number(event.returnValues.voteId)
+
+            const vt = await votingContract.methods.getVote(voteId).call();
+            const yes = new BigNumber(vt[6]).dividedBy(10 ** 18).toNumber();
+            const no = new BigNumber(vt[7]).dividedBy(10 ** 18).toNumber();
+            const total = dao.totalSupply;
+            // console.log(vt);
+
             const transactionHash = event.transactionHash
             const tx = await this.web3.eth.getTransaction(transactionHash)
             const txInput = tx.input.replace('0x', '')
@@ -123,10 +149,11 @@ export class VotesService {
             } else if (!voteEntry.executed && voteEntry.open) {
                 voteStatus = VoteStatus.OPEN
             }
+            const metadata = event.returnValues[2];
             if (functionCallIndex >= 0) {
-                return parseMinting(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
+                return parseMinting(this.web3, voteId, yes, no, total, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
             } else {
-                return parseTx(this.web3, voteId, creator, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
+                return parseTx(this.web3, voteId, yes, no, total, creator, metadata, txInput, tx.blockNumber, votingAddress, voteStatus, dao)
             }
         }))
     }

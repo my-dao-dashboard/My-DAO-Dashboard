@@ -1,5 +1,5 @@
 import {DaoInstanceState} from "../backbone/State";
-import {VoteProposal, VoteStatus} from "../backbone/votes.service";
+import {VoteProposal, VoteStatus, VoteCount} from "../backbone/votes.service";
 
 export interface IProposalColumn {
   key: string,
@@ -11,6 +11,7 @@ export interface IProposalColumn {
   created: Date,
   createdBy: string,
   deadline: Date,
+  votes: VoteCount,
   dao: DaoInstanceState,
 }
 
@@ -25,6 +26,7 @@ export function formatProposal(proposal: VoteProposal): IProposalColumn {
     created: proposal.timestamp,
     createdBy: proposal.creator,
     deadline: new Date(),
+    votes: proposal.votes,
     dao: proposal.dao
   }
 }

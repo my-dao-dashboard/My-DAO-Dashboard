@@ -1,10 +1,11 @@
-import { Table, Badge } from "antd";
+import { Table, Badge, Progress } from "antd";
 import Column from "antd/lib/table/Column";
 import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
 import DaoIconLink from "../DaoIconLink";
 import DaoTag from "../DaoTag";
 import {IProposalColumn} from "../IProposalColumn";
+import { VoteCount } from "../../backbone/votes.service";
 
 interface IProps {
   open: boolean;
@@ -27,6 +28,13 @@ export default class ProposalTable extends Component<IProps> {
               if(a.description > b.description) { return 1; }
               return 0; }} />
             <Column title="Type" dataIndex="type" key="type" render={(text) => <DaoTag type={text} /> } sorter={(a: any, b: any) => a.type - b.type } />
+            <Column title="Yes-No (Total)" dataIndex="votes" key="votes" render={(votes: VoteCount) => 
+            {
+              if(votes) {
+                return `${votes.yes}-${votes.no} (${votes.total})`;
+              }
+              return "";
+            }} />
             <Column title="Created" dataIndex="deadline" key="deadline" render={(text) => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline } />
             <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} /> } />
         </Table>
