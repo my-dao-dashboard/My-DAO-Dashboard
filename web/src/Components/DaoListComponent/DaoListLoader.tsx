@@ -11,11 +11,11 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getDaos: (address: string) => void;
+  getDaos: (account: string) => void;
 }
 
 export class DaoListLoader extends React.Component<StateProps & DispatchProps> {
-  componentDidMount(): void {
+  async componentDidMount(): Promise<void> {
     this.props.getDaos(this.props.account);
   }
 
@@ -35,10 +35,17 @@ function stateToProps(state: State): StateProps {
   };
 }
 
+export function uniq<A>(array: Array<A>): Array<A> {
+  return array.filter((v, i) => {
+    return array.indexOf(v) === i;
+  });
+}
+
+
 function dispatchToProps(dispatch: ThunkDispatch<any, any, any>): DispatchProps {
   return {
-    getDaos: (address: string) => {
-      return dispatch(daos.getDaos.action(address));
+    getDaos: async (account: string) => {
+      return dispatch(daos.getDaos.action(account));
     }
   };
 }

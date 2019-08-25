@@ -3,22 +3,10 @@ import {AddressesForm} from "./AddressesForm";
 import * as services from '../../backbone/services'
 import {State} from "../../backbone/State";
 import {connect} from "react-redux";
-import {Provider} from "web3/providers";
-
-const Box = require('3box')
+import {openBox} from "../../backbone/daos";
 
 const NAMESPACE = 'my-dao-dashboard'
 const ADDRESS_KEY = 'watched-addresses'
-
-async function openBox(address: string, provider: Provider): Promise<any> {
-  return new Promise<any>((resolve, reject) => {
-    Box.openBox(address, provider).then((box: any) => {
-      box.onSyncDone(() => {
-        resolve(box)
-      })
-    }).catch(reject)
-  })
-}
 
 async function openSpace(box: any, name: string): Promise<any> {
   return box.openSpace(name)
@@ -53,7 +41,8 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
   }
 
    async handleSave (addresses: string[]) {
-    await this.state.space.private.set(ADDRESS_KEY, addresses)
+    await this.state.space.private.set(ADDRESS_KEY, addresses.map(a => a.toLowerCase()))
+     alert('Saved!')
    }
 
   renderInternal () {
@@ -62,7 +51,7 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
     } else {
       return <>
         <p>Watched addresses:</p>
-        <AddressesForm onSave={this.handleSave.bind(this)} address={this.props.address} boxed={this.state.boxedAddresses}/>
+        <AddressesForm onSave={this.handleSave.bind(this)} boxed={this.state.boxedAddresses}/>
       </>
     }
   }
