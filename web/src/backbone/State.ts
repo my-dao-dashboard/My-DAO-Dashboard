@@ -1,4 +1,3 @@
-import BigNumber from "bignumber.js";
 import { IBalanceEntry } from "./balance.service";
 
 export interface AccountState {
@@ -14,8 +13,8 @@ export interface DaoInstanceState {
   address: string;
   name: string | null;
   kind: DaoKind;
-  shareBalance: BigNumber;
-  totalSupply: BigNumber;
+  shareBalance: number;
+  totalSupply: number;
   balance: IBalanceEntry[];
   usdBalance: number;
 }

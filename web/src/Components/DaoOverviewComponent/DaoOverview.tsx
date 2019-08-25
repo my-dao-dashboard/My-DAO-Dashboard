@@ -23,7 +23,7 @@ export class DaoOverview extends React.Component<StateProps> {
         </Row>
         <DaoLink type={this.props.dao.kind} address={this.props.dao.address} />
         <p>
-          Voting power: {this.props.dao.shareBalance.toNumber()} / {this.props.dao.totalSupply.toString()}
+          Voting power: {this.props.dao.shareBalance} / {this.props.dao.totalSupply}
         </p>
         <div>
           <ProposalListComponent />
