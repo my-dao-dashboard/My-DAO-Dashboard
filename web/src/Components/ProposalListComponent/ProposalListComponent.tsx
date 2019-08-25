@@ -1,124 +1,41 @@
 import React from "react";
 import {connect} from "react-redux";
-import {VoteProposal, VoteStatus} from "../../backbone/votes.service";
+import {VoteProposal} from "../../backbone/votes.service";
 import {DaoInstanceState, State} from "../../backbone/State";
-import {votesService} from "../../backbone/services";
 import Loader from "../Layout/Loader/Loader";
-import ProposalTable from "./ProposalTable";
+import {distributeProposals} from "../IProposalColumn";
+import {DummyProposalListComponent} from "../DummyProposalListComponent";
 
-export interface ProposalColumn {
-  key: string,
-  id: number,
-  name: string,
-  description: string,
-  status: string,
-  type: string,
-  created: Date,
-  createdBy: string,
-  deadline: Date,
-  dao: DaoInstanceState,
-}
-
-function formatProposal(proposal: VoteProposal): ProposalColumn {
-  return {
-    key: `${proposal.dao.address}-${proposal.voteId}`,
-    id: proposal.voteId,
-    name: `${proposal.dao.name}: Proposal #${proposal.voteId}`,
-    description: proposal.title,
-    status: proposal.status,
-    type: proposal.dao.kind,
-    created: proposal.timestamp,
-    createdBy: proposal.creator,
-    deadline: proposal.timestamp,
-    dao: proposal.dao
-  }
-}
-
-interface Props { 
-  dao?: DaoInstanceState;
+interface Props {
+  dao: DaoInstanceState;
 }
 
 interface StateProps {
-  daos: Array<DaoInstanceState>;
+  proposals: VoteProposal[] | undefined
 }
 
-interface ComponentState {
-  isLoading: boolean
-  openProposals: ProposalColumn[]
-  proposals: ProposalColumn[]
-}
-
-export class ProposalListComponent extends React.Component<StateProps, ComponentState> {
-  constructor(props: StateProps) {
-    super(props)
-    this.state = {
-      isLoading: true,
-      openProposals: [],
-      proposals: []
-    }
-  }
-
-  async componentDidMount() {
-    let allProposals: VoteProposal[] = []
-    for await (const dao of this.props.daos) {
-      allProposals = allProposals.concat(await votesService.getVotes(dao))
-    }
-    let openProposals: ProposalColumn[] = []
-    let proposals: ProposalColumn[] = []
-    for (const proposal of allProposals) {
-      if (proposal.status === VoteStatus.OPEN) {
-        openProposals.push(formatProposal(proposal))
-      } else {
-        proposals.push(formatProposal(proposal))
-      }
-    }
-    const sorted = proposals.sort((a, b) => {
-      if (a.created.valueOf() < b.created.valueOf()) {
-        return 1
-      } else if (a.created.valueOf() > b.created.valueOf()) {
-        return -1
-      } else {
-        return 0
-      }
-    })
-    this.setState({
-      isLoading: false,
-      openProposals: openProposals,
-      proposals: sorted
-    })
-  }
-
+export class ProposalListComponent extends React.Component<StateProps> {
   public render() {
-    if (this.state.isLoading) {
-      return <Loader />
+    if (this.props.proposals) {
+      const { openProposals, proposals } = distributeProposals(this.props.proposals)
+      return <DummyProposalListComponent openProposals={openProposals} proposals={proposals}/>
     } else {
-      return <>
-        <div>
-          <h3>Active Proposals</h3>
-          <ProposalTable open={true} source={this.state.openProposals} />
-        </div>
-
-        <br/>
-
-        <div>
-          <h3>Sealed Proposals</h3>
-          <ProposalTable open={false} source={this.state.proposals} />
-        </div>
-      </>
+      return <Loader/>
     }
   }
 }
 
-function stateToProps(state: State, props?: Props): StateProps {
-  let daos = state.daos.daos!
-  if(props && props.dao) {
-    daos = [];
-    daos.push(props.dao);
+function stateToProps(state: State, props: Props): StateProps {
+  const dao = props.dao
+  if (state.daos.proposals) {
+    return {
+      proposals: state.daos.proposals.filter(p => p.dao.address === dao.address)
+    };
+  } else {
+    return {
+      proposals: undefined
+    }
   }
-
-  return {
-    daos
-  };
 }
 
 export default connect(stateToProps)(ProposalListComponent);
