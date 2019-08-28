@@ -21,7 +21,7 @@ export class AccountComponent extends React.Component<DispatchProps & StateProps
     if (this.props.account) {
       return this.props.children;
     } else {
-      return <p>Connecting to web3...</p>;
+      return <p>Connecting to web3.. Make sure you use a web3-enabled browsers and unlock your account.</p>;
     }
   }
 }
