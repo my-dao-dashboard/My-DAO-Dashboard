@@ -8,7 +8,7 @@ import DaoLink from "../DaoLink";
 import DaoTag from "../DaoTag";
 
 interface StateProps {
-  daos: Array<DaoInstanceState>;
+  daos: DaoInstanceState[];
 }
 
 export class DaoListComponent extends React.Component<StateProps> {

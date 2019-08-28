@@ -1,9 +1,9 @@
 import React from "react";
-import {AddressesForm} from "./AddressesForm";
-import * as services from '../../backbone/services'
-import {State} from "../../backbone/State";
 import {connect} from "react-redux";
 import {openBox} from "../../backbone/daos";
+import * as services from '../../backbone/services'
+import {State} from "../../backbone/State";
+import {AddressesForm} from "./AddressesForm";
 
 const NAMESPACE = 'my-dao-dashboard'
 const ADDRESS_KEY = 'watched-addresses'
@@ -30,7 +30,7 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
     }
   }
 
-  async componentDidMount() {
+  public async componentDidMount() {
     const box = await openBox(this.props.address, services.accountService.web3().currentProvider)
     const space = await openSpace(box, NAMESPACE)
     const boxedAddresses = await space.private.get(ADDRESS_KEY)
@@ -40,12 +40,12 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
     })
   }
 
-   async handleSave (addresses: string[]) {
+   public async handleSave (addresses: string[]) {
     await this.state.space.private.set(ADDRESS_KEY, addresses.map(a => a.toLowerCase()))
      alert('Saved!')
    }
 
-  renderInternal () {
+  public renderInternal () {
     if (!this.state.boxedAddresses) {
       return <p>Waiting for 3Box to sync...</p>
     } else {
@@ -56,7 +56,7 @@ export class Settings extends React.Component<Props, SettingsComponentState> {
     }
   }
 
-  render() {
+  public render() {
     return <>
       <h1>Settings</h1>
       {this.renderInternal()}

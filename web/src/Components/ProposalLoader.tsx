@@ -1,6 +1,6 @@
 import React from "react";
-import {ThunkDispatch} from "redux-thunk";
 import {connect} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
 import * as daos from "../backbone/daos";
 
 interface DispatchProps {
@@ -8,11 +8,11 @@ interface DispatchProps {
 }
 
 export class ProposalLoader extends React.Component<DispatchProps> {
-    componentDidMount(): void {
+    public componentDidMount(): void {
       this.props.loadProposals()
     }
 
-    render () {
+    public render () {
         return this.props.children
     }
 }

@@ -1,7 +1,7 @@
 import Web3 from "web3";
 
 export class AccountService {
-  web3(): Web3 {
+  public web3(): Web3 {
     const w3 = (window as any).web3;
     if (typeof w3 !== "undefined") {
       return new Web3(w3.currentProvider);
@@ -11,7 +11,7 @@ export class AccountService {
     }
   }
 
-  async getAddress(): Promise<string> {
+  public async getAddress(): Promise<string> {
     const addresses = await this.web3().eth.getAccounts();
     return addresses[0];
   }

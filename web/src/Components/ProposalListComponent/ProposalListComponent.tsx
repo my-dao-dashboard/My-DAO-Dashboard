@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import {VoteProposal} from "../../backbone/votes.service";
 import {DaoInstanceState, State} from "../../backbone/State";
-import Loader from "../Layout/Loader/Loader";
-import {distributeProposals} from "../IProposalColumn";
+import {VoteProposal} from "../../backbone/votes.service";
 import {DummyProposalListComponent} from "../DummyProposalListComponent";
+import {distributeProposals} from "../IProposalColumn";
+import Loader from "../Layout/Loader/Loader";
 
 interface Props {
   dao: DaoInstanceState;

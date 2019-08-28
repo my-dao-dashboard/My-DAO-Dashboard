@@ -1,11 +1,11 @@
-import { Table, Badge, Progress } from "antd";
+import { Badge, Table } from "antd";
 import Column from "antd/lib/table/Column";
 import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
+import { VoteCount } from "../../backbone/votes.service";
 import DaoIconLink from "../DaoIconLink";
 import DaoTag from "../DaoTag";
-import {IProposalColumn} from "../IProposalColumn";
-import { VoteCount } from "../../backbone/votes.service";
+import { IProposalColumn } from "../IProposalColumn";
 
 interface IProps {
   open: boolean;
@@ -17,26 +17,46 @@ export default class ProposalTable extends Component<IProps> {
     return (
       <>
         <Table dataSource={this.props.source} scroll={{ x: true }}>
-            <Column title="" dataIndex="key" key="key" render={(text) => {
-              if(this.props.open) {
-                return <Badge status="success" />
+          <Column
+            title=""
+            dataIndex="key"
+            key="key"
+            render={text => {
+              if (this.props.open) {
+                return <Badge status="success" />;
               }
-              return <Badge status="error" /> } }/>
-            <Column title="ID" dataIndex="id" key="id" render={(text) => `#${text}`} sorter={(a: any, b: any) => a.id - b.id } />
-            <Column title="Description" dataIndex="description" key="description" sorter={(a: any, b: any) => {
-              if(a.description < b.description) { return -1; }
-              if(a.description > b.description) { return 1; }
-              return 0; }} />
-            <Column title="Type" dataIndex="type" key="type" render={(text) => <DaoTag type={text} /> } sorter={(a: any, b: any) => a.type - b.type } />
-            <Column title="Yes-No (Total)" dataIndex="votes" key="votes" render={(votes: VoteCount) => 
-            {
-              if(votes) {
+              return <Badge status="error" />;
+            }}
+          />
+          <Column title="ID" dataIndex="id" key="id" render={text => `#${text}`} sorter={(a: any, b: any) => a.id - b.id} />
+          <Column
+            title="Description"
+            dataIndex="description"
+            key="description"
+            sorter={(a: any, b: any) => {
+              if (a.description < b.description) {
+                return -1;
+              }
+              if (a.description > b.description) {
+                return 1;
+              }
+              return 0;
+            }}
+          />
+          <Column title="Type" dataIndex="type" key="type" render={text => <DaoTag type={text} />} sorter={(a: any, b: any) => a.type - b.type} />
+          <Column
+            title="Yes-No (Total)"
+            dataIndex="votes"
+            key="votes"
+            render={(votes: VoteCount) => {
+              if (votes) {
                 return `${votes.yes}-${votes.no} (${votes.total})`;
               }
               return "";
-            }} />
-            <Column title="Created" dataIndex="deadline" key="deadline" render={(text) => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline } />
-            <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} /> } />
+            }}
+          />
+          <Column title="Created" dataIndex="deadline" key="deadline" render={text => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline} />
+          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} />} />
         </Table>
       </>
     );

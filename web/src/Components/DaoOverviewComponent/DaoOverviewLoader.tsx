@@ -20,11 +20,11 @@ interface DispatchProps {
 }
 
 export class DaoOverviewLoader extends React.Component<StateProps & DispatchProps> {
-  componentDidMount(): void {
+  public componentDidMount(): void {
     this.props.getDao(this.props.account, this.props.address);
   }
 
-  render() {
+  public render() {
     if (this.props.isLoading) {
       return <Loader />;
     } else {

@@ -13,11 +13,11 @@ interface DispatchProps {
 }
 
 export class AccountComponent extends React.Component<DispatchProps & StateProps> {
-  componentDidMount(): void {
+  public componentDidMount(): void {
     this.props.getAddress();
   }
 
-  render() {
+  public render() {
     if (this.props.account) {
       return this.props.children;
     } else {

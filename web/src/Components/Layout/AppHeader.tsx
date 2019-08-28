@@ -1,8 +1,8 @@
-import { Col, Row, Avatar, Tooltip } from "antd";
+import { Avatar, Col, Row, Tooltip } from "antd";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { State } from "../../backbone/State";
-import { connect } from "react-redux";
 
 interface Props {
   account: string;

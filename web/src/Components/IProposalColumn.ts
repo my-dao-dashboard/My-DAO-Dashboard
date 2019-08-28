@@ -1,5 +1,5 @@
 import {DaoInstanceState} from "../backbone/State";
-import {VoteProposal, VoteStatus, VoteCount} from "../backbone/votes.service";
+import {VoteCount, VoteProposal, VoteStatus} from "../backbone/votes.service";
 
 export interface IProposalColumn {
   key: string,
@@ -32,8 +32,8 @@ export function formatProposal(proposal: VoteProposal): IProposalColumn {
 }
 
 export function distributeProposals(voteProposals: VoteProposal[]) {
-  let openProposals: IProposalColumn[] = []
-  let proposals: IProposalColumn[] = []
+  const openProposals: IProposalColumn[] = []
+  const proposals: IProposalColumn[] = []
   for (const proposal of voteProposals) {
     if (proposal.status === VoteStatus.OPEN) {
       openProposals.push(formatProposal(proposal))

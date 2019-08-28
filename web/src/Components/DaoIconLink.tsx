@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import { Icon } from "antd";
+import React, { Component } from "react";
 
 interface IProps {
   type: string;

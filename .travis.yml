@@ -13,3 +13,5 @@ before_install:
   - cd web
 install:
   - npm install
+script:
+  - npm run lint

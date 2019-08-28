@@ -15,11 +15,11 @@ interface DispatchProps {
 }
 
 export class DaoListLoader extends React.Component<StateProps & DispatchProps> {
-  async componentDidMount(): Promise<void> {
+  public async componentDidMount(): Promise<void> {
     this.props.getDaos(this.props.account);
   }
 
-  render() {
+  public render() {
     if (this.props.isLoading) {
       return <Loader />;
     } else {
@@ -35,7 +35,7 @@ function stateToProps(state: State): StateProps {
   };
 }
 
-export function uniq<A>(array: Array<A>): Array<A> {
+export function uniq<A>(array: A[]): A[] {
   return array.filter((v, i) => {
     return array.indexOf(v) === i;
   });
