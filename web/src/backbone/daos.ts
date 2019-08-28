@@ -24,10 +24,10 @@ let DAOS_LIST: DaoInstanceState[] = [];
 
 async function fillDaos(accounts: string[]): Promise<void> {
   if (DAOS_LIST.length === 0) {
-    console.log("filling daos for accounts ", accounts);
+    // console.log("filling daos for accounts ", accounts);
     for await (const acc of accounts) {
       const daos = await services.daosService.getDaos(acc);
-      console.log("filling for account ", acc, daos);
+      // console.log("filling for account ", acc, daos);
       DAOS_LIST = DAOS_LIST.concat(daos);
     }
   }
@@ -37,12 +37,7 @@ export async function openBox(address: string, provider: Provider): Promise<any>
   return new Promise<any>((resolve, reject) => {
     Box.openBox(address, provider)
       .then((box: any) => {
-        console.log("opened box");
         resolve(box);
-        // box.onSyncDone(() => {
-        //   console.log('synced box')
-        //   resolve(box)
-        // })
       })
       .catch(reject);
   });
