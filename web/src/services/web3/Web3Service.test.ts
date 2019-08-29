@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import { Web3Service } from "./web3Service";
+import { Web3Service } from "./Web3Service";
 
 const infura: string = "https://mainnet.infura.io/v3/1704f40805834d76b667f4228594b051";
 
