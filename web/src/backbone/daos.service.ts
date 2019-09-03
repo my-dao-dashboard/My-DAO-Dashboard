@@ -219,11 +219,11 @@ export class DaosService {
         address: holder.dao.id,
         name: holder.dao.name,
         kind: DaoKind.DAOSTACK,
-        shareBalance: holder.balance,
-        totalSupply: holder.dao.nativeReputation.totalSupply,
+        shareBalance: new BigNumber(holder.balance).dividedBy(10 ** 18).toNumber(),
+        totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
         balance: [],
         usdBalance: 0
-      };
+      } as DaoInstanceState;
     });
 
     return holdings;
