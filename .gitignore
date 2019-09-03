@@ -5,6 +5,8 @@
 
 /**/DS_Store
 
+/**/react-app-env.d.ts
+
 /**/.env
 /**/.env.local
 /**/.env.development.local
