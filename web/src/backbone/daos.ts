@@ -2,7 +2,7 @@ import actionCreatorFactory from "typescript-fsa";
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import asyncFactory from "typescript-fsa-redux-thunk";
 import { Provider } from "web3/providers";
-import { uniq } from "../Components/DaoListComponent/DaoListLoader";
+import { uniq } from "../Components0/DaoListComponent/DaoListLoader";
 import * as services from "./services";
 import { votesService } from "./services";
 import { DaoInstanceState, DaosState } from "./State";

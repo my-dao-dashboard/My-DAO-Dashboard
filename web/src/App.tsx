@@ -4,11 +4,11 @@ import { Provider } from "react-redux";
 import { Redirect, Route } from "react-router";
 import "./assets/styles/app.css";
 import { store } from "./backbone/store";
-import AccountComponent from "./Components/AccountComponent/AccountComponent";
-import DaoListLoader from "./Components/DaoListComponent/DaoListLoader";
-import AppHeader from "./Components/Layout/AppHeader";
-import ProposalLoader from "./Components/ProposalLoader";
-import Settings from "./Components/Settings/Settings";
+import AccountComponent from "./Components0/AccountComponent/AccountComponent";
+import DaoListLoader from "./Components0/DaoListComponent/DaoListLoader";
+import AppHeader from "./Components0/Layout/AppHeader";
+import ProposalLoader from "./Components0/ProposalLoader";
+import Settings from "./Components0/Settings/Settings";
 import DAO from "./Pages/DAO";
 import Dashboard from "./Pages/Dashboard";
 
