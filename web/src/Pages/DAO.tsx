@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { RouteComponentProps } from "react-router";
-import DaoOverview from "../Components0/DaoOverviewComponent/DaoOverview";
-import DaoOverviewLoader from "../Components0/DaoOverviewComponent/DaoOverviewLoader";
+import DaoOverview from "../components/DaoOverviewComponent/DaoOverview";
+import DaoOverviewLoader from "../components/DaoOverviewComponent/DaoOverviewLoader";
 
 interface IProps {
 	address: string;

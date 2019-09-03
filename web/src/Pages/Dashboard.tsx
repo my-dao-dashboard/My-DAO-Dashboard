@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import DaoListComponent from "../Components0/DaoListComponent/DaoListComponent";
-import OverallProposalListComponent from "../Components0/OverallProposalListComponent";
+import DaoListComponent from "../components/DaoListComponent/DaoListComponent";
+import OverallProposalListComponent from "../components/OverallProposalListComponent";
 
 export default class Dashboard extends Component {
   public render() {
