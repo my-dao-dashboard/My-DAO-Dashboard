@@ -132,6 +132,103 @@ export class DaosService {
     return aragonKernels;
   }
 
+  // public async getDaostackDaos(address: string): Promise<DaoInstanceState[]> {
+  //   const daostackApollo = new ApolloClient({
+  //     uri: "https://subgraph.daostack.io/subgraphs/name/v24"
+  //   });
+  //   const results = await daostackApollo.query({
+  //     query: gql`
+  //       query {
+  //         daos(first: 3, where: { reputationHoldersCount_gte: 1 }) {
+  //           id
+  //           name
+  //           nativeToken {
+  //             id
+  //             name
+  //             symbol
+  //             totalSupply
+  //           }
+  //           reputationHoldersCount
+  //           reputationHolders(first: 3) {
+  //             id
+  //             address
+  //             balance
+  //           }
+  //         }
+  //       }
+  //     `
+  //   });
+
+  //   const daos = results.data.daos
+  //     .filter((dao: any) => {
+  //       const account = dao.reputationHolders.find((holder: any) => holder.address === address);
+  //       if (account) {
+  //         console.log(account);
+  //         return dao;
+  //       }
+  //     })
+  //     .map((dao: any) => {
+  //       return {
+  //         address: dao.address,
+  //         name: dao.name,
+  //         kind: DaoKind.DAOSTACK,
+  //         shareBalance: 0,
+  //         totalSupply: 0,
+  //         balance: [],
+  //         usdBalance: 0
+  //       };
+  //     });
+
+  //   return daos;
+  // }
+
+  public async getDaostackDaosByReputation(address: string): Promise<DaoInstanceState[]> {
+    const daostackApollo = new ApolloClient({
+      uri: "https://subgraph.daostack.io/subgraphs/name/v24"
+    });
+    const results = await daostackApollo.query({
+      query: gql`
+        query {
+          reputationHolders(where: { address: "${address}" }) {
+            id
+            contract
+            address
+            balance
+            dao {
+              id
+              name
+              reputationHoldersCount
+              nativeToken {
+                id
+                name
+                symbol
+                totalSupply
+              }
+              nativeReputation {
+                id
+                totalSupply
+              }
+            }
+          }
+        }
+      `
+    });
+
+    const holdings = results.data.reputationHolders.map((holder: any) => {
+      return {
+        address: holder.dao.id,
+        name: holder.dao.name,
+        kind: DaoKind.DAOSTACK,
+        shareBalance: holder.balance,
+        totalSupply: holder.dao.nativeReputation.totalSupply,
+        balance: [],
+        usdBalance: 0
+      };
+    });
+
+    return holdings;
+  }
+
   public async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<DaoInstanceState> {
     const contract = new this.web3.eth.Contract(molochABI, daoAddress);
     const memberInfo = await contract.methods.members(account).call();
@@ -173,6 +270,7 @@ export class DaosService {
   public async getDaos(address: string): Promise<DaoInstanceState[]> {
     const aragons = await this.getAragonDaos(address);
     const molochs = await this.getMolochDaos(MOLOCH_MEMBER_ADDRESS || address);
-    return aragons.concat(molochs);
+    const daostack = await this.getDaostackDaosByReputation(address);
+    return aragons.concat(molochs).concat(daostack);
   }
 }

@@ -235,6 +235,8 @@ export class VotesService {
         return this.getAragonVotes(dao);
       case DaoKind.MOLOCH:
         return this.getMolochVotes(dao);
+      case DaoKind.DAOSTACK:
+        return [];
       default:
         return assertNever(dao.kind);
     }
