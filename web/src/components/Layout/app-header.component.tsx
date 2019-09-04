@@ -2,13 +2,13 @@ import { Avatar, Col, Row, Tooltip } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { State } from "../../backbone/State";
+import { State } from "../../redux/redux";
 
 interface Props {
   account: string;
 }
 
-export class AppHeader extends Component<Props> {
+export class AppHeaderComponent extends Component<Props> {
   public render() {
     return (
       <div style={{ color: "#fff" }}>
@@ -19,7 +19,7 @@ export class AppHeader extends Component<Props> {
           <Col span={12} style={{ textAlign: "right" }}>
             <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
             <Tooltip title={this.props.account} placement="left">
-              <Avatar shape="square" style={{ color: '#000' }} size="large">
+              <Avatar shape="square" style={{ color: "#000" }} size="large">
                 {this.props.account.substring(0, 5)}
               </Avatar>
             </Tooltip>
@@ -32,8 +32,8 @@ export class AppHeader extends Component<Props> {
 
 function mapStateToProps(state: State): Props {
   return {
-    account: state.account.address!
+    account: state.account.address
   };
 }
 
-export default connect(mapStateToProps)(AppHeader);
+export default connect(mapStateToProps)(AppHeaderComponent);
