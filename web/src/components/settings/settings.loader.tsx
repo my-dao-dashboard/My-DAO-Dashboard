@@ -7,7 +7,15 @@ interface Props {
   isRead: boolean;
 }
 
-class SettingsLoader extends React.Component<Props> {
+interface DispatchProps {
+  readSettings: () => void
+}
+
+class SettingsLoader extends React.Component<Props & DispatchProps> {
+  componentDidMount(): void {
+    this.props.readSettings()
+  }
+
   render() {
     if (this.props.isRead) {
       return this.props.children;
@@ -26,7 +34,7 @@ function stateToProps(state: State): Props {
 function dispatchToProps(dispatch: ThunkDispatch<State, any, any>) {
   return {
     readSettings: () => {
-
+      console.log('readSettings')
     }
   }
 }

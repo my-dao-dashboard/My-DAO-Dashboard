@@ -28,8 +28,8 @@ export const setAddress = action<string>("SET_ADDRESS");
 export const enable = asyncAction<void, void>("ENABLE", async (_, dispatch, getState: any) => {
   const state = getState() as State;
   const address = await state.services.metamask.enable();
-  await services.enable.action();
-  await dispatch(setAddress(address));
+  // await services.enable.action();
+  // await dispatch(setAddress(address));
 });
 
 export const reducers = reducerWithInitialState(initialState(MetamaskService.upstreamProvider()))

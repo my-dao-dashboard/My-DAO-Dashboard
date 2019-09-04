@@ -22,7 +22,7 @@ export const INITIAL: ServicesState = {
 const action = actionCreatorFactory("SERVICES");
 const asyncAction = asyncFactory<SettingsState>(action);
 
-export const setWeb3 = action<string>("SET_WEB3");
+export const setWeb3 = action<void>("SET_WEB3");
 
 export const enable = asyncAction<void, ServicesState>("ENABLE", async (_, dispatch, getState: any) => {
   const state = getState() as State;
