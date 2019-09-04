@@ -11,7 +11,7 @@ import DAO from "./pages/DAO";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/redux";
-import { MetamaskLoader } from "./components/account/metamask.loader";
+import { AvailableMetamaskContainer } from "./components/account/available-metamask.container";
 import SettingsLoader from "./components/settings/settings.loader";
 
 const { Header, Content, Footer } = Layout;
@@ -20,7 +20,7 @@ const Application: React.FC = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <MetamaskLoader>
+        <AvailableMetamaskContainer>
           {/*<SettingsLoader>*/}
           {/*  <Layout>*/}
           {/*    <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>*/}
@@ -51,7 +51,7 @@ const Application: React.FC = () => {
           {/*    </Footer>*/}
           {/*  </Layout>*/}
           {/*</SettingsLoader>*/}
-        </MetamaskLoader>
+        </AvailableMetamaskContainer>
       </Provider>
     </BrowserRouter>
   );
