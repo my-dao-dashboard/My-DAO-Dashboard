@@ -1,11 +1,21 @@
 import { Avatar, Col, Row, Tooltip } from "antd";
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { State } from "../../redux/redux";
+import { BlockchainContext } from "../../contexts/blockchain.context";
 
-export const AppHeaderComponent: React.FC = props => {
-  const account = 'foo'
+export const AppHeaderComponent: React.FC = () => {
+  const blockchain = useContext(BlockchainContext);
+  const [address, setAddress] = useState(blockchain.query.address());
+
+  useEffect(() => {
+    const subscription = blockchain.query.address$.subscribe(setAddress);
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
+
+  const shortAddress = address.substring(0, 5);
+
   return (
     <div style={{ color: "#fff" }}>
       <Row>
@@ -14,9 +24,9 @@ export const AppHeaderComponent: React.FC = props => {
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
           <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Tooltip title={account} placement="left">
+          <Tooltip title={address} placement="left">
             <Avatar shape="square" style={{ color: "#000" }} size="large">
-              {account.substring(0, 5)}
+              {shortAddress}
             </Avatar>
           </Tooltip>
         </Col>
@@ -24,39 +34,3 @@ export const AppHeaderComponent: React.FC = props => {
     </div>
   );
 };
-
-export default AppHeaderComponent;
-
-// interface Props {
-//   account: string;
-// }
-//
-// export class AppHeaderComponent extends Component<Props> {
-//   public render() {
-//     return (
-//       <div style={{ color: "#fff" }}>
-//         <Row>
-//           <Col span={12}>
-//             <Link to="/">My DAO Dashboard</Link>
-//           </Col>
-//           <Col span={12} style={{ textAlign: "right" }}>
-//             <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
-//             <Tooltip title={this.props.account} placement="left">
-//               <Avatar shape="square" style={{ color: "#000" }} size="large">
-//                 {this.props.account.substring(0, 5)}
-//               </Avatar>
-//             </Tooltip>
-//           </Col>
-//         </Row>
-//       </div>
-//     );
-//   }
-// }
-//
-// function mapStateToProps(state: State): Props {
-//   return {
-//     account: state.account.address
-//   };
-// }
-//
-// export default connect(mapStateToProps)(AppHeaderComponent);

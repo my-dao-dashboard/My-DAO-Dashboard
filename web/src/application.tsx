@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { Redirect, Route } from "react-router";
 import "./assets/styles/app.css";
 import DaoListLoader from "./components/DaoListComponent/DaoListLoader";
-import AppHeader from "./components/Layout/app-header.component";
+import { AppHeaderComponent } from "./components/Layout/app-header.component";
 import ProposalLoader from "./components/ProposalLoader";
 import { SettingsPage } from "./pages/settings.page";
 import DAO from "./pages/DAO";
@@ -23,7 +23,7 @@ const Application: React.FC = () => {
         <AvailableMetamaskContainer>
           <Layout>
             <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-              <AppHeader />
+              <AppHeaderComponent />
             </Header>
             <Content className="container">
               <div className="content">

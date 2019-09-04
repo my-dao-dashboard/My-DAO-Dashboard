@@ -1,8 +1,10 @@
 import { MetamaskStore } from "./metamask.store";
+import { MetamaskQuery } from "./metamask.query";
 
 export class MetamaskService {
   readonly upstream: any;
-  readonly store: MetamaskStore;
+  private readonly store: MetamaskStore;
+  readonly query: MetamaskQuery;
 
   constructor() {
     const w = window as any;
@@ -11,6 +13,7 @@ export class MetamaskService {
       isAvailable: Boolean(this.upstream),
       isEnabled: Boolean(this.upstream.enable ? this.upstream.selectedAddress : !!this.upstream)
     });
+    this.query = new MetamaskQuery(this.store);
   }
 
   async enable() {
