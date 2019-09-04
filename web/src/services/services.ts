@@ -1,7 +1,7 @@
 import { MetamaskService } from "./metamask/metamask.service";
 import { MetamaskQuery } from "./metamask/metamask.query";
-import { AccountService } from "./account/account.service";
-import { AccountQuery } from "./account/account.query";
+import { BlockchainService } from "./blockchain/blockchain.service";
+import { BlockchainQuery } from "./blockchain/blockchain.query";
 import { memoize } from "../util/memoize";
 
 export class Services {
@@ -14,8 +14,8 @@ export class Services {
 
   @memoize()
   get account() {
-    const service = new AccountService();
-    const query = new AccountQuery(service.store);
+    const service = new BlockchainService();
+    const query = new BlockchainQuery(service.store);
 
     this.metamask.query.isEnabled$.subscribe(async isEnabled => {
       if (isEnabled) {

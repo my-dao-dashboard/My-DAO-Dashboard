@@ -1,12 +1,12 @@
-import { AccountStore } from "./account.store";
+import { BlockchainStore } from "./blockchain.store";
 import Web3 from "web3";
 
-export class AccountService {
-  readonly store: AccountStore;
+export class BlockchainService {
+  readonly store: BlockchainStore;
   web3: Web3;
 
   constructor() {
-    this.store = new AccountStore({
+    this.store = new BlockchainStore({
       address: ""
     });
     this.web3 = new Web3();
