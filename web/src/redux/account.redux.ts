@@ -28,7 +28,7 @@ export const setAddress = action<string>("SET_ADDRESS");
 export const enable = asyncAction<void, void>("ENABLE", async (_, dispatch, getState: any) => {
   const state = getState() as State;
   const address = await state.services.metamask.enable();
-  await dispatch(services.enable());
+  await services.enable.action();
   await dispatch(setAddress(address));
 });
 
