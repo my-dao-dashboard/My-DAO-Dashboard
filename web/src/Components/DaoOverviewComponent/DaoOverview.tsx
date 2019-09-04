@@ -1,4 +1,4 @@
-import { Progress, Statistic } from "antd";
+import { Progress, Statistic, Tooltip } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { DaoInstanceState, State } from "../../backbone/State";
@@ -15,17 +15,24 @@ export class DaoOverview extends React.Component<StateProps> {
     return (
       <div>
         <h2 style={{ display: "inline" }}>{this.props.dao.name}</h2> &nbsp; <DaoTag type={this.props.dao.kind} />
-        <br/>
+        <br />
         <DaoLink type={this.props.dao.kind} address={this.props.dao.address} />
-        <br/>
-
-        <div style={{ maxWidth: "300px"}}>
+        <br />
+        <div style={{ maxWidth: "300px" }}>
           <Statistic title="Balance" value={this.props.dao.usdBalance} precision={2} />
-          <div className="ant-statistic-title">Voting power <small>({this.props.dao.shareBalance} of {this.props.dao.totalSupply})</small></div>
-          <Progress percent={
-              Math.round((this.props.dao.shareBalance / this.props.dao.totalSupply) * 100)} status="active" />
+
+          <Tooltip title={Number((this.props.dao.shareBalance / this.props.dao.totalSupply) * 100).toFixed(2) + "%"}>
+            <div className="ant-statistic-title">
+              Voting power{" "}
+              <small>
+                ({this.props.dao.shareBalance} of {this.props.dao.totalSupply})
+              </small>
+            </div>
+            <Progress percent={Math.round((this.props.dao.shareBalance / this.props.dao.totalSupply) * 100)} status="active" />
+          </Tooltip>
         </div>
-        <br/><br/>
+        <br />
+        <br />
         <div>
           <ProposalListComponent dao={this.props.dao} />
         </div>

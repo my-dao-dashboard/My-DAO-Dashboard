@@ -43,10 +43,12 @@ export class DaoListComponent extends React.Component<StateProps> {
                             <Statistic title="Balance" value={item.usdBalance} precision={2} prefix={"$"} />
 
                             <div className="ant-statistic-title">
-                              Voting power{" "}
-                              <small>
-                                ({Math.round(item.shareBalance * 100) / 100} of {Math.round(item.totalSupply * 100) / 100})
-                              </small>
+                              <Tooltip title={Number((item.shareBalance / item.totalSupply) * 100).toFixed(2) + "%"}>
+                                Voting power{" "}
+                                <small>
+                                  ({Math.round(item.shareBalance * 100) / 100} of {Math.round(item.totalSupply * 100) / 100})
+                                </small>
+                              </Tooltip>
                             </div>
                             <Tooltip title={Number((item.shareBalance / item.totalSupply) * 100).toFixed(2) + "%"}>
                               <Progress percent={Math.round((item.shareBalance / item.totalSupply) * 100)} status="active" />
