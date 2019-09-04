@@ -1,29 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { State } from "../../redux/redux";
+import React, { useContext } from "react";
 import { NotMetamaskComponent } from "./not-metamask.component";
-import AccountLoader from './account.loader';
+import { AccountLoader } from "./account.loader";
+import { MetamaskContext } from "../../contexts/metamask.context";
 
-interface Props {
-  isMetamask: boolean;
-  account: string;
-}
+export const MetamaskLoader: React.FC = props => {
+  const metamask = useContext(MetamaskContext);
+  const isAvailable = metamask.query.isAvailable();
 
-function mapStateToProps(state: State): Props {
-  return {
-    isMetamask: state.account.isMetamask,
-    account: state.account.address
-  };
-}
-
-export class MetamaskLoader extends React.Component<Props> {
-  render() {
-    if (this.props.isMetamask) {
-      return <AccountLoader>{this.props.children}</AccountLoader>
-    } else {
-      return <NotMetamaskComponent />;
-    }
+  if (isAvailable) {
+    return <AccountLoader>{props.children}</AccountLoader>;
+  } else {
+    return <NotMetamaskComponent />;
   }
-}
-
-export default connect(mapStateToProps)(MetamaskLoader);
+};

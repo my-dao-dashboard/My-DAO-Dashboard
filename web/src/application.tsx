@@ -11,7 +11,7 @@ import DAO from "./pages/DAO";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/redux";
-import MetamaskLoader from "./components/account/metamask.loader";
+import { MetamaskLoader } from "./components/account/metamask.loader";
 import SettingsLoader from "./components/settings/settings.loader";
 
 const { Header, Content, Footer } = Layout;
@@ -21,36 +21,36 @@ const Application: React.FC = () => {
     <BrowserRouter>
       <Provider store={store}>
         <MetamaskLoader>
-          <SettingsLoader>
-            <Layout>
-              <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-                <AppHeader />
-              </Header>
-              <Content className="container">
-                <div className="content">
-                  {/*<DaoListLoader>*/}
-                  {/*  <ProposalLoader>*/}
-                  {/*    <Route exact path="/" component={Dashboard} />*/}
-                  {/*    <Route exact path="/dao/:address" component={DAO} />*/}
-                  <Route exact path="/settings" component={Settings} />
-                  <Redirect to="/" />
-                  {/*  </ProposalLoader>*/}
-                  {/*</DaoListLoader>*/}
-                </div>
-              </Content>
-              <Footer style={{ textAlign: "center" }}>
-                <a
-                  href="https://github.com/wslyvh/My-DAO-Dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted"
-                >
-                  <Icon type="github" />
-                </a>{" "}
-                &nbsp; ETHBerlin Zwei
-              </Footer>
-            </Layout>
-          </SettingsLoader>
+          {/*<SettingsLoader>*/}
+          {/*  <Layout>*/}
+          {/*    <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>*/}
+          {/*      <AppHeader />*/}
+          {/*    </Header>*/}
+          {/*    <Content className="container">*/}
+          {/*      <div className="content">*/}
+          {/*        /!*<DaoListLoader>*!/*/}
+          {/*        /!*  <ProposalLoader>*!/*/}
+          {/*        /!*    <Route exact path="/" component={Dashboard} />*!/*/}
+          {/*        /!*    <Route exact path="/dao/:address" component={DAO} />*!/*/}
+          {/*        <Route exact path="/settings" component={Settings} />*/}
+          {/*        <Redirect to="/" />*/}
+          {/*        /!*  </ProposalLoader>*!/*/}
+          {/*        /!*</DaoListLoader>*!/*/}
+          {/*      </div>*/}
+          {/*    </Content>*/}
+          {/*    <Footer style={{ textAlign: "center" }}>*/}
+          {/*      <a*/}
+          {/*        href="https://github.com/wslyvh/My-DAO-Dashboard"*/}
+          {/*        target="_blank"*/}
+          {/*        rel="noopener noreferrer"*/}
+          {/*        className="text-muted"*/}
+          {/*      >*/}
+          {/*        <Icon type="github" />*/}
+          {/*      </a>{" "}*/}
+          {/*      &nbsp; ETHBerlin Zwei*/}
+          {/*    </Footer>*/}
+          {/*  </Layout>*/}
+          {/*</SettingsLoader>*/}
         </MetamaskLoader>
       </Provider>
     </BrowserRouter>

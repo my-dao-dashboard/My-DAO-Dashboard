@@ -1,76 +1,45 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { State } from '../../redux/redux';
-import * as account from '../../redux/account.redux';
+import React, { useContext } from "react";
+import { useProgress } from "../../hooks/use-progress";
+import { MetamaskContext } from "../../contexts/metamask.context";
 
-interface DispatchProps {
-  enable: () => Promise<void>;
-}
+export const LoginComponent: React.FC = () => {
+  const metamask = useContext(MetamaskContext);
+  const progress = useProgress(false);
 
-interface OwnState {
-  isProgress: boolean;
-  error?: string;
-}
-
-export class LoginComponent extends React.Component<DispatchProps, OwnState> {
-  state = {
-    isProgress: false,
-    error: undefined,
-  };
-
-  async handleClick() {
-    if (!this.state.isProgress) {
-      this.setState({
-        isProgress: true,
-      });
+  const onClick = async () => {
+    if (!progress.isRunning()) {
+      progress.start();
       try {
-        await this.props.enable();
+        await metamask.service.enable();
+        progress.stop();
       } catch (e) {
-        this.setState({
-          isProgress: false,
-          error: e.message,
-        });
+        progress.stop(e);
       }
     }
-  }
+  };
 
-  renderButton() {
-    if (this.state.isProgress) {
-      return <button disabled={true}>Waiting...</button>;
-    } else {
-      return <button onClick={this.handleClick.bind(this)}>Connect</button>;
-    }
-  }
-
-  renderError() {
-    if (this.state.error) {
-      return <p>{this.state.error}</p>;
+  const renderError = () => {
+    const error = progress.isError();
+    if (error) {
+      return <p>{error}</p>;
     } else {
       return undefined;
     }
-  }
-
-  render() {
-    return (
-      <>
-        <p>You are not logged in</p>
-        {this.renderError()}
-        {this.renderButton()}
-      </>
-    );
-  }
-}
-
-function mapDispatchToProps(dispatch: ThunkDispatch<State, any, any>): DispatchProps {
-  return {
-    enable: async () => {
-      await dispatch(account.enable.action());
-    },
   };
-}
 
-export default connect(
-  undefined,
-  mapDispatchToProps,
-)(LoginComponent);
+  const renderButton = () => {
+    if (progress.isRunning()) {
+      return <button disabled={true}>Waiting...</button>;
+    } else {
+      return <button onClick={onClick}>Connect</button>;
+    }
+  };
+
+  return (
+    <>
+      <p>You are not logged in</p>
+      {renderError()}
+      {renderButton()}
+    </>
+  );
+};
