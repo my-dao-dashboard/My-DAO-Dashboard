@@ -1,19 +1,21 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { Registry } from "../services/registry";
-import * as account from './account.redux'
-import { AccountState } from './account.redux';
-
-export const registry = new Registry();
+import * as account from "./account.redux";
+import * as settings from "./settings.redux";
+import * as services from "./services.redux";
 
 export interface State {
-  account: AccountState
+  services: services.ServicesState;
+  account: account.AccountState;
+  settings: settings.SettingsState;
 }
 
 export const store = createStore(
   combineReducers({
-    account: account.reducers(registry.metamask())
+    services: services.reducers,
+    settings: settings.reducers,
+    account: account.reducers
   }),
   applyMiddleware(thunk, logger)
 );
