@@ -11,7 +11,6 @@ export const LoginComponent: React.FC = () => {
       progress.start();
       try {
         await metamask.service.enable();
-        progress.stop();
       } catch (e) {
         progress.stop(e);
       }

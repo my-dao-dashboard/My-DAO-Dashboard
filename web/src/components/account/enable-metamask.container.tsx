@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginComponent } from "./login.component";
 import { MetamaskContext } from "../../contexts/metamask.context";
+import { LoadAccountContainer } from "./load-account.container";
 
 export const EnableMetamaskContainer: React.FC = (props) => {
   const metamask = useContext(MetamaskContext);
@@ -11,7 +12,7 @@ export const EnableMetamaskContainer: React.FC = (props) => {
   });
 
   if (isEnabled) {
-    return <>{props.children}</>;
+    return <LoadAccountContainer>{props.children}</LoadAccountContainer>;
   } else {
     return <LoginComponent />;
   }

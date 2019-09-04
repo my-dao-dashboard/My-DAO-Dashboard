@@ -1,7 +1,7 @@
 import { MetamaskStore } from "./metamask.store";
 
 export class MetamaskService {
-  private readonly upstream: any;
+  readonly upstream: any;
   readonly store: MetamaskStore;
 
   constructor() {

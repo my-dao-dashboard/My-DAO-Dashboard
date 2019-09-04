@@ -45,8 +45,8 @@
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",
-    "decko": "^1.2.0",
     "graphql": "^14.5.3",
+    "memoizee": "^0.4.14",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
@@ -62,7 +62,9 @@
     "web3": "^1.2.1"
   },
   "devDependencies": {
+    "@types/memoizee": "^0.4.2",
     "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
     "tslint-config-prettier": "^1.18.0"
   }
