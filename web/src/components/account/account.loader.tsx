@@ -1,26 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { State } from '../../redux/redux';
-import { NotMetamaskComponent } from './not-metamask.component';
+import React from "react";
+import { connect } from "react-redux";
+import { State } from "../../redux/redux";
+import LoginComponent from "./login.component";
 
 interface Props {
-  isMetamask: boolean
+  account: string;
 }
 
 function mapStateToProps(state: State): Props {
   return {
-    isMetamask: state.account.isMetamask
-  }
+    account: state.account.address
+  };
 }
 
-export class AccountLoader extends React.Component<Props>{
-  render () {
-    if (this.props.isMetamask) {
-      return this.props.children
+export class AccountLoader extends React.Component<Props> {
+  render() {
+    if (this.props.account) {
+      return this.props.children;
     } else {
-      return <NotMetamaskComponent/>
+      return <LoginComponent />;
     }
   }
 }
 
-export default connect(mapStateToProps)(AccountLoader)
+export default connect(mapStateToProps)(AccountLoader);
