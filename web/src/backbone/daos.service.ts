@@ -31,12 +31,16 @@ const MOLOCH_MEMBER_ADDRESS: string | undefined = "";
 export class DaosService {
   private readonly web3: Web3;
   private readonly ensApollo: ApolloClient<unknown>;
+  private readonly daostackApollo: ApolloClient<unknown>;
   private names: any | undefined;
 
   constructor(private readonly accountService: AccountService, private readonly balanceService: BalanceService) {
     this.web3 = accountService.web3();
     this.ensApollo = new ApolloClient({
       uri: "https://api.thegraph.com/subgraphs/name/ensdomains/ens"
+    });
+    this.daostackApollo = new ApolloClient({
+      uri: "https://subgraph.daostack.io/subgraphs/name/v24"
     });
   }
 
@@ -132,61 +136,8 @@ export class DaosService {
     return aragonKernels;
   }
 
-  // public async getDaostackDaos(address: string): Promise<DaoInstanceState[]> {
-  //   const daostackApollo = new ApolloClient({
-  //     uri: "https://subgraph.daostack.io/subgraphs/name/v24"
-  //   });
-  //   const results = await daostackApollo.query({
-  //     query: gql`
-  //       query {
-  //         daos(first: 3, where: { reputationHoldersCount_gte: 1 }) {
-  //           id
-  //           name
-  //           nativeToken {
-  //             id
-  //             name
-  //             symbol
-  //             totalSupply
-  //           }
-  //           reputationHoldersCount
-  //           reputationHolders(first: 3) {
-  //             id
-  //             address
-  //             balance
-  //           }
-  //         }
-  //       }
-  //     `
-  //   });
-
-  //   const daos = results.data.daos
-  //     .filter((dao: any) => {
-  //       const account = dao.reputationHolders.find((holder: any) => holder.address === address);
-  //       if (account) {
-  //         console.log(account);
-  //         return dao;
-  //       }
-  //     })
-  //     .map((dao: any) => {
-  //       return {
-  //         address: dao.address,
-  //         name: dao.name,
-  //         kind: DaoKind.DAOSTACK,
-  //         shareBalance: 0,
-  //         totalSupply: 0,
-  //         balance: [],
-  //         usdBalance: 0
-  //       };
-  //     });
-
-  //   return daos;
-  // }
-
   public async getDaostackDaosByReputation(address: string): Promise<DaoInstanceState[]> {
-    const daostackApollo = new ApolloClient({
-      uri: "https://subgraph.daostack.io/subgraphs/name/v24"
-    });
-    const results = await daostackApollo.query({
+    const results = await this.daostackApollo.query({
       query: gql`
         query {
           reputationHolders(where: { address: "${address}" }) {

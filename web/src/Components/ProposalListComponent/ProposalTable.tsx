@@ -1,5 +1,6 @@
 import { Badge, Table } from "antd";
 import Column from "antd/lib/table/Column";
+import Paragraph from "antd/lib/typography/Paragraph";
 import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
 import { VoteCount } from "../../backbone/votes.service";
@@ -28,7 +29,6 @@ export default class ProposalTable extends Component<IProps> {
               return <Badge status="error" />;
             }}
           />
-          <Column title="ID" dataIndex="id" key="id" render={text => `#${text}`} sorter={(a: any, b: any) => a.id - b.id} />
           <Column
             title="Description"
             dataIndex="description"
@@ -50,7 +50,7 @@ export default class ProposalTable extends Component<IProps> {
             key="votes"
             render={(votes: VoteCount) => {
               if (votes) {
-                return `${votes.yes}-${votes.no} (${votes.total})`;
+                return `${Math.round(votes.yes)} - ${Math.round(votes.no)} (${Math.round(votes.total)})`;
               }
               return "";
             }}
