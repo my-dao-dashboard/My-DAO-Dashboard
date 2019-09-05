@@ -1,4 +1,5 @@
-import { Avatar, Col, Row, Tooltip } from "antd";
+import { Avatar, Col, Divider, Row, Tooltip, Typography } from "antd";
+import makeBlockie from "ethereum-blockies-base64";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlockchainContext } from "../../contexts/blockchain.context";
@@ -23,11 +24,14 @@ export const AppHeaderComponent: React.FC = () => {
           <Link to="/">My DAO Dashboard</Link>
         </Col>
         <Col span={12} style={{ textAlign: "right" }}>
-          <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+          <Link to={"/settings"}>Settings</Link>
+          &nbsp;
+          <Divider type="vertical" />
+          &nbsp;
           <Tooltip title={address} placement="left">
-            <Avatar shape="square" style={{ color: "#000" }} size="large">
-              {shortAddress}
-            </Avatar>
+            <Avatar src={makeBlockie(address)} />
+            &nbsp; &nbsp;
+            <small>{shortAddress}</small>
           </Tooltip>
         </Col>
       </Row>
