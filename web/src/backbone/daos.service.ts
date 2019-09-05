@@ -31,12 +31,16 @@ const MOLOCH_MEMBER_ADDRESS: string | undefined = "";
 export class DaosService {
   private readonly web3: Web3;
   private readonly ensApollo: ApolloClient<unknown>;
+  private readonly daostackApollo: ApolloClient<unknown>;
   private names: any | undefined;
 
   constructor(private readonly accountService: AccountService, private readonly balanceService: BalanceService) {
     this.web3 = accountService.web3();
     this.ensApollo = new ApolloClient({
       uri: "https://api.thegraph.com/subgraphs/name/ensdomains/ens"
+    });
+    this.daostackApollo = new ApolloClient({
+      uri: "https://subgraph.daostack.io/subgraphs/name/v24"
     });
   }
 
@@ -132,6 +136,55 @@ export class DaosService {
     return aragonKernels;
   }
 
+  public async getDaostackDaos(address: string): Promise<DaoInstanceState[]> {
+    const results = await this.daostackApollo.query({
+      query: gql`
+        query {
+          reputationHolders(where: { address: "${address}" }) {
+            id
+            contract
+            address
+            balance
+            dao {
+              id
+              name
+              reputationHoldersCount
+              nativeToken {
+                id
+                name
+                symbol
+                totalSupply
+              }
+              nativeReputation {
+                id
+                totalSupply
+              }
+            }
+          }
+        }
+      `
+    });
+
+    const holdings: DaoInstanceState[] = await Promise.all(
+      await results.data.reputationHolders.map(async (holder: any) => {
+        const balance = await this.balanceService.balance(holder.dao.id);
+        const usdBalance = balance.reduce((acc, cur) => acc + cur.usdValue, 0);
+
+        return {
+          address: holder.dao.id,
+          name: holder.dao.name,
+          kind: DaoKind.DAOSTACK,
+          shareBalance: new BigNumber(holder.balance).dividedBy(10 ** 18).toNumber(),
+          totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
+          balance,
+          usdBalance
+        } as DaoInstanceState;
+      })
+    );
+
+    return holdings;
+  }
+
   public async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<DaoInstanceState> {
     const contract = new this.web3.eth.Contract(molochABI, daoAddress);
     const memberInfo = await contract.methods.members(account).call();
@@ -173,6 +226,7 @@ export class DaosService {
   public async getDaos(address: string): Promise<DaoInstanceState[]> {
     const aragons = await this.getAragonDaos(address);
     const molochs = await this.getMolochDaos(MOLOCH_MEMBER_ADDRESS || address);
-    return aragons.concat(molochs);
+    const daostack = await this.getDaostackDaos(address);
+    return aragons.concat(molochs).concat(daostack);
   }
 }

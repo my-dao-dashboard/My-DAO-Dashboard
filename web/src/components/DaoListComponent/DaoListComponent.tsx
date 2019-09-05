@@ -1,4 +1,4 @@
-import { Card, List, Progress, Statistic } from "antd";
+import { Card, List, Progress, Statistic, Tooltip } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";
 import { connect } from "react-redux";
@@ -36,15 +36,27 @@ export class DaoListComponent extends React.Component<StateProps> {
                       title={item.name}
                       description={
                         <>
-                        <p><DaoLink type={item.kind} address={item.address} /></p>
-                        <div style={{ maxWidth: "60%"}}>
-                          <Statistic title="Balance" value={item.usdBalance} precision={2} prefix={'$'} />
-                          
-                          <div className="ant-statistic-title">Voting power <small>({item.shareBalance} of {item.totalSupply})</small></div>
-                          <Progress percent={
-                              Math.round((item.shareBalance / item.totalSupply) * 100)} status="active" />
-                        </div>
-                        <div style={{ textAlign: "right" }}><DaoTag type={item.kind} /></div>
+                          <p>
+                            <DaoLink type={item.kind} address={item.address} />
+                          </p>
+                          <div style={{ maxWidth: "60%" }}>
+                            <Statistic title="Balance" value={item.usdBalance} precision={2} prefix={"$"} />
+
+                            <div className="ant-statistic-title">
+                              <Tooltip title={Number((item.shareBalance / item.totalSupply) * 100).toFixed(2) + "%"}>
+                                Voting power{" "}
+                                <small>
+                                  ({Math.round(item.shareBalance * 100) / 100} of {Math.round(item.totalSupply * 100) / 100})
+                                </small>
+                              </Tooltip>
+                            </div>
+                            <Tooltip title={Number((item.shareBalance / item.totalSupply) * 100).toFixed(2) + "%"}>
+                              <Progress percent={Math.round((item.shareBalance / item.totalSupply) * 100)} status="active" />
+                            </Tooltip>
+                          </div>
+                          <div style={{ textAlign: "right" }}>
+                            <DaoTag type={item.kind} />
+                          </div>
                         </>
                       }
                     />

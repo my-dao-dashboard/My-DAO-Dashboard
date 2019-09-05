@@ -46,7 +46,6 @@ export async function openBox(address: string, provider: Provider): Promise<any>
 export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async account => {
   const box = await openBox(account, services.accountService.web3().currentProvider);
   const space = await box.openSpace("my-dao-dashboard");
-  console.log("opened space");
   const boxedAddresses = (await space.private.get("watched-addresses")) as string[] | undefined;
   const accounts = boxedAddresses || [];
   const realAccounts = uniq(accounts.concat(account).map(a => a.toLowerCase()));

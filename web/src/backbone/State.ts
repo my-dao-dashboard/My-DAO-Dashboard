@@ -1,5 +1,5 @@
 import { IBalanceEntry } from "./balance.service";
-import {VoteProposal} from "./votes.service";
+import { VoteProposal } from "./votes.service";
 
 export interface AccountState {
   address?: string;
@@ -7,7 +7,8 @@ export interface AccountState {
 
 export enum DaoKind {
   ARAGON = "ARAGON",
-  MOLOCH = "MOLOCH"
+  MOLOCH = "MOLOCH",
+  DAOSTACK = "DAOSTACK"
 }
 
 export interface DaoInstanceState {

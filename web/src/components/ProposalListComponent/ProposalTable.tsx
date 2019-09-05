@@ -28,7 +28,6 @@ export default class ProposalTable extends Component<IProps> {
               return <Badge status="error" />;
             }}
           />
-          <Column title="ID" dataIndex="id" key="id" render={text => `#${text}`} sorter={(a: any, b: any) => a.id - b.id} />
           <Column
             title="Description"
             dataIndex="description"
@@ -50,13 +49,13 @@ export default class ProposalTable extends Component<IProps> {
             key="votes"
             render={(votes: VoteCount) => {
               if (votes) {
-                return `${votes.yes}-${votes.no} (${votes.total})`;
+                return `${Math.round(votes.yes)} - ${Math.round(votes.no)} (${Math.round(votes.total)})`;
               }
               return "";
             }}
           />
           <Column title="Created" dataIndex="deadline" key="deadline" render={text => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline} />
-          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} />} />
+          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState, vote: IProposalColumn) => <DaoIconLink type={dao.kind} dao={dao.address} vote={String(vote.id)} />} />
         </Table>
       </>
     );

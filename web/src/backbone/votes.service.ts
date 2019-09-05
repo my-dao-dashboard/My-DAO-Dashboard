@@ -127,11 +127,15 @@ function molochProposalTitle(details: string): string {
 export class VotesService {
   private readonly web3: Web3;
   private readonly molochApollo: ApolloClient<unknown>;
+  private readonly daostackApollo: ApolloClient<unknown>;
 
   constructor(private readonly accountService: AccountService) {
     this.web3 = accountService.web3();
     this.molochApollo = new ApolloClient({
       uri: "https://api.thegraph.com/subgraphs/name/molochventures/moloch"
+    });
+    this.daostackApollo = new ApolloClient({
+      uri: "https://subgraph.daostack.io/subgraphs/name/v24"
     });
   }
 
@@ -208,6 +212,7 @@ export class VotesService {
         }
       `
     });
+
     return page.data.proposals.map((p: any) => {
       const kind = p.tokenTribute === "0" ? TransactionKind.SPENDING : TransactionKind.MINTING;
       let status = VoteStatus.OPEN;
@@ -229,12 +234,62 @@ export class VotesService {
     });
   }
 
+  public async getDaostackVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+    const page = await this.daostackApollo.query({
+      query: gql`
+        query {
+          proposals(where: { dao: "${dao.address}" }) {
+            id
+            title
+            proposer
+            stage
+            executionState
+            url
+            votesFor
+            votesAgainst
+            winningOutcome
+            createdAt
+          }
+        }
+      `
+    });
+
+    return page.data.proposals.map((p: any) => {
+      let status = VoteStatus.OPEN;
+      if (p.stage === "Executed") {
+        status = VoteStatus.ENACTED;
+      } else if (p.stage === "ExpiredInQueue") {
+        status = VoteStatus.REJECTED;
+      }
+
+      const votes: VoteCount = {
+        yes: new BigNumber(p.votesFor).dividedBy(10 ** 18).toNumber(),
+        no: new BigNumber(p.votesAgainst).dividedBy(10 ** 18).toNumber(),
+        total: dao.totalSupply
+      };
+
+      return {
+        kind: TransactionKind.WHATEVER,
+        dao,
+        creator: p.proposer,
+        voteId: p.id,
+        votes,
+        title: p.title,
+        timestamp: new Date(Number(p.createdAt) * 1000),
+        votingAddress: p.memberAddress,
+        status
+      };
+    });
+  }
+
   public async getVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
     switch (dao.kind) {
       case DaoKind.ARAGON:
         return this.getAragonVotes(dao);
       case DaoKind.MOLOCH:
         return this.getMolochVotes(dao);
+      case DaoKind.DAOSTACK:
+        return this.getDaostackVotes(dao);
       default:
         return assertNever(dao.kind);
     }
