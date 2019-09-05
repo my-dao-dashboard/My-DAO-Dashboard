@@ -165,17 +165,22 @@ export class DaosService {
       `
     });
 
-    const holdings = results.data.reputationHolders.map((holder: any) => {
-      return {
-        address: holder.dao.id,
-        name: holder.dao.name,
-        kind: DaoKind.DAOSTACK,
-        shareBalance: new BigNumber(holder.balance).dividedBy(10 ** 18).toNumber(),
-        totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
-        balance: [],
-        usdBalance: 0
-      } as DaoInstanceState;
-    });
+    const holdings: DaoInstanceState[] = await Promise.all(
+      await results.data.reputationHolders.map(async (holder: any) => {
+        const balance = await this.balanceService.balance(holder.dao.id);
+        const usdBalance = balance.reduce((acc, cur) => acc + cur.usdValue, 0);
+
+        return {
+          address: holder.dao.id,
+          name: holder.dao.name,
+          kind: DaoKind.DAOSTACK,
+          shareBalance: new BigNumber(holder.balance).dividedBy(10 ** 18).toNumber(),
+          totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
+          balance,
+          usdBalance
+        } as DaoInstanceState;
+      })
+    );
 
     return holdings;
   }
