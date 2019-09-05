@@ -1,4 +1,5 @@
-import { Avatar, Col, Row, Tooltip } from "antd";
+import { Avatar, Col, Divider, Row, Tooltip } from "antd";
+import makeBlockie from "ethereum-blockies-base64";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,11 +18,12 @@ export class AppHeader extends Component<Props> {
             <Link to="/">My DAO Dashboard</Link>
           </Col>
           <Col span={12} style={{ textAlign: "right" }}>
-            <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to={"/settings"}>Settings</Link>
+            &nbsp;
+            <Divider type="vertical" />
+            &nbsp;
             <Tooltip title={this.props.account} placement="left">
-              <Avatar shape="square" style={{ color: '#000' }} size="large">
-                {this.props.account.substring(0, 5)}
-              </Avatar>
+              <Avatar src={makeBlockie(this.props.account)} />
             </Tooltip>
           </Col>
         </Row>
