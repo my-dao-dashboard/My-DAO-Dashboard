@@ -6,12 +6,14 @@ import { BalanceService } from "../../backbone/balance.service";
 import { first, flatMap, map } from "rxjs/operators";
 import { MolochService } from "./moloch.service";
 import { DaoInstanceState } from "../../backbone/State";
+import { AragonService } from "./aragon.service";
 
 export class DaosService {
   private readonly store: DaosStore;
   readonly query: DaosQuery;
   private readonly balanceService$: Observable<BalanceService>;
   private readonly molochService$: Observable<MolochService>;
+  private readonly aragonService$: Observable<AragonService>;
 
   constructor(watchedAddresses$: Observable<string[]>, web3$: Observable<Web3>, account$: Observable<string>) {
     this.store = new DaosStore({
@@ -21,6 +23,7 @@ export class DaosService {
     this.query = new DaosQuery(this.store);
     this.balanceService$ = web3$.pipe(map(web3 => new BalanceService(web3)));
     this.molochService$ = zip(web3$, this.balanceService$).pipe(map(p => new MolochService(p[0], p[1])));
+    this.aragonService$ = zip(web3$, this.balanceService$).pipe(map(p => new AragonService(p[0], p[1])));
 
     zip(watchedAddresses$, account$)
       .pipe(map(p => p[0].concat(p[1])))
@@ -39,10 +42,12 @@ export class DaosService {
   }
 
   async allByAccount(address: string): Promise<DaoInstanceState[]> {
-    const molochDaos$ = this.molochService$.pipe(
-      flatMap(s => s.all(address)),
+    const molochDaos$ = this.molochService$.pipe(flatMap(s => s.all(address)));
+    const aragonDaos$ = this.aragonService$.pipe(flatMap(s => s.all(address)));
+    const daos = zip(molochDaos$, aragonDaos$).pipe(
+      map(d => d.flat()),
       first()
     );
-    return molochDaos$.toPromise();
+    return daos.toPromise();
   }
 }
