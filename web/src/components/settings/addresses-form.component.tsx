@@ -1,12 +1,11 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
-import { BlockchainContext } from "../../contexts/blockchain.context";
 import _ from "underscore";
 import { useProgress } from "../../hooks/use-progress";
+import { isAddress } from "../../util/is-address";
 
 export const AddressesFormComponent: React.FC = props => {
   const settings = useContext(SettingsContext);
-  const blockchain = useContext(BlockchainContext);
   const [watchedAddresses, setWatchedAddresses] = useState(settings.query.watchedAddresses);
   const [addressesToStore, setAddressesToStore] = useState<string[]>([]);
   const savingProgress = useProgress(false);
@@ -28,9 +27,7 @@ export const AddressesFormComponent: React.FC = props => {
       value
         .replace(/\s+/g, "")
         .split(",")
-        .filter(smth => {
-          return blockchain.isAddress(smth);
-        })
+        .filter(isAddress)
     );
     setAddressesToStore(addresses);
   };

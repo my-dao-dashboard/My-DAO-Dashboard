@@ -28,10 +28,6 @@ export class BlockchainService {
     );
   }
 
-  isAddress(something: string) {
-    return this.web3.utils.isAddress(something);
-  }
-
   async updateAddress(upstream: any) {
     this.web3 = new Web3(upstream);
     const address = upstream.selectedAddress;
