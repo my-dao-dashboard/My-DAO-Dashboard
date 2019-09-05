@@ -1,6 +1,5 @@
 import { Badge, Table } from "antd";
 import Column from "antd/lib/table/Column";
-import Paragraph from "antd/lib/typography/Paragraph";
 import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
 import { VoteCount } from "../../backbone/votes.service";
@@ -56,7 +55,7 @@ export default class ProposalTable extends Component<IProps> {
             }}
           />
           <Column title="Created" dataIndex="deadline" key="deadline" render={text => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline} />
-          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState) => <DaoIconLink type={dao.kind} address={dao.address} />} />
+          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState, vote: IProposalColumn) => <DaoIconLink type={dao.kind} dao={dao.address} vote={String(vote.id)} />} />
         </Table>
       </>
     );
