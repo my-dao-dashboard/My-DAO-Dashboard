@@ -1,6 +1,7 @@
 import { BlockchainStore } from "./blockchain.store";
 import Web3 from "web3";
 import { BlockchainQuery } from "./blockchain.query";
+import { filter, map } from "rxjs/operators";
 
 export class BlockchainService {
   private readonly store: BlockchainStore;
@@ -13,6 +14,18 @@ export class BlockchainService {
     });
     this.query = new BlockchainQuery(this.store);
     this.web3 = new Web3();
+  }
+
+  get ready$() {
+    return this.query.address$.pipe(
+      filter(a => !!a),
+      map(a => {
+        return {
+          address: a,
+          web3: this.web3
+        };
+      })
+    );
   }
 
   async updateAddress(upstream: any) {

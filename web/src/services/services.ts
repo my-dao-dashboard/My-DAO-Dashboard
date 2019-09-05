@@ -2,7 +2,6 @@ import { MetamaskService } from "./metamask/metamask.service";
 import { BlockchainService } from "./blockchain/blockchain.service";
 import { memoize } from "../util/memoize";
 import { SettingsService } from "./settings/settings.service";
-import { filter } from "rxjs/operators";
 import { DaosService } from "./daos/daos.service";
 
 export class Services {
@@ -14,10 +13,8 @@ export class Services {
   @memoize()
   get blockchain() {
     const service = new BlockchainService();
-    this.metamask.query.isEnabled$.subscribe(async isEnabled => {
-      if (isEnabled) {
-        await service.updateAddress(this.metamask.upstream);
-      }
+    this.metamask.ready$.subscribe(async upstream => {
+      await service.updateAddress(upstream);
     });
     return service;
   }
@@ -25,16 +22,16 @@ export class Services {
   @memoize()
   get settings() {
     const service = new SettingsService();
-    this.blockchain.query.address$.pipe(filter(p => !!p)).subscribe(async address => {
-      const web3 = this.blockchain.web3;
-      await service.openSpace(web3, address);
+    this.blockchain.ready$.subscribe(async payload => {
+      await service.openSpace(payload.web3, payload.address);
       service.readWatchedAddresses();
     });
     return service;
   }
 
   @memoize()
-  get daos () {
-    return new DaosService()
+  get daos() {
+    const service = new DaosService();
+    return service;
   }
 }

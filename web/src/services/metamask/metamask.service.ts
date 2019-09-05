@@ -1,5 +1,6 @@
 import { MetamaskStore } from "./metamask.store";
 import { MetamaskQuery } from "./metamask.query";
+import { filter, map } from "rxjs/operators";
 
 export class MetamaskService {
   readonly upstream: any;
@@ -14,6 +15,13 @@ export class MetamaskService {
       isEnabled: Boolean(this.upstream.enable ? this.upstream.selectedAddress : !!this.upstream)
     });
     this.query = new MetamaskQuery(this.store);
+  }
+
+  get ready$() {
+    return this.query.isEnabled$.pipe(
+      filter(p => !!p),
+      map(t => this.upstream)
+    );
   }
 
   async enable() {
