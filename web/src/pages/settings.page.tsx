@@ -5,7 +5,8 @@ import { AddressesFormComponent } from "../components/settings/addresses-form.co
 export const SettingsPage: React.FC = props => {
   return (
     <SettingsLoader>
-      <AddressesFormComponent />
+        <p>Watched addresses:</p>
+        <AddressesFormComponent/>
     </SettingsLoader>
   );
 };

@@ -14,7 +14,7 @@ export class SettingsQuery extends Query<SettingsState> {
     });
   }
 
-  get watchedAddresses(): string[] | undefined {
-    return this.getValue().watchedAddresses;
+  get watchedAddresses(): string[] {
+    return this.getValue().watchedAddresses || []
   }
 }
