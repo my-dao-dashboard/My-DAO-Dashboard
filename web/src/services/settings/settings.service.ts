@@ -7,8 +7,13 @@ export class SettingsService {
 
   constructor() {
     this.store = new SettingsStore({
-      watchedAddresses: []
+      watchedAddresses: [],
     });
+    this.store.setLoading(true);
     this.query = new SettingsQuery(this.store);
+  }
+
+  readWatchedAddresses(): void {
+    // wrap 3box into observable
   }
 }

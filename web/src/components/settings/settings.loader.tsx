@@ -1,42 +1,23 @@
-import React from "react";
-import { State } from "../../redux/redux";
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
+import React, { useContext, useEffect, useState } from "react";
+import { SettingsContext } from "../../contexts/settings.context";
+import Loader from "../Layout/Loader/Loader";
 
-interface Props {
-  isRead: boolean;
-}
+export const SettingsLoader: React.FC = (props) => {
+  const settings = useContext(SettingsContext);
+  const [isLoaded, setLoaded] = useState<boolean>(settings.query.isLoaded);
 
-interface DispatchProps {
-  readSettings: () => void
-}
+  useEffect(() => {
+    const subscription = settings.query.selectLoading().subscribe(isLoading => {
+      setLoaded(!isLoading);
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
 
-class SettingsLoader extends React.Component<Props & DispatchProps> {
-  componentDidMount(): void {
-    this.props.readSettings()
+  if (isLoaded) {
+    return <>{props.children}</>;
+  } else {
+    return <Loader message={"Opening 3Box profile..."} />;
   }
-
-  render() {
-    if (this.props.isRead) {
-      return this.props.children;
-    } else {
-      return "ENABLING 3box";
-    }
-  }
-}
-
-function stateToProps(state: State): Props {
-  return {
-    isRead: state.settings.isRead
-  };
-}
-
-function dispatchToProps(dispatch: ThunkDispatch<State, any, any>) {
-  return {
-    readSettings: () => {
-      console.log('readSettings')
-    }
-  }
-}
-
-export default connect(stateToProps)(SettingsLoader);
+};

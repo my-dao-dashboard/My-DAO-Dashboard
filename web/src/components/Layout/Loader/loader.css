@@ -8,8 +8,9 @@
 }
 .loader-center {
   margin: auto;
-  width: 30px;
+  width: 300px;
   padding: 10px;
+  text-align: center;
 }
 
 .donut-loader {

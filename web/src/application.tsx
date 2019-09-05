@@ -12,7 +12,6 @@ import Dashboard from "./pages/Dashboard";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/redux";
 import { AvailableMetamaskContainer } from "./components/account/available-metamask.container";
-import SettingsLoader from "./components/settings/settings.loader";
 
 const { Header, Content, Footer } = Layout;
 

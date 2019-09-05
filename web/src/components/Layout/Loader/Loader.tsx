@@ -1,14 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import "./loader.css";
 
-class Loader extends Component {
-  public render() {
-    return (
-      <div className="loader-center">
-        <div className="donut-loader" />
-      </div>
-    );
-  }
+interface Props {
+  message?: string;
 }
+
+const Loader: React.FC<Props> = props => {
+  const message = props.message ? <div>{props.message}</div> : undefined;
+  return (
+    <div className="loader-center">
+      {message}
+      <div className="donut-loader" />
+    </div>
+  );
+};
 
 export default Loader;

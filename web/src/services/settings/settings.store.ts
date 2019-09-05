@@ -5,9 +5,4 @@ export interface SettingsState {
 }
 
 @StoreConfig({ name: "settings" })
-export class SettingsStore extends Store<SettingsState> {
-  constructor(initialState: SettingsState) {
-    super(initialState);
-    this.setLoading(true);
-  }
-}
+export class SettingsStore extends Store<SettingsState> {}
