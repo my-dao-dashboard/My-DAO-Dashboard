@@ -23,4 +23,16 @@ export class DaosQuery extends Query<DaosState> {
   get daos() {
     return this.getValue().daos;
   }
+
+  byAddress(address: string) {
+    return this.daos.find(d => d.address === address);
+  }
+
+  loadedByAddress$(address: string): Observable<DaoInstanceState> {
+    return this.loadedDaos$.pipe(
+      map(daos => daos.filter(d => d.address === address)),
+      filter(d => d.length > 0),
+      map(d => d[0])
+    );
+  }
 }

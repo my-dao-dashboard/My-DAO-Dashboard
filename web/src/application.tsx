@@ -3,15 +3,13 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Redirect, Route } from "react-router";
 import "./assets/styles/app.css";
-import DaoListLoader from "./components/DaoListComponent/DaoListLoader";
 import { AppHeaderComponent } from "./components/Layout/app-header.component";
-import ProposalLoader from "./components/ProposalLoader";
 import { SettingsPage } from "./pages/settings.page";
-import DAO from "./pages/DAO";
 import { DashboardPage } from "./pages/dashboard.page";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/redux";
 import { AvailableMetamaskContainer } from "./components/account/available-metamask.container";
+import { DaoPage } from "./pages/dao.page";
 
 const { Header, Content, Footer } = Layout;
 
@@ -26,14 +24,10 @@ const Application: React.FC = () => {
             </Header>
             <Content className="container">
               <div className="content">
-                {/*<DaoListLoader>*/}
-                {/*  <ProposalLoader>*/}
                 <Route exact path="/" component={DashboardPage} />
-                {/*    <Route exact path="/dao/:address" component={DAO} />*/}
+                <Route exact path="/dao/:address" component={DaoPage} />
                 <Route exact path="/settings" component={SettingsPage} />
-                <Redirect to="/" />
-                {/*  </ProposalLoader>*/}
-                {/*</DaoListLoader>*/}
+                {/*<Redirect to="/" />*/}
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>

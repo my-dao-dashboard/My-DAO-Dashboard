@@ -7,11 +7,11 @@ export const ProposalsLoader: React.FC = props => {
   const [isLoading, setIsLoading] = useState(proposalsContext.query.isLoading);
 
   useEffect(() => {
-    const subscription = proposalsContext.query.selectLoading().subscribe(setIsLoading);
+    const subscription = proposalsContext.query.isLoading$.subscribe(setIsLoading);
     return () => {
       subscription.unsubscribe();
     };
-  }, [proposalsContext.query.selectLoading()]);
+  }, [proposalsContext.query.isLoading$]);
 
   if (isLoading) {
     return <Loader />;
