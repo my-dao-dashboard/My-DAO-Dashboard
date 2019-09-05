@@ -24,13 +24,12 @@ export const AddressesFormComponent: React.FC = props => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const web3 = blockchain.web3;
     const addresses = _.uniq(
       value
         .replace(/\s+/g, "")
         .split(",")
         .filter(smth => {
-          return web3.utils.isAddress(smth);
+          return blockchain.isAddress(smth);
         })
     );
     setAddressesToStore(addresses);

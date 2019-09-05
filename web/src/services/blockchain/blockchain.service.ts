@@ -6,7 +6,7 @@ import { filter, map } from "rxjs/operators";
 export class BlockchainService {
   private readonly store: BlockchainStore;
   readonly query: BlockchainQuery;
-  web3: Web3;
+  private web3: Web3;
 
   constructor() {
     this.store = new BlockchainStore({
@@ -26,6 +26,10 @@ export class BlockchainService {
         };
       })
     );
+  }
+
+  isAddress(something: string) {
+    return this.web3.utils.isAddress(something);
   }
 
   async updateAddress(upstream: any) {
