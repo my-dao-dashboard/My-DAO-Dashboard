@@ -3,6 +3,7 @@ import { BlockchainService } from "./blockchain/blockchain.service";
 import { memoize } from "../util/memoize";
 import { SettingsService } from "./settings/settings.service";
 import { filter } from "rxjs/operators";
+import { DaosService } from "./daos/daos.service";
 
 export class Services {
   @memoize()
@@ -30,5 +31,10 @@ export class Services {
       service.readWatchedAddresses();
     });
     return service;
+  }
+
+  @memoize()
+  get daos () {
+    return new DaosService()
   }
 }

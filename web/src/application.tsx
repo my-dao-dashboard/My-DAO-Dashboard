@@ -8,7 +8,7 @@ import { AppHeaderComponent } from "./components/Layout/app-header.component";
 import ProposalLoader from "./components/ProposalLoader";
 import { SettingsPage } from "./pages/settings.page";
 import DAO from "./pages/DAO";
-import Dashboard from "./pages/Dashboard";
+import { DashboardPage } from "./pages/dashboard.page";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/redux";
 import { AvailableMetamaskContainer } from "./components/account/available-metamask.container";
@@ -28,10 +28,10 @@ const Application: React.FC = () => {
               <div className="content">
                 {/*<DaoListLoader>*/}
                 {/*  <ProposalLoader>*/}
-                {/*    <Route exact path="/" component={Dashboard} />*/}
+                <Route exact path="/" component={DashboardPage} />
                 {/*    <Route exact path="/dao/:address" component={DAO} />*/}
                 <Route exact path="/settings" component={SettingsPage} />
-                {/*<Redirect to="/" />*/}
+                <Redirect to="/" />
                 {/*  </ProposalLoader>*/}
                 {/*</DaoListLoader>*/}
               </div>
