@@ -18,14 +18,12 @@ export interface IBalanceEntry {
 }
 
 export class BalanceService {
-  private readonly web3: Web3;
   private readonly antContract: Contract;
   private readonly daiContract: Contract;
   private readonly genContract: Contract;
   private readonly tacoContract: Contract;
 
-  constructor(public readonly accountService: AccountService) {
-    this.web3 = accountService.web3();
+  constructor(private readonly web3: Web3) {
     this.antContract = new this.web3.eth.Contract(erc20ABI, ANT_ADDRESS);
     this.daiContract = new this.web3.eth.Contract(erc20ABI, DAI_ADDRESS);
     this.genContract = new this.web3.eth.Contract(erc20ABI, GEN_ADDRESS);
