@@ -26,8 +26,8 @@ export class Services {
     const service = new SettingsService();
     this.blockchain.query.address$.pipe(filter(p => !!p)).subscribe(async address => {
       const web3 = this.blockchain.web3;
-      await service.openSpace(web3, address)
-      await service.readWatchedAddresses();
+      await service.openSpace(web3, address);
+      service.readWatchedAddresses();
     });
     return service;
   }

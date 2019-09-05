@@ -1,8 +1,8 @@
 import { SettingsStore } from "./settings.store";
 import { SettingsQuery } from "./settings.query";
 import Web3 from "web3";
-import { Subject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter, first } from "rxjs/operators";
 
 const ThreeBox = require("3box");
 
@@ -12,7 +12,8 @@ const ADDRESS_KEY = "watched-addresses";
 export class SettingsService {
   private readonly store: SettingsStore;
   readonly query: SettingsQuery;
-  private space: any | undefined;
+  private readonly space$Subject: BehaviorSubject<any>;
+  private readonly space$: Observable<any>;
 
   constructor() {
     this.store = new SettingsStore({
@@ -20,26 +21,33 @@ export class SettingsService {
     });
     this.store.setLoading(true);
     this.query = new SettingsQuery(this.store);
+    this.space$Subject = new BehaviorSubject(undefined)
+    this.space$ = this.space$Subject.pipe(filter(s => !!s))
   }
 
   async openSpace(web3: Web3, address: string) {
     const box = await ThreeBox.openBox(address, web3.currentProvider);
-    this.space = await box.openSpace(NAMESPACE);
-    return this.space
+    const space = await box.openSpace(NAMESPACE);
+    this.space$Subject.next(space);
   }
 
   async writeWatchedAddresses(addresses: string[]) {
-    console.log(this.writeWatchedAddresses, addresses);
+    const space = await this.space$.pipe(first()).toPromise()
+    const toWrite = addresses.map(a => a.toLowerCase());
+    await space.private.set(ADDRESS_KEY, toWrite)
+    this.store.update({
+      watchedAddresses: toWrite
+    })
   }
 
-  async readWatchedAddresses() {
-    if (!this.space) throw new Error('Must call openSpace first');
-    const space = this.space;
-    const boxedAddresses = await space.private.get(ADDRESS_KEY);
-    const watchedAddresses = boxedAddresses || [];
-    this.store.update({
-      watchedAddresses
+  readWatchedAddresses() {
+    this.space$.pipe(first()).subscribe(async space => {
+      const boxedAddresses = await space.private.get(ADDRESS_KEY);
+      const watchedAddresses = boxedAddresses || [];
+      this.store.update({
+        watchedAddresses
+      });
+      this.store.setLoading(false);
     });
-    this.store.setLoading(false);
   }
 }
