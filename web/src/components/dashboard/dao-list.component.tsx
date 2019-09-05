@@ -7,7 +7,7 @@ export const DaoListComponent: React.FC = () => {
   const [daos, setDaos] = useState(daosContext.query.daos);
 
   useEffect(() => {
-    const subscription = daosContext.query.daos$.subscribe(setDaos);
+    const subscription = daosContext.query.loadedDaos$.subscribe(setDaos);
     return () => {
       subscription.unsubscribe();
     };

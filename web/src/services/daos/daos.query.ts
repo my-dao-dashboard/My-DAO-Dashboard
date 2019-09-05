@@ -5,18 +5,19 @@ import { DaoInstanceState } from "../../backbone/State";
 import { filter, map } from "rxjs/operators";
 
 export class DaosQuery extends Query<DaosState> {
-  isLoaded: boolean = false;
+  isLoading: boolean = true;
 
+  isLoading$ = this.selectLoading();
   daos$: Observable<DaoInstanceState[]> = this.select(s => s.daos);
-  loadedDaos$: Observable<DaoInstanceState[]> = zip(this.selectLoading(), this.daos$).pipe(
+  loadedDaos$: Observable<DaoInstanceState[]> = zip(this.isLoading$, this.daos$).pipe(
     filter(p => !p[0]),
     map(p => p[1])
   );
 
   constructor(protected store: DaosStore) {
     super(store);
-    this.selectLoading().subscribe(isLoaded => {
-      this.isLoaded = isLoaded;
+    this.isLoading$.subscribe(isLoading => {
+      this.isLoading = isLoading;
     });
   }
 

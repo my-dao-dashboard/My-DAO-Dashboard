@@ -8,24 +8,22 @@ import { map } from "rxjs/operators";
 export const DashboardLoader: React.FC = props => {
   const daosContext = useContext(DaosContext);
   const settingsContext = useContext(SettingsContext);
-  const [isLoaded, setIsLoaded] = useState(daosContext.query.isLoaded && settingsContext.query.isLoaded);
+  const [isLoading, setIsLoading] = useState(daosContext.query.isLoading || settingsContext.query.isLoading);
 
   useEffect(() => {
-    const selectLoading = zip(daosContext.query.selectLoading(), settingsContext.query.selectLoading()).pipe(
-      map(t => t[0] && t[1])
-    );
-    const subscription = selectLoading.subscribe(isLoading => {
-      setIsLoaded(!isLoading);
+    const isLoading$ = zip(daosContext.query.isLoading$, settingsContext.query.isLoading$).pipe(map(t => t[0] && t[1]));
+    const subscription = isLoading$.subscribe(isLoading => {
+      setIsLoading(isLoading);
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  });
+  }, [daosContext.query.isLoading$, settingsContext.query.isLoading$]);
 
-  if (isLoaded) {
-    return <>{props.children}</>;
-  } else {
+  if (isLoading) {
     return <Loader message={"Loading DAOs..."} />;
+  } else {
+    return <>{props.children}</>;
   }
 };

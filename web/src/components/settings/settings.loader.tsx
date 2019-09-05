@@ -4,7 +4,7 @@ import Loader from "../Layout/Loader/Loader";
 
 export const SettingsLoader: React.FC = (props) => {
   const settings = useContext(SettingsContext);
-  const [isLoaded, setLoaded] = useState<boolean>(settings.query.isLoaded);
+  const [isLoaded, setLoaded] = useState<boolean>(settings.query.isLoading);
 
   useEffect(() => {
     const subscription = settings.query.selectLoading().subscribe(isLoading => {
