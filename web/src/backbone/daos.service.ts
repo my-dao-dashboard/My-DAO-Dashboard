@@ -136,7 +136,7 @@ export class DaosService {
     return aragonKernels;
   }
 
-  public async getDaostackDaosByReputation(address: string): Promise<DaoInstanceState[]> {
+  public async getDaostackDaos(address: string): Promise<DaoInstanceState[]> {
     const results = await this.daostackApollo.query({
       query: gql`
         query {
@@ -226,7 +226,7 @@ export class DaosService {
   public async getDaos(address: string): Promise<DaoInstanceState[]> {
     const aragons = await this.getAragonDaos(address);
     const molochs = await this.getMolochDaos(MOLOCH_MEMBER_ADDRESS || address);
-    const daostack = await this.getDaostackDaosByReputation(address);
+    const daostack = await this.getDaostackDaos(address);
     return aragons.concat(molochs).concat(daostack);
   }
 }
