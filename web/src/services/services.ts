@@ -3,6 +3,7 @@ import { BlockchainService } from "./blockchain/blockchain.service";
 import { memoize } from "../util/memoize";
 import { SettingsService } from "./settings/settings.service";
 import { DaosService } from "./daos/daos.service";
+import { map } from "rxjs/operators";
 
 export class Services {
   @memoize()
@@ -31,7 +32,9 @@ export class Services {
 
   @memoize()
   get daos() {
-    const service = new DaosService();
-    return service;
+    const watchedAddresses$ = this.settings.query.loadedWatchedAddresses$;
+    const web3$ = this.blockchain.ready$.pipe(map(p => p.web3));
+    const account$ = this.blockchain.ready$.pipe(map(p => p.address));
+    return new DaosService(watchedAddresses$, web3$, account$);
   }
 }
