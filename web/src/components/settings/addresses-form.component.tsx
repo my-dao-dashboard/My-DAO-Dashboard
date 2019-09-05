@@ -53,7 +53,7 @@ export const AddressesFormComponent: React.FC = props => {
     return () => {
       subscription.unsubscribe();
     };
-  });
+  }, [settings.query.watchedAddresses$]);
 
   return (
     <>

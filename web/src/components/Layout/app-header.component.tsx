@@ -12,7 +12,7 @@ export const AppHeaderComponent: React.FC = () => {
     return () => {
       subscription.unsubscribe();
     };
-  });
+  }, [blockchain.query.address$]);
 
   const shortAddress = address.substring(0, 5);
 
