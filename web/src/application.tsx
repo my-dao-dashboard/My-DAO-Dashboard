@@ -1,7 +1,7 @@
 import { Icon, Layout } from "antd";
 import React from "react";
 import { Provider } from "react-redux";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import "./assets/styles/app.css";
 import { AppHeaderComponent } from "./components/Layout/app-header.component";
 import { SettingsPage } from "./pages/settings.page";
@@ -24,10 +24,12 @@ const Application: React.FC = () => {
             </Header>
             <Content className="container">
               <div className="content">
-                <Route exact path="/" component={DashboardPage} />
-                <Route exact path="/dao/:address" component={DaoPage} />
-                <Route exact path="/settings" component={SettingsPage} />
-                {/*<Redirect to="/" />*/}
+                <Switch>
+                  <Route exact path="/" component={DashboardPage} />
+                  <Route exact path="/dao/:address" component={DaoPage} />
+                  <Route exact path="/settings" component={SettingsPage} />
+                  <Redirect to="/" />
+                </Switch>
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>
