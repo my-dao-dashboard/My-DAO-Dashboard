@@ -8,7 +8,7 @@ export const EnableMetamaskContainer: React.FC = (props) => {
 
   useEffect(() => {
     metamask.query.isEnabled$.subscribe(setEnabled);
-  });
+  }, [metamask.query.isEnabled$]);
 
   if (isEnabled) {
     return <>{props.children}</>;

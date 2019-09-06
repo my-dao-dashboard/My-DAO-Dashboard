@@ -11,7 +11,7 @@ export const DaoListComponent: React.FC = () => {
     return () => {
       subscription.unsubscribe();
     };
-  });
+  }, [daosContext.query.loadedDaos$]);
 
   return <DaoListView daos={daos} />;
 };
