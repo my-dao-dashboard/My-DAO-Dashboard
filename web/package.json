@@ -27,9 +27,7 @@
     ]
   },
   "dependencies": {
-    "rxjs": "^6.3.3",
     "3box": "^1.10.7",
-    "@apollo/react-hooks": "^3.0.1",
     "@datorama/akita": "^4.10.2",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
