@@ -4,10 +4,10 @@ import { Observable, zip } from "rxjs";
 import Web3 from "web3";
 import { first, flatMap, map } from "rxjs/operators";
 import { MolochService } from "./moloch.service";
-import { DaoInstanceState } from "../../backbone/State";
 import { AragonService } from "./aragon.service";
 import { DaostackService } from "./daostack.service";
 import { BalanceService } from "../balance.service";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class DaosService {
   private readonly store: DaosStore;

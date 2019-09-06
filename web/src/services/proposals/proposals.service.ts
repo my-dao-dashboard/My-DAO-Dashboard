@@ -1,7 +1,6 @@
 import { ProposalsStore } from "./proposals.store";
 import { ProposalsQuery } from "./proposals.query";
 import { Observable } from "rxjs";
-import { DaoInstanceState } from "../../backbone/State";
 import Web3 from "web3";
 import { first, flatMap } from "rxjs/operators";
 import aragonKernelABI from "../../abis/aragon-kernel.abi.json";
@@ -13,6 +12,7 @@ import { VoteProposal } from "../../model/vote-proposal";
 import { VoteCount } from "../../model/vote-count";
 import { TransactionKind } from "../../model/transaction-kind";
 import { DaoKind } from "../../model/dao-kind";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 const MINTING_MARK = "40c10f19";
 

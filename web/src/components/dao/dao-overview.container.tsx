@@ -2,7 +2,7 @@ import React from "react";
 import DaoTagView from "../dao-tag.view";
 import DaoLinkComponent from "./dao-link.component";
 import { Progress, Statistic, Tooltip } from "antd";
-import { DaoInstanceState } from "../../backbone/State";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 interface Props {
   dao: DaoInstanceState;

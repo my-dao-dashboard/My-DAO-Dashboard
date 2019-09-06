@@ -1,8 +1,8 @@
 import { Query } from "@datorama/akita";
 import { DaosState, DaosStore } from "./daos.store";
 import { Observable, zip } from "rxjs";
-import { DaoInstanceState } from "../../backbone/State";
 import { filter, map } from "rxjs/operators";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class DaosQuery extends Query<DaosState> {
   isLoading: boolean = true;

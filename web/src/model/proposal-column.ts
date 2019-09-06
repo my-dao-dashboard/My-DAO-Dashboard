@@ -1,7 +1,7 @@
 import { VoteCount } from "./vote-count";
-import { DaoInstanceState } from "../backbone/State";
 import { VoteProposal } from "./vote-proposal";
 import { VoteStatus } from "./vote-status";
+import { DaoInstanceState } from "./dao-instance-state";
 
 export interface ProposalColumn {
   key: string,

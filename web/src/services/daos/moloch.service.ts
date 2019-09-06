@@ -1,12 +1,12 @@
 import Web3 from "web3";
 
 import KNOWN_MOLOCHS from "../../data/moloch-daos.json";
-import { DaoInstanceState } from "../../backbone/State";
 import molochABI from "../../abis/moloch.abi.json";
 import erc20ABI from "../../abis/erc20.abi.json";
 import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
 import { DaoKind } from "../../model/dao-kind";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class MolochService {
   constructor(private readonly web3: Web3, private readonly balanceService: BalanceService) {}

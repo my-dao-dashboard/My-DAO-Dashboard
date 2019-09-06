@@ -1,5 +1,5 @@
-import { BalanceEntry } from "../model/balance-entry";
-import { DaoKind } from "../model/dao-kind";
+import { DaoKind } from "./dao-kind";
+import { BalanceEntry } from "./balance-entry";
 
 export interface DaoInstanceState {
   address: string;

@@ -1,7 +1,7 @@
-import { DaoInstanceState } from "../backbone/State";
 import { TransactionKind } from "./transaction-kind";
 import { VoteCount } from "./vote-count";
 import { VoteStatus } from "./vote-status";
+import { DaoInstanceState } from "./dao-instance-state";
 
 export interface VoteProposal {
   kind: TransactionKind;
