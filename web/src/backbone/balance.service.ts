@@ -2,20 +2,12 @@ import BigNumber from "bignumber.js";
 import Web3 from "web3";
 import Contract from "web3/eth/contract";
 import erc20ABI from "../abis/erc20.abi.json";
-import { AccountService } from "./account.service";
+import { BalanceEntry } from "../model/balance-entry";
 
 const ANT_ADDRESS = "0x960b236A07cf122663c4303350609A66A7B288C0";
 const DAI_ADDRESS = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359";
 const GEN_ADDRESS = "0x543ff227f64aa17ea132bf9886cab5db55dcaddf";
 const TACO_ADDRESS = "0x36efe52b14e4d0ca4e3bd492488272e1fb2d7e1b";
-
-export interface IBalanceEntry {
-  symbol: string;
-  name: string;
-  contractAddress: string;
-  value: BigNumber;
-  usdValue: number;
-}
 
 export class BalanceService {
   private readonly antContract: Contract;
@@ -37,7 +29,7 @@ export class BalanceService {
     return payload.data.market_data.price_usd;
   }
 
-  public async balance(address: string): Promise<IBalanceEntry[]> {
+  public async balance(address: string): Promise<BalanceEntry[]> {
     const ethBalance = new BigNumber(await this.web3.eth.getBalance(address));
     const ethBalanceUsd = ethBalance.dividedBy(10 ** 18).multipliedBy(await this.assetPrice("ETH"));
     const antBalance = new BigNumber(await this.antContract.methods.balanceOf(address).call());

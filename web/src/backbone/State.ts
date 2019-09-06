@@ -1,5 +1,5 @@
-import { IBalanceEntry } from "./balance.service";
-import { VoteProposal } from "./votes.service";
+import { VoteProposal } from "../model/vote-proposal";
+import { BalanceEntry } from "../model/balance-entry";
 
 export interface AccountState {
   address?: string;
@@ -17,7 +17,7 @@ export interface DaoInstanceState {
   kind: DaoKind;
   shareBalance: number;
   totalSupply: number;
-  balance: IBalanceEntry[];
+  balance: BalanceEntry[];
   usdBalance: number;
 }
 

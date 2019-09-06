@@ -3,11 +3,11 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import "./assets/styles/app.css";
 import { AppHeaderComponent } from "./components/layout/app-header.component";
-import { SettingsPage } from "./pages/settings.page";
-import { DashboardPage } from "./pages/dashboard.page";
+import { SettingsPage } from "./components/settings.page";
+import { DashboardPage } from "./components/dashboard.page";
 import { BrowserRouter } from "react-router-dom";
 import { AvailableMetamaskContainer } from "./components/account/available-metamask.container";
-import { DaoPage } from "./pages/dao.page";
+import { DaoPage } from "./components/dao.page";
 
 const { Header, Content, Footer } = Layout;
 

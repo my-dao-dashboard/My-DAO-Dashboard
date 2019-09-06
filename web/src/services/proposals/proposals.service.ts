@@ -7,8 +7,11 @@ import { first, flatMap } from "rxjs/operators";
 import aragonKernelABI from "../../abis/aragon-kernel.abi.json";
 import aragonVotingABI from "../../abis/aragon-voting.abi.json";
 import BigNumber from "bignumber.js";
-import { TransactionKind, VoteCount, VoteProposal, VoteStatus } from "../../backbone/votes.service";
 import ApolloClient, { gql } from "apollo-boost";
+import { VoteStatus } from "../../model/vote-status";
+import { VoteProposal } from "../../model/vote-proposal";
+import { VoteCount } from "../../model/vote-count";
+import { TransactionKind } from "../../model/transaction-kind";
 
 const MINTING_MARK = "40c10f19";
 

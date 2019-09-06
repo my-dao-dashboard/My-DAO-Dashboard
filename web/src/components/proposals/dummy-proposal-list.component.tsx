@@ -1,10 +1,10 @@
 import React from "react";
 import ProposalTableComponent from "./proposal-table.component";
-import { IProposalColumn } from "./IProposalColumn";
+import { ProposalColumn } from "../../model/proposal-column";
 
 interface Props {
-  openProposals: IProposalColumn[]
-  proposals: IProposalColumn[]
+  openProposals: ProposalColumn[]
+  proposals: ProposalColumn[]
 }
 
 export class DummyProposalListComponent extends React.Component<Props> {

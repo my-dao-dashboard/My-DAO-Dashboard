@@ -2,14 +2,14 @@ import { Badge, Table } from "antd";
 import Column from "antd/lib/table/Column";
 import React, { Component } from "react";
 import { DaoInstanceState } from "../../backbone/State";
-import { VoteCount } from "../../backbone/votes.service";
 import DaoIconLinkComponent from "./dao-icon-link.component";
 import DaoTagView from "../dao-tag.view";
-import { IProposalColumn } from "./IProposalColumn";
+import { ProposalColumn } from "../../model/proposal-column";
+import { VoteCount } from "../../model/vote-count";
 
 interface IProps {
   open: boolean;
-  source: IProposalColumn[];
+  source: ProposalColumn[];
 }
 
 export default class ProposalTableComponent extends Component<IProps> {
@@ -55,7 +55,7 @@ export default class ProposalTableComponent extends Component<IProps> {
             }}
           />
           <Column title="Created" dataIndex="deadline" key="deadline" render={text => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline} />
-          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState, vote: IProposalColumn) => <DaoIconLinkComponent type={dao.kind} dao={dao.address} vote={String(vote.id)} />} />
+          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState, vote: ProposalColumn) => <DaoIconLinkComponent type={dao.kind} dao={dao.address} vote={String(vote.id)} />} />
         </Table>
       </>
     );
