@@ -29,15 +29,6 @@
   "dependencies": {
     "3box": "^1.10.7",
     "@datorama/akita": "^4.10.2",
-    "@types/jest": "24.0.18",
-    "@types/node": "12.7.2",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "@types/react-redux": "^7.1.2",
-    "@types/react-router": "^5.0.3",
-    "@types/react-router-dom": "^4.3.5",
-    "@types/redux-logger": "^3.0.7",
-    "@types/web3": "^1.0.19",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",
@@ -47,19 +38,22 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1",
-    "redux": "^4.0.4",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
     "rxjs": "^6.3.3",
-    "typescript": "3.5.3",
     "web3": "^1.2.1"
   },
   "devDependencies": {
+    "@types/jest": "24.0.18",
     "@types/memoizee": "^0.4.2",
+    "@types/node": "12.7.2",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-router": "^5.0.3",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/web3": "^1.0.19",
     "prettier": "^1.18.2",
-    "ts-node": "^8.3.0",
+    "react-scripts": "3.1.1",
     "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "3.5.3"
   }
 }
