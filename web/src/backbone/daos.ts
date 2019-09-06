@@ -2,11 +2,11 @@ import actionCreatorFactory from "typescript-fsa";
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import asyncFactory from "typescript-fsa-redux-thunk";
 import { Provider } from "web3/providers";
-import { uniq } from "../components/DaoListComponent/DaoListLoader";
 import * as services from "./services";
 import { votesService } from "./services";
 import { DaoInstanceState, DaosState } from "./State";
 import { VoteProposal } from "./votes.service";
+import _ from "underscore";
 
 // tslint:disable-next-line: no-var-requires
 const Box = require("3box");
@@ -48,7 +48,7 @@ export const getDaos = asyncAction<string, DaoInstanceState[]>("GET_DAOS", async
   const space = await box.openSpace("my-dao-dashboard");
   const boxedAddresses = (await space.private.get("watched-addresses")) as string[] | undefined;
   const accounts = boxedAddresses || [];
-  const realAccounts = uniq(accounts.concat(account).map(a => a.toLowerCase()));
+  const realAccounts = _.uniq(accounts.concat(account).map(a => a.toLowerCase()));
   await fillDaos(realAccounts);
   return DAOS_LIST;
 });
