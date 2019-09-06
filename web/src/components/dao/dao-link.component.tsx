@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DaoKind } from "../../backbone/State";
+import { DaoKind } from "../../model/dao-kind";
 
 interface IProps {
   type: DaoKind;

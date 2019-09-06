@@ -1,4 +1,4 @@
-import { DaoInstanceState, DaoKind } from "../../backbone/State";
+import { DaoInstanceState } from "../../backbone/State";
 import aragonTokenABI from "../../abis/aragon-token.abi.json";
 import aragonTokenControllerABI from "../../abis/aragon-token-controller.abi.json";
 import aragonKernelABI from "../../abis/aragon-kernel.abi.json";
@@ -8,6 +8,7 @@ import _ from "underscore";
 import Web3 from "web3";
 import daolist from "../../data/daolist.json";
 import { BalanceService } from "../balance.service";
+import { DaoKind } from "../../model/dao-kind";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
   const code = await web3.eth.getCode(contractAddress);

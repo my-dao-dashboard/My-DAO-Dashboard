@@ -1,10 +1,5 @@
 import { BalanceEntry } from "../model/balance-entry";
-
-export enum DaoKind {
-  ARAGON = "ARAGON",
-  MOLOCH = "MOLOCH",
-  DAOSTACK = "DAOSTACK"
-}
+import { DaoKind } from "../model/dao-kind";
 
 export interface DaoInstanceState {
   address: string;
