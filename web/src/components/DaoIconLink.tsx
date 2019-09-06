@@ -8,40 +8,23 @@ interface IProps {
 }
 
 export default class DaoIconLink extends Component<IProps> {
-  public render() {
+  private getDaoLink(): string {
     switch (this.props.type) {
       case "ARAGON":
-        return (
-          <a href={`https://mainnet.aragon.org/#/${this.props.dao}`} target="_blank" rel="noopener noreferrer">
-            <small>
-              <Icon type="select" />
-            </small>
-          </a>
-        );
+        return `https://mainnet.aragon.org/#/${this.props.dao}`;
       case "MOLOCH":
-        return (
-          <a href={`https://molochdao.com/proposals/${this.props.vote}`} target="_blank" rel="noopener noreferrer">
-            <small>
-              <Icon type="select" />
-            </small>
-          </a>
-        );
+        return `https://molochdao.com/proposals/${this.props.vote}`;
       case "DAOSTACK":
-        return (
-          <a href={`https://alchemy.daostack.io/dao/${this.props.dao}/proposal/${this.props.vote}`} target="_blank" rel="noopener noreferrer">
-            <small>
-              <Icon type="select" />
-            </small>
-          </a>
-        );
+        return `https://alchemy.daostack.io/dao/${this.props.dao}/proposal/${this.props.vote}`;
       default:
-        return (
-          <a href={`https://etherscan.io/address/${this.props.dao}`} target="_blank" rel="noopener noreferrer">
-            <small>
-              <Icon type="select" />
-            </small>
-          </a>
-        );
+        return `https://etherscan.io/address/${this.props.dao}`;
     }
+  }
+  public render() {
+    return (
+      <a href={this.getDaoLink()} target="_blank" rel="noopener noreferrer">
+        <Icon type="select" />
+      </a>
+    );
   }
 }
