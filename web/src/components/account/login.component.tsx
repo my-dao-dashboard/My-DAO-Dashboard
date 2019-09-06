@@ -1,6 +1,11 @@
+import { Avatar, Button, Layout, message } from "antd";
 import React, { useContext } from "react";
-import { useProgress } from "../../hooks/use-progress";
 import { MetamaskContext } from "../../contexts/metamask.context";
+import { useProgress } from "../../hooks/use-progress";
+import { AppFooterComponent } from "../Layout/app-footer.component";
+import { AppHeaderComponent } from "../Layout/app-header.component";
+
+const { Content } = Layout;
 
 export const LoginComponent: React.FC = () => {
   const metamask = useContext(MetamaskContext);
@@ -20,7 +25,8 @@ export const LoginComponent: React.FC = () => {
   const renderError = () => {
     const error = progress.isError();
     if (error) {
-      return <p>{error}</p>;
+      message.error(error);
+      return undefined;
     } else {
       return undefined;
     }
@@ -28,17 +34,34 @@ export const LoginComponent: React.FC = () => {
 
   const renderButton = () => {
     if (progress.isRunning()) {
-      return <button disabled={true}>Waiting...</button>;
+      return (
+        <Button type="primary" disabled>
+          Connecting..
+        </Button>
+      );
     } else {
-      return <button onClick={onClick}>Connect</button>;
+      return (
+        <Button type="primary" onClick={onClick}>
+          Connect
+        </Button>
+      );
     }
   };
 
   return (
     <>
-      <p>You are not logged in</p>
-      {renderError()}
-      {renderButton()}
+      <Layout>
+        <AppHeaderComponent />
+        <Content className="container">
+          <div className="content" style={{ textAlign: "center" }}>
+            <Avatar size={64} icon="user" />
+            <p>You are not logged in</p>
+            {renderError()}
+            {renderButton()}
+          </div>
+        </Content>
+        <AppFooterComponent />
+      </Layout>
     </>
   );
 };
