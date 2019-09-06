@@ -5,7 +5,7 @@ import { DaoInstanceState, DaoKind } from "../../backbone/State";
 import molochABI from "../../abis/moloch.abi.json";
 import erc20ABI from "../../abis/erc20.abi.json";
 import BigNumber from "bignumber.js";
-import { BalanceService } from "../../backbone/balance.service";
+import { BalanceService } from "../balance.service";
 
 export class MolochService {
   constructor(private readonly web3: Web3, private readonly balanceService: BalanceService) {}

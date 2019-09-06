@@ -6,8 +6,8 @@ import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
 import _ from "underscore";
 import Web3 from "web3";
-import { BalanceService } from "../../backbone/balance.service";
 import daolist from "../../data/daolist.json";
+import { BalanceService } from "../balance.service";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
   const code = await web3.eth.getCode(contractAddress);

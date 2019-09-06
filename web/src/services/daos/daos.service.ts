@@ -2,12 +2,12 @@ import { DaosStore } from "./daos.store";
 import { DaosQuery } from "./daos.query";
 import { Observable, zip } from "rxjs";
 import Web3 from "web3";
-import { BalanceService } from "../../backbone/balance.service";
 import { first, flatMap, map } from "rxjs/operators";
 import { MolochService } from "./moloch.service";
 import { DaoInstanceState } from "../../backbone/State";
 import { AragonService } from "./aragon.service";
 import { DaostackService } from "./daostack.service";
+import { BalanceService } from "../balance.service";
 
 export class DaosService {
   private readonly store: DaosStore;
