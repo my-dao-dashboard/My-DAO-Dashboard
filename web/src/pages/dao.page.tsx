@@ -5,8 +5,8 @@ import Loader from "../components/Layout/Loader/Loader";
 import { DaoOverviewContainer } from "../components/dao/dao-overview.container";
 import { ProposalsContext } from "../contexts/proposals.context";
 import { zip } from "rxjs";
-import { distributeProposals } from "../components/IProposalColumn";
-import { DummyProposalListComponent } from "../components/DummyProposalListComponent";
+import { distributeProposals } from "../components/proposals/IProposalColumn";
+import { DummyProposalListComponent } from "../components/proposals/dummy-proposal-list.component";
 
 interface IProps {
   address: string;

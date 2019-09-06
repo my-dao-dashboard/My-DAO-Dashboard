@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProposalsLoader } from "../dashboard/proposals.loader";
 import { ProposalsContext } from "../../contexts/proposals.context";
-import { distributeProposals } from "../IProposalColumn";
-import { DummyProposalListComponent } from "../DummyProposalListComponent";
+import { distributeProposals } from "./IProposalColumn";
+import { DummyProposalListComponent } from "./dummy-proposal-list.component";
 
 export const ProposalsComponent: React.FC = () => {
   const proposalsContext = useContext(ProposalsContext);

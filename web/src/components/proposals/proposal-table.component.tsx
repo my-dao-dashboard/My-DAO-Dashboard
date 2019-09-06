@@ -5,14 +5,14 @@ import { DaoInstanceState } from "../../backbone/State";
 import { VoteCount } from "../../backbone/votes.service";
 import DaoIconLink from "../DaoIconLink";
 import DaoTag from "../DaoTag";
-import { IProposalColumn } from "../IProposalColumn";
+import { IProposalColumn } from "./IProposalColumn";
 
 interface IProps {
   open: boolean;
   source: IProposalColumn[];
 }
 
-export default class ProposalTable extends Component<IProps> {
+export default class ProposalTableComponent extends Component<IProps> {
   public render() {
     return (
       <>

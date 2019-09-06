@@ -1,6 +1,6 @@
 import React from "react";
-import {IProposalColumn} from "./IProposalColumn";
-import ProposalTable from "./ProposalListComponent/ProposalTable";
+import ProposalTableComponent from "./proposal-table.component";
+import { IProposalColumn } from "./IProposalColumn";
 
 interface Props {
   openProposals: IProposalColumn[]
@@ -13,7 +13,7 @@ export class DummyProposalListComponent extends React.Component<Props> {
       return <>
         <div>
           <h3>Active Proposals</h3>
-          <ProposalTable open={true} source={this.props.openProposals} />
+          <ProposalTableComponent open={true} source={this.props.openProposals} />
         </div>
 
         <br/>
@@ -28,7 +28,7 @@ export class DummyProposalListComponent extends React.Component<Props> {
         {this.renderActiveProposals()}
         <div>
           <h3>Sealed Proposals</h3>
-          <ProposalTable open={false} source={this.props.proposals} />
+          <ProposalTableComponent open={false} source={this.props.proposals} />
         </div>
       </>
   }

@@ -1,5 +1,5 @@
-import {DaoInstanceState} from "../backbone/State";
-import {VoteCount, VoteProposal, VoteStatus} from "../backbone/votes.service";
+import { VoteCount, VoteProposal, VoteStatus } from "../../backbone/votes.service";
+import { DaoInstanceState } from "../../backbone/State";
 
 export interface IProposalColumn {
   key: string,
