@@ -3,7 +3,6 @@ import asyncFactory from "typescript-fsa-redux-thunk";
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { State } from "./redux";
 import { MetamaskService } from "../services/metamask.service";
-import * as services from "./services.redux";
 
 export interface AccountState {
   isMetamask: boolean;
@@ -26,10 +25,6 @@ export function initialState(upstream: any): AccountState {
 export const setAddress = action<string>("SET_ADDRESS");
 
 export const enable = asyncAction<void, void>("ENABLE", async (_, dispatch, getState: any) => {
-  const state = getState() as State;
-  const address = await state.services.metamask.enable();
-  // await services.enable.action();
-  // await dispatch(setAddress(address));
 });
 
 export const reducers = reducerWithInitialState(initialState(MetamaskService.upstreamProvider()))
