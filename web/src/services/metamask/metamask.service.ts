@@ -12,7 +12,7 @@ export class MetamaskService {
     this.upstream = w.ethereum || (w.web3 && w.web3.currentProvider);
     this.store = new MetamaskStore({
       isAvailable: Boolean(this.upstream),
-      isEnabled: Boolean(this.upstream.enable ? this.upstream.selectedAddress : !!this.upstream)
+      isEnabled: Boolean(this.upstream && this.upstream.enable ? this.upstream.selectedAddress : !!this.upstream)
     });
     this.query = new MetamaskQuery(this.store);
   }
