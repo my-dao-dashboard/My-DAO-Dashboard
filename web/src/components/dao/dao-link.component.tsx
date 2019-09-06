@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { DaoKind } from "../backbone/State";
+import { DaoKind } from "../../backbone/State";
 
 interface IProps {
   type: DaoKind;
   address: string;
 }
 
-export default class DaoLink extends Component<IProps> {
+export default class DaoLinkComponent extends Component<IProps> {
   public handleAragonClick(e: any) {
     e.preventDefault();
     this.openLink(`https://mainnet.aragon.org/#/${this.props.address}`);

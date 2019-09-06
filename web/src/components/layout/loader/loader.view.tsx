@@ -5,7 +5,7 @@ interface Props {
   message?: string;
 }
 
-const Loader: React.FC<Props> = props => {
+const LoaderView: React.FC<Props> = props => {
   const message = props.message ? <div>{props.message}</div> : undefined;
   return (
     <div className="loader-center">
@@ -15,4 +15,4 @@ const Loader: React.FC<Props> = props => {
   );
 };
 
-export default Loader;
+export default LoaderView;

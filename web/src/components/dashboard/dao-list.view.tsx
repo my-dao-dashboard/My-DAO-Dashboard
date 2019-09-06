@@ -2,8 +2,8 @@ import React from "react";
 import { Card, List, Progress, Statistic, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";
-import DaoLink from "../DaoLink";
-import DaoTag from "../DaoTag";
+import DaoLinkComponent from "../dao/dao-link.component";
+import DaoTagView from "../dao-tag.view";
 import { DaoInstanceState } from "../../backbone/State";
 
 interface Props {
@@ -35,7 +35,7 @@ export const DaoListView: React.FC<Props> = props => {
                     description={
                       <>
                         <p>
-                          <DaoLink type={item.kind} address={item.address} />
+                          <DaoLinkComponent type={item.kind} address={item.address} />
                         </p>
                         <div style={{ maxWidth: "60%" }}>
                           <Statistic title="Balance" value={item.usdBalance} precision={2} prefix={"$"} />
@@ -57,7 +57,7 @@ export const DaoListView: React.FC<Props> = props => {
                           </Tooltip>
                         </div>
                         <div style={{ textAlign: "right" }}>
-                          <DaoTag type={item.kind} />
+                          <DaoTagView type={item.kind} />
                         </div>
                       </>
                     }

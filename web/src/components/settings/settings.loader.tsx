@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
-import Loader from "../Layout/Loader/Loader";
+import LoaderView from "../layout/loader/loader.view";
 
 export const SettingsLoader: React.FC = (props) => {
   const settings = useContext(SettingsContext);
@@ -18,6 +18,6 @@ export const SettingsLoader: React.FC = (props) => {
   if (isLoaded) {
     return <>{props.children}</>;
   } else {
-    return <Loader message={"Opening 3Box profile..."} />;
+    return <LoaderView message={"Opening 3Box profile..."} />;
   }
 };

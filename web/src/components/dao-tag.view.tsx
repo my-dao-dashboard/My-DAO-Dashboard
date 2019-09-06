@@ -5,7 +5,7 @@ interface IProps {
   type: string;
 }
 
-export default class DaoTag extends Component<IProps> {
+export default class DaoTagView extends Component<IProps> {
   public render() {
     return (
       <>

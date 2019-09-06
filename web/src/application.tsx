@@ -2,7 +2,7 @@ import { Icon, Layout } from "antd";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import "./assets/styles/app.css";
-import { AppHeaderComponent } from "./components/Layout/app-header.component";
+import { AppHeaderComponent } from "./components/layout/app-header.component";
 import { SettingsPage } from "./pages/settings.page";
 import { DashboardPage } from "./pages/dashboard.page";
 import { BrowserRouter } from "react-router-dom";

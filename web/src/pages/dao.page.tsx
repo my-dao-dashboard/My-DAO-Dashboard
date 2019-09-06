@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { DaosContext } from "../contexts/daos.context";
-import Loader from "../components/Layout/Loader/Loader";
+import LoaderView from "../components/layout/loader/loader.view";
 import { DaoOverviewContainer } from "../components/dao/dao-overview.container";
 import { ProposalsContext } from "../contexts/proposals.context";
 import { zip } from "rxjs";
@@ -51,6 +51,6 @@ export const DaoPage: React.FC<RouteComponentProps<IProps>> = props => {
       </DaoOverviewContainer>
     );
   } else {
-    return <Loader />;
+    return <LoaderView />;
   }
 };

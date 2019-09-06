@@ -7,7 +7,7 @@ interface IProps {
   vote?: string;
 }
 
-export default class DaoIconLink extends Component<IProps> {
+export default class DaoIconLinkComponent extends Component<IProps> {
   public render() {
     switch (this.props.type) {
       case "ARAGON":
