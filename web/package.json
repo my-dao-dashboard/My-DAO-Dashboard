@@ -1,11 +1,23 @@
 {
-  "name": "web",
-  "version": "0.1.0",
   "private": true,
+  "name": "my-dao-dashboard",
+  "description": "My DAO Dashboard",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ethereum"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my-dao-dashboard/My-DAO-Dashboard/My-DAO-Dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/my-dao-dashboard/My-DAO-Dashboard/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit",
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "lint-fix": "tslint --fix -c tslint.json -p tsconfig.json",
