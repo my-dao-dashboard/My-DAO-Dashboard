@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit",
+    "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "prettier --check \"src/**/*.ts\"",
     "lint-fix": "prettier --write --check \"src/**/*.ts\"",
