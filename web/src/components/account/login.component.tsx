@@ -2,8 +2,8 @@ import { Avatar, Button, Layout, message } from "antd";
 import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
 import { useProgress } from "../../hooks/use-progress";
-import { AppFooterComponent } from "../Layout/app-footer.component";
-import { AppHeaderComponent } from "../Layout/app-header.component";
+import { AppFooterComponent } from "../layout/app-footer.component";
+import { AppHeaderComponent } from "../layout/app-header.component";
 
 const { Content } = Layout;
 
