@@ -5,6 +5,11 @@ node_js:
 branches:
   only:
     - master
+addons:
+  sonarcloud:
+    organization: "my-dao-dashboard"
+    token:
+      secure: ${SONAR_TOKEN}
 cache:
   directories:
     - node_modules
@@ -13,3 +18,9 @@ before_install:
   - cd web
 install:
   - yarn install --pure-lockfile
+  - yarn install codecov -g
+script:
+  - yarn run lint
+  - yarn run test
+after_success:
+  - sonar-scanner
