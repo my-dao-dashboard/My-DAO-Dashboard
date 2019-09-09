@@ -18,7 +18,7 @@ before_install:
   - cd web
 install:
   - yarn install --pure-lockfile
-  - yarn install codecov -g
+  - yarn global add codecov
 script:
   - yarn run lint
   - yarn run test
