@@ -1,11 +1,23 @@
 {
-  "name": "web",
-  "version": "0.1.0",
   "private": true,
+  "name": "my-dao-dashboard",
+  "description": "My DAO Dashboard",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ethereum"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my-dao-dashboard/My-DAO-Dashboard/My-DAO-Dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/my-dao-dashboard/My-DAO-Dashboard/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit",
     "eject": "react-scripts eject",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "lint-fix": "tslint --fix -c tslint.json -p tsconfig.json",
@@ -29,6 +41,16 @@
   "dependencies": {
     "3box": "^1.10.7",
     "@datorama/akita": "^4.10.2",
+    "@types/jest": "24.0.18",
+    "@types/memoizee": "^0.4.2",
+    "@types/node": "12.7.2",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-redux": "^7.1.2",
+    "@types/react-router": "^5.0.3",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/redux-logger": "^3.0.7",
+    "@types/web3": "^1.0.19",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",

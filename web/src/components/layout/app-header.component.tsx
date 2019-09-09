@@ -1,7 +1,10 @@
-import { Avatar, Col, Row, Tooltip } from "antd";
+import { Avatar, Col, Divider, Layout, Row, Tooltip } from "antd";
+import makeBlockie from "ethereum-blockies-base64";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlockchainContext } from "../../contexts/blockchain.context";
+
+const { Header } = Layout;
 
 export const AppHeaderComponent: React.FC = () => {
   const blockchain = useContext(BlockchainContext);
@@ -16,21 +19,38 @@ export const AppHeaderComponent: React.FC = () => {
 
   const shortAddress = address.substring(0, 5);
 
-  return (
-    <div style={{ color: "#fff" }}>
-      <Row>
-        <Col span={12}>
-          <Link to="/">My DAO Dashboard</Link>
-        </Col>
-        <Col span={12} style={{ textAlign: "right" }}>
-          <Link to={"/settings"}>Settings</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+  const renderUserInfo = () => {
+    if (address) {
+      return (
+        <>
+          <Link to={"/settings"}>Settings</Link>
+          &nbsp;
+          <Divider type="vertical" />
+          &nbsp;
           <Tooltip title={address} placement="left">
-            <Avatar shape="square" style={{ color: "#000" }} size="large">
-              {shortAddress}
-            </Avatar>
+            <Avatar src={makeBlockie(address || "unknown")} />
+            &nbsp; &nbsp;
+            <small>{shortAddress}</small>
           </Tooltip>
-        </Col>
-      </Row>
-    </div>
+        </>
+      );
+    } else {
+      return "";
+    }
+  };
+
+  return (
+    <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+      <div style={{ color: "#fff" }}>
+        <Row>
+          <Col span={12}>
+            <Link to="/">My DAO Dashboard</Link>
+          </Col>
+          <Col span={12} style={{ textAlign: "right" }}>
+            {renderUserInfo()}
+          </Col>
+        </Row>
+      </div>
+    </Header>
   );
 };
