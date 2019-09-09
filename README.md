@@ -1,6 +1,6 @@
 # My-DAO-Dashboard
 
-[![Build Status](https://travis-ci.org/wslyvh/My-DAO-Dashboard.svg?branch=master)](https://travis-ci.org/wslyvh/My-DAO-Dashboard)
+[![Build Status](https://travis-ci.org/my-dao-dashboard/My-DAO-Dashboard.svg?branch=master)](https://travis-ci.org/my-dao-dashboard/My-DAO-Dashboard)
 
 ## Introduction
 
