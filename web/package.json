@@ -19,8 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit",
     "eject": "react-scripts eject",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint-fix": "tslint --fix -c tslint.json -p tsconfig.json",
+    "lint": "prettier --check \"src/**/*.ts\"",
+    "lint-fix": "prettier --write --check \"src/**/*.ts\"",
     "heroku-postbuild": "yarn install && yarn build"
   },
   "eslintConfig": {
@@ -64,8 +64,6 @@
     "@types/web3": "^1.0.19",
     "prettier": "^1.18.2",
     "react-scripts": "3.1.1",
-    "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "3.5.3"
   }
 }

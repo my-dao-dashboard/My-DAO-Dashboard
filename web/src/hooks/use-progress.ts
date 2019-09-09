@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from "react";
 
 export enum ProgressKind {
   STOPPED,
   FAILED,
-  RUNNING,
+  RUNNING
 }
 
 export interface StoppedProgress {
@@ -32,7 +32,7 @@ export class ProgressTracker {
 
   start() {
     this.setProgress({
-      kind: ProgressKind.RUNNING,
+      kind: ProgressKind.RUNNING
     });
   }
 
@@ -41,11 +41,11 @@ export class ProgressTracker {
       console.error(reason);
       this.setProgress({
         kind: ProgressKind.FAILED,
-        error: reason.message,
+        error: reason.message
       });
     } else {
       this.setProgress({
-        kind: ProgressKind.STOPPED,
+        kind: ProgressKind.STOPPED
       });
     }
   }
@@ -55,13 +55,13 @@ export class ProgressTracker {
   }
 
   isError(): string | undefined {
-    return this.current.kind === ProgressKind.FAILED ? this.current.error : undefined
+    return this.current.kind === ProgressKind.FAILED ? this.current.error : undefined;
   }
 }
 
 export function useProgress(initialProgress?: boolean) {
   const state = useState<Progress>({
-    kind: initialProgress ? ProgressKind.RUNNING : ProgressKind.STOPPED,
+    kind: initialProgress ? ProgressKind.RUNNING : ProgressKind.STOPPED
   });
   return new ProgressTracker(state);
 }

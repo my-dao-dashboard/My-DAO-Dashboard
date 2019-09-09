@@ -76,7 +76,12 @@ export class AragonService {
         const controller = new this.web3.eth.Contract(aragonTokenControllerABI, controllerAddress);
         const kernel: string = await controller.methods.kernel().call();
         const kernelContract = new this.web3.eth.Contract(aragonKernelABI, kernel);
-        const vaultAddress = await kernelContract.methods.apps("0xd6f028ca0e8edb4a8c9757ca4fdccab25fa1e0317da1188108f7d2dee14902fb", "0x7e852e0fcfce6551c13800f1e7476f982525c2b5277ba14b24339c68416336d1").call();
+        const vaultAddress = await kernelContract.methods
+          .apps(
+            "0xd6f028ca0e8edb4a8c9757ca4fdccab25fa1e0317da1188108f7d2dee14902fb",
+            "0x7e852e0fcfce6551c13800f1e7476f982525c2b5277ba14b24339c68416336d1"
+          )
+          .call();
         const balance = await this.balanceService.balance(vaultAddress);
         const a = await this.ensApollo.query({
           query: gql`
@@ -100,8 +105,12 @@ export class AragonService {
         const graphqlName = name ? `${name}.aragonid.eth` : null;
 
         const decimals = Number(await tokenContract.methods.decimals().call());
-        const shareBalance = new BigNumber(await tokenContract.methods.balanceOf(address).call()).dividedBy(10 ** decimals).toNumber();
-        const totalSupply = new BigNumber(await tokenContract.methods.totalSupply().call()).dividedBy(10 ** decimals).toNumber();
+        const shareBalance = new BigNumber(await tokenContract.methods.balanceOf(address).call())
+          .dividedBy(10 ** decimals)
+          .toNumber();
+        const totalSupply = new BigNumber(await tokenContract.methods.totalSupply().call())
+          .dividedBy(10 ** decimals)
+          .toNumber();
         const dao: DaoInstanceState = {
           address: kernel.toLowerCase(),
           name: graphqlName || hiveName || kernel,
