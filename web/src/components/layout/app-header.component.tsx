@@ -8,7 +8,7 @@ const { Header } = Layout;
 
 export const AppHeaderComponent: React.FC = () => {
   const blockchain = useContext(BlockchainContext);
-  const [address, setAddress] = useState(blockchain.query.address());
+  const [address, setAddress] = useState(blockchain.query.address);
 
   useEffect(() => {
     const subscription = blockchain.query.address$.subscribe(setAddress);

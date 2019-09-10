@@ -9,7 +9,7 @@ export class BlockchainQuery extends Query<BlockchainState> {
     super(store);
   }
 
-  address() {
+  get address() {
     return this.getValue().address;
   }
 }
