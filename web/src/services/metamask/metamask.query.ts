@@ -8,11 +8,11 @@ export class MetamaskQuery extends Query<MetamaskState> {
     super(store);
   }
 
-  isAvailable() {
+  get isAvailable(): boolean {
     return this.getValue().isAvailable;
   }
 
-  isEnabled() {
+  get isEnabled(): boolean {
     return this.getValue().isEnabled;
   }
 }

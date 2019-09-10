@@ -4,7 +4,7 @@ import { MetamaskContext } from "../../contexts/metamask.context";
 
 export const EnableMetamaskContainer: React.FC = (props) => {
   const metamask = useContext(MetamaskContext);
-  const [isEnabled, setEnabled] = useState(metamask.query.isEnabled());
+  const [isEnabled, setEnabled] = useState(metamask.query.isEnabled);
 
   useEffect(() => {
     metamask.query.isEnabled$.subscribe(setEnabled);

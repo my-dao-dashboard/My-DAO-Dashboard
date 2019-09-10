@@ -7,9 +7,8 @@ export class MetamaskService {
   private readonly store: MetamaskStore;
   readonly query: MetamaskQuery;
 
-  constructor() {
-    const w = window as any;
-    this.upstream = w.ethereum || (w.web3 && w.web3.currentProvider);
+  constructor(window: any) {
+    this.upstream = window.ethereum || (window.web3 && window.web3.currentProvider);
     this.store = new MetamaskStore({
       isAvailable: Boolean(this.upstream),
       isEnabled: Boolean(this.upstream && this.upstream.enable ? this.upstream.selectedAddress : !!this.upstream)
@@ -20,7 +19,7 @@ export class MetamaskService {
   get ready$() {
     return this.query.isEnabled$.pipe(
       filter(p => !!p),
-      map(t => this.upstream)
+      map(() => this.upstream)
     );
   }
 

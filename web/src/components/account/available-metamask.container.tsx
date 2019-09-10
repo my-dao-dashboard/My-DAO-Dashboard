@@ -5,7 +5,7 @@ import { MetamaskContext } from "../../contexts/metamask.context";
 
 export const AvailableMetamaskContainer: React.FC = props => {
   const metamask = useContext(MetamaskContext);
-  const isAvailable = metamask.query.isAvailable();
+  const isAvailable = metamask.query.isAvailable;
 
   if (isAvailable) {
     return <EnableMetamaskContainer>{props.children}</EnableMetamaskContainer>;

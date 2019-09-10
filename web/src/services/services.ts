@@ -9,7 +9,7 @@ import { ProposalsService } from "./proposals/proposals.service";
 export class Services {
   @memoize()
   get metamask() {
-    return new MetamaskService();
+    return new MetamaskService(window as any);
   }
 
   @memoize()
