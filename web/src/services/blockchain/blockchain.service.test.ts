@@ -25,6 +25,10 @@ describe("constructor", () => {
 });
 
 describe("#ready$ and updateUpstream", () => {
+  // Web3 is a circular JSON structure, from perpspective of JSON.stringify.
+  // Rx.js testing does not support circular JSON structures.
+  // So, we could not use marbles :(
+
   it("if window.ethereum", async () => {
     const e1 = runEffect("-aab|", VALUES, address => service.updateUpstream({ selectedAddress: address }));
     const expected = cold("-a-b-", VALUES);
