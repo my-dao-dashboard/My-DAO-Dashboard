@@ -1,9 +1,7 @@
 import { BlockchainQuery } from "./blockchain.query";
 import { BlockchainStore } from "./blockchain.store";
 import { cold } from "jest-marbles";
-import { zip } from "rxjs";
-import { map } from "rxjs/operators";
-import { withEffect } from "../../util/testing";
+import { runEffect, withEffect } from "../../util/testing";
 
 const VALUES = {
   a: "a",
@@ -21,10 +19,10 @@ beforeEach(() => {
 });
 
 it("#address$", () => {
-  const e1 = withEffect("abba|", VALUES, address => store.update({ address }));
-  const expected = cold("ab-a", VALUES);
+  const updateAddress$ = runEffect("abba|", VALUES, address => store.update({ address }));
+  const expected$ = cold("ab-a", VALUES);
 
-  expect(zip(e1, query.address$).pipe(map(t => t[1]))).toBeObservable(expected);
+  expect(withEffect(updateAddress$, query.address$)).toBeObservable(expected$);
 });
 
 it("#address", () => {

@@ -16,7 +16,7 @@ export class Services {
   get blockchain() {
     const service = new BlockchainService();
     this.metamask.ready$.subscribe(async upstream => {
-      await service.updateAddress(upstream);
+      await service.updateUpstream(upstream);
     });
     return service;
   }
