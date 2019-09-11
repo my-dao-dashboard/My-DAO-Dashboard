@@ -22,7 +22,7 @@ describe("constructor", () => {
       const window = {
         ethereum: {
           enable: jest.fn(),
-          selectedAddress: 'foo'
+          selectedAddress: "foo"
         }
       };
       const service = new MetamaskService(window);
@@ -50,14 +50,35 @@ describe("constructor", () => {
 });
 
 it("#isEnabled$", () => {
+  const window = {
+    ethereum: {
+      enable: jest.fn()
+    }
+  };
   const service = new MetamaskService(window);
   const store = (service as any).store as MetamaskStore;
-  const VALUES = {
+  const SET_VALUES = {
     t: true,
-    f: false,
+    f: false
   };
-  const updateAddress$ = runEffect("t-f-f-t|", VALUES, isEnabled => store.update({ isEnabled }));
-  const expected$ = cold("f-t-f-t|", VALUES);
+  const PROVIDER_VALUES = {
+    e: window.ethereum
+  };
+  const updateAddress$ = runEffect("--f-f-t|", SET_VALUES, isEnabled => store.update({ isEnabled }));
+  const expected$ = cold("------e", PROVIDER_VALUES);
 
-  expect(withEffect(updateAddress$, service.query.isEnabled$)).toBeObservable(expected$);
+  expect(withEffect(updateAddress$, service.ready$)).toBeObservable(expected$);
+});
+
+it("#enable", async () => {
+  const window = {
+    ethereum: {
+      enable: jest.fn()
+    }
+  };
+  const service = new MetamaskService(window);
+  expect(service.query.isEnabled).toEqual(false);
+  await service.enable();
+  expect(window.ethereum.enable).toBeCalled();
+  expect(service.query.isEnabled).toEqual(true);
 });
