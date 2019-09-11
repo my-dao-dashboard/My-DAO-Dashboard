@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "lint": "prettier --check \"src/**/*.ts\"",
     "lint-fix": "prettier --write --check \"src/**/*.ts\"",
-    "heroku-postbuild": "yarn install && yarn build"
+    "heroku-postbuild": "yarn install --production=false && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
