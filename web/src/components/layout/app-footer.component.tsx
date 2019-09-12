@@ -8,7 +8,7 @@ export const AppFooterComponent: React.FC = () => {
     <>
       <Footer style={{ textAlign: "center" }}>
         <a
-          href="https://github.com/wslyvh/My-DAO-Dashboard"
+          href="https://github.com/my-dao-dashboard/My-DAO-Dashboard"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted"
