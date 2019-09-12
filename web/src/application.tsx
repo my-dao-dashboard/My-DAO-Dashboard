@@ -15,23 +15,22 @@ const { Content } = Layout;
 const Application: React.FC = () => {
   return (
     <BrowserRouter>
-      <AvailableMetamaskContainer>
-        <Layout>
-          <AppHeaderComponent />
-
-          <Content className="container">
-            <div className="content">
+      <Layout>
+        <AppHeaderComponent />
+        <Content className="container">
+          <div className="content">
+            <AvailableMetamaskContainer>
               <Switch>
                 <Route exact path="/" component={DashboardPage} />
                 <Route exact path="/dao/:address" component={DaoPage} />
                 <Route exact path="/settings" component={SettingsPage} />
                 <Redirect to="/" />
               </Switch>
-            </div>
-          </Content>
-          <AppFooterComponent />
-        </Layout>
-      </AvailableMetamaskContainer>
+            </AvailableMetamaskContainer>
+          </div>
+        </Content>
+        <AppFooterComponent />
+      </Layout>
     </BrowserRouter>
   );
 };

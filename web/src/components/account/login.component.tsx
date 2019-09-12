@@ -1,11 +1,7 @@
-import { Avatar, Button, Layout, message } from "antd";
+import { Avatar, Button, message } from "antd";
 import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
 import { useProgress } from "../../hooks/use-progress";
-import { AppFooterComponent } from "../layout/app-footer.component";
-import { AppHeaderComponent } from "../layout/app-header.component";
-
-const { Content } = Layout;
 
 export const LoginComponent: React.FC = () => {
   const metamask = useContext(MetamaskContext);
@@ -49,19 +45,11 @@ export const LoginComponent: React.FC = () => {
   };
 
   return (
-    <>
-      <Layout>
-        <AppHeaderComponent />
-        <Content className="container">
-          <div className="content" style={{ textAlign: "center" }}>
-            <Avatar size={64} icon="user" />
-            <p>You are not logged in</p>
-            {renderError()}
-            {renderButton()}
-          </div>
-        </Content>
-        <AppFooterComponent />
-      </Layout>
-    </>
+    <div data-testid={"login-component"} style={{ textAlign: "center" }}>
+      <Avatar size={64} icon="user" />
+      <p>You are not logged in</p>
+      {renderError()}
+      {renderButton()}
+    </div>
   );
 };

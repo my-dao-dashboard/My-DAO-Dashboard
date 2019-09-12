@@ -1,26 +1,42 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
+import ReactDOM from "react-dom";
 import { MetamaskService } from "../../services/metamask/metamask.service";
 import { MetamaskContext } from "../../contexts/metamask.context";
-import { LoginComponent } from "./login.component";
 import { EnableMetamaskContainer } from "./enable-metamask.container";
-import { BrowserRouter } from "react-router-dom";
-import { BehaviorSubject, of } from "rxjs";
+import { BehaviorSubject } from "rxjs";
+import { unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
 
-it("metamask disabled", () => {
-  const metamaskService = new MetamaskService({});
-  const testRenderer = TestRenderer.create(
-    <MetamaskContext.Provider value={metamaskService}>
-      <BrowserRouter>
+let container: HTMLDivElement;
+
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+});
+
+function renderComponent(metamaskService: MetamaskService) {
+  act(() => {
+    ReactDOM.render(
+      <MetamaskContext.Provider value={metamaskService}>
         <EnableMetamaskContainer>
           <p className={"child"}>Child</p>
         </EnableMetamaskContainer>
-      </BrowserRouter>
-    </MetamaskContext.Provider>
-  );
-  const instance = testRenderer.root;
+      </MetamaskContext.Provider>,
+      container
+    );
+  });
+}
+
+it("metamask disabled", () => {
+  const metamaskService = new MetamaskService({});
   expect(metamaskService.query.isEnabled).toBeFalsy();
-  expect(instance.findByType(LoginComponent)).toBeTruthy();
+  renderComponent(metamaskService);
+  expect(container.querySelector('[data-testid="login-component"]')).toBeTruthy();
 });
 
 it("metamask enabled", () => {
@@ -30,19 +46,10 @@ it("metamask enabled", () => {
       selectedAddress: "foo"
     }
   });
-  const testRenderer = TestRenderer.create(
-    <MetamaskContext.Provider value={metamaskService}>
-      <BrowserRouter>
-        <EnableMetamaskContainer>
-          <p className={"child"}>Child</p>
-        </EnableMetamaskContainer>
-      </BrowserRouter>
-    </MetamaskContext.Provider>
-  );
-  const instance = testRenderer.root;
+  renderComponent(metamaskService);
   expect(metamaskService.query.isEnabled).toBeTruthy();
-  expect(instance.findAllByType(LoginComponent)).toEqual([]);
-  expect(instance.findByType("p").findAllByProps({ className: "child" })).toBeTruthy();
+  expect(container.querySelector('[data-testid="login-component"]')).toBeFalsy();
+  expect(container.querySelector("p.child")).toBeTruthy();
 });
 
 it("metamask enabled workflow", () => {
@@ -53,25 +60,15 @@ it("metamask enabled workflow", () => {
       isEnabled$: enabledSubject.asObservable()
     }
   } as unknown) as MetamaskService;
-  const element = (
-    <MetamaskContext.Provider value={metamaskService}>
-      <BrowserRouter>
-        <EnableMetamaskContainer>
-          <p className={"child"}>Child</p>
-        </EnableMetamaskContainer>
-      </BrowserRouter>
-    </MetamaskContext.Provider>
-  );
-  const testRenderer = TestRenderer.create(element);
 
-  const instance = testRenderer.root;
-  expect(metamaskService.query.isEnabled).toBeFalsy();
-  expect(instance.findAllByType(LoginComponent)).toBeTruthy();
-  expect(instance.findByType("p").findAllByProps({ className: "child" })).toEqual([]);
+  renderComponent(metamaskService);
+  expect(container.querySelector('[data-testid="login-component"]')).toBeTruthy();
+  expect(container.querySelector("p.child")).toBeFalsy();
 
-  enabledSubject.next(true);
-  testRenderer.update(element);
+  act(() => {
+    enabledSubject.next(true);
+  });
 
-  expect(instance.findAllByType(LoginComponent)).toEqual([]);
-  expect(instance.findByType("p").findAllByProps({ className: "child" })).toBeTruthy()
+  expect(container.querySelector('[data-testid="login-component"]')).toBeFalsy();
+  expect(container.querySelector("p.child")).toBeTruthy();
 });
