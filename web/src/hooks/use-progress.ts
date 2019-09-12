@@ -38,7 +38,6 @@ export class ProgressTracker {
 
   stop(reason?: Error) {
     if (reason) {
-      console.error(reason);
       this.setProgress({
         kind: ProgressKind.FAILED,
         error: reason.message
