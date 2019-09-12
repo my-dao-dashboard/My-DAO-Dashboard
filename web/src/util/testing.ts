@@ -10,3 +10,7 @@ export function runEffect<A>(timeline: string, values: Indexed<A>, sideEffect: (
 export function withEffect<A, B>(a: Observable<A>, b: Observable<B>): Observable<B> {
   return zip(a, b).pipe(map(t => t[1]));
 }
+
+export function idSelector(id: string) {
+  return `[data-test-id="${id}"]`;
+}
