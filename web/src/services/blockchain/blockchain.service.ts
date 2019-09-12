@@ -16,8 +16,8 @@ export class BlockchainService {
     this.query = new BlockchainQuery(this.store);
     this.web3 = new Web3();
     upstream$.subscribe(async upstream => {
-      await this.updateUpstream(upstream)
-    })
+      await this.updateUpstream(upstream);
+    });
   }
 
   get ready$(): Observable<{ address: string; web3: Web3 }> {
