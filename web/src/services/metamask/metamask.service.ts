@@ -1,6 +1,7 @@
 import { MetamaskStore } from "./metamask.store";
 import { MetamaskQuery } from "./metamask.query";
 import { filter, map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 export class MetamaskService {
   readonly upstream: any;
@@ -16,7 +17,7 @@ export class MetamaskService {
     this.query = new MetamaskQuery(this.store);
   }
 
-  get ready$() {
+  get ready$(): Observable<any> {
     return this.query.isEnabled$.pipe(
       filter(p => !!p),
       map(() => this.upstream)

@@ -3,6 +3,7 @@ import { BlockchainQuery } from "./blockchain.query";
 import { runEffect, withEffect } from "../../util/testing";
 import { cold } from "jest-marbles";
 import { first, pluck } from "rxjs/operators";
+import { BehaviorSubject, of } from "rxjs";
 import HDWalletProvider from "@machinomy/hdwallet-provider";
 
 const VALUES = {
@@ -13,14 +14,27 @@ const VALUES = {
 
 let service: BlockchainService;
 
+const provider = new HDWalletProvider({
+  rpcUrl: "https://rinkeby.infura.io",
+  mnemonic: "jar joy dwarf rotate fall company april coach federal typical timber liquid"
+});
+
 beforeEach(() => {
-  service = new BlockchainService();
+  service = new BlockchainService(of(provider));
 });
 
 describe("constructor", () => {
   it("set fields", () => {
     expect(service.query).toBeInstanceOf(BlockchainQuery);
     expect(service.query.address).toEqual("");
+  });
+
+  it("call updateUpstream on observable provider update", () => {
+    const provider$ = new BehaviorSubject<any>(null);
+    const service = new BlockchainService(provider$);
+    const spy = jest.spyOn(service, "updateUpstream");
+    provider$.next(provider);
+    expect(spy).toBeCalledWith(provider);
   });
 });
 
@@ -36,10 +50,6 @@ describe("#ready$ and updateUpstream", () => {
   });
 
   it("if provider", async () => {
-    const provider = new HDWalletProvider({
-      rpcUrl: "https://rinkeby.infura.io",
-      mnemonic: "jar joy dwarf rotate fall company april coach federal typical timber liquid"
-    });
     await service.updateUpstream(provider);
     const expectedAddress = (await provider.getAddresses())[0];
     const r = await service.ready$.pipe(first()).toPromise();

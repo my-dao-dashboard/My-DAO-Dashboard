@@ -14,11 +14,7 @@ export class Services {
 
   @memoize()
   get blockchain() {
-    const service = new BlockchainService();
-    this.metamask.ready$.subscribe(async upstream => {
-      await service.updateUpstream(upstream);
-    });
-    return service;
+    return new BlockchainService(this.metamask.ready$);
   }
 
   @memoize()
