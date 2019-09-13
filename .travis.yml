@@ -22,12 +22,13 @@ install:
 script:
   - yarn run lint
   - yarn run test
+  - yarn run build
 after_success:
   - sonar-scanner
 deploy:
-  provider: azure_web_apps
-  username: ${AZURE_WA_USERNAME}
-  password: ${AZURE_WA_PASSWORD}
-  site: ${AZURE_WA_SITE}
-  verbose: true
-  on: master
+  provider: pages
+  skip_cleanup: true
+  github_token: ${GITHUB_TOKEN}
+  local_dir: build
+  on:
+    branch: master
