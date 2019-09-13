@@ -24,3 +24,7 @@ script:
   - yarn run test
 after_success:
   - sonar-scanner
+deploy:
+  - provider: azure_web_apps
+    on:
+      branch: master
