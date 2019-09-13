@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts --max_old_space_size=4096 build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "prettier --check \"src/**/*.ts\"",
