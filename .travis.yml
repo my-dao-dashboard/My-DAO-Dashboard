@@ -25,6 +25,7 @@ script:
 after_success:
   - sonar-scanner
 before_deploy:
+  - env CI=false
   - yarn build
 deploy:
   provider: pages
