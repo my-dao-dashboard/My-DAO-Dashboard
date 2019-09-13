@@ -50,6 +50,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
     "rxjs": "^6.3.3",
     "web3": "^1.2.1"
   },
@@ -68,7 +69,6 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "jest-marbles": "^2.5.0",
     "prettier": "^1.18.2",
-    "react-scripts": "3.1.1",
     "react-test-renderer": "^16.9.0",
     "typescript": "3.5.3"
   }
