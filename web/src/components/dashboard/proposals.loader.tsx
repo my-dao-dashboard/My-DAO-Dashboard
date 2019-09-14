@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProposalsContext } from "../../contexts/proposals.context";
-import Loader from "../Layout/Loader/Loader";
+import LoaderView from "../layout/loader/loader.view";
 
 export const ProposalsLoader: React.FC = props => {
   const proposalsContext = useContext(ProposalsContext);
@@ -14,7 +14,7 @@ export const ProposalsLoader: React.FC = props => {
   }, [proposalsContext.query.isLoading$]);
 
   if (isLoading) {
-    return <Loader />;
+    return <LoaderView />;
   } else {
     return <>{props.children}</>;
   }

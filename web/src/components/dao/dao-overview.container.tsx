@@ -1,19 +1,19 @@
 import React from "react";
-import DaoTag from "../DaoTag";
-import DaoLink from "../DaoLink";
+import DaoTagView from "../dao-tag.view";
+import DaoLinkComponent from "./dao-link.component";
 import { Progress, Statistic, Tooltip } from "antd";
-import { DaoInstanceState } from "../../backbone/State";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 interface Props {
-  dao: DaoInstanceState
+  dao: DaoInstanceState;
 }
 
 export const DaoOverviewContainer: React.FC<Props> = props => {
   return (
     <div>
-      <h2 style={{ display: "inline" }}>{props.dao.name}</h2> &nbsp; <DaoTag type={props.dao.kind} />
+      <h2 style={{ display: "inline" }}>{props.dao.name}</h2> &nbsp; <DaoTagView type={props.dao.kind} />
       <br />
-      <DaoLink type={props.dao.kind} address={props.dao.address} />
+      <DaoLinkComponent type={props.dao.kind} address={props.dao.address} />
       <br />
       <div style={{ maxWidth: "300px" }}>
         <Statistic title="Balance" value={props.dao.usdBalance} precision={2} />
@@ -25,17 +25,12 @@ export const DaoOverviewContainer: React.FC<Props> = props => {
               ({props.dao.shareBalance} of {props.dao.totalSupply})
             </small>
           </div>
-          <Progress
-            percent={Math.round((props.dao.shareBalance / props.dao.totalSupply) * 100)}
-            status="active"
-          />
+          <Progress percent={Math.round((props.dao.shareBalance / props.dao.totalSupply) * 100)} status="active" />
         </Tooltip>
       </div>
       <br />
       <br />
-      <div>
-        {props.children}
-      </div>
+      <div>{props.children}</div>
     </div>
   );
 };

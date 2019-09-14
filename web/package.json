@@ -1,15 +1,27 @@
 {
-  "name": "web",
-  "version": "0.1.0",
   "private": true,
+  "name": "my-dao-dashboard",
+  "description": "My DAO Dashboard",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ethereum"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my-dao-dashboard/My-DAO-Dashboard/My-DAO-Dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/my-dao-dashboard/My-DAO-Dashboard/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "react-scripts --max_old_space_size=4096 build",
+    "test": "react-scripts test --coverage --verbose --detectOpenHandles --forceExit --passWithNoTests",
     "eject": "react-scripts eject",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "lint-fix": "tslint --fix -c tslint.json -p tsconfig.json",
-    "heroku-postbuild": "yarn install && yarn build"
+    "lint": "prettier --check \"src/**/*.ts\"",
+    "lint-fix": "prettier --write --check \"src/**/*.ts\"",
+    "heroku-postbuild": "yarn install --production=false && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,23 +39,8 @@
     ]
   },
   "dependencies": {
-    "rxjs": "^6.3.3",
     "3box": "^1.10.7",
-    "@apollo/react-hooks": "^3.0.1",
-    "@aragon/api": "^2.0.0-beta.5",
-    "@aragon/api-react": "^2.0.0-beta.4",
-    "@aragon/wrapper": "^5.0.0-rc.15",
     "@datorama/akita": "^4.10.2",
-    "@types/jest": "24.0.18",
-    "@types/memoizee": "^0.4.2",
-    "@types/node": "12.7.2",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
-    "@types/react-redux": "^7.1.2",
-    "@types/react-router": "^5.0.3",
-    "@types/react-router-dom": "^4.3.5",
-    "@types/redux-logger": "^3.0.7",
-    "@types/web3": "^1.0.19",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",
@@ -52,22 +49,27 @@
     "memoizee": "^0.4.14",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.1.1",
-    "redux": "^4.0.4",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "typescript": "3.5.3",
-    "typescript-fsa": "^3.0.0-beta-2",
-    "typescript-fsa-reducers": "^1.2.1",
-    "typescript-fsa-redux-thunk": "^2.1.2",
+    "rxjs": "^6.3.3",
     "web3": "^1.2.1"
   },
   "devDependencies": {
+    "@machinomy/hdwallet-provider": "^1.7.1",
+    "@types/jest": "24.0.18",
+    "@types/memoizee": "^0.4.2",
+    "@types/node": "12.7.2",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-router": "^5.0.3",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/react-test-renderer": "^16.9.0",
+    "@types/web3": "^1.0.19",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest-marbles": "^2.5.0",
     "prettier": "^1.18.2",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0"
+    "react-scripts": "3.1.1",
+    "react-test-renderer": "^16.9.0",
+    "typescript": "3.5.3"
   }
 }

@@ -1,6 +1,8 @@
 # My-DAO-Dashboard
 
-[![Build Status](https://travis-ci.org/wslyvh/My-DAO-Dashboard.svg?branch=master)](https://travis-ci.org/wslyvh/My-DAO-Dashboard)
+[![Build Status](https://travis-ci.org/my-dao-dashboard/My-DAO-Dashboard.svg?branch=master)](https://travis-ci.org/my-dao-dashboard/My-DAO-Dashboard)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=my-dao-dashboard&metric=alert_status)](https://sonarcloud.io/dashboard?id=my-dao-dashboard)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=my-dao-dashboard&metric=coverage)](https://sonarcloud.io/dashboard?id=my-dao-dashboard)
 
 ## Introduction
 

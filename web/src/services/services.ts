@@ -9,16 +9,12 @@ import { ProposalsService } from "./proposals/proposals.service";
 export class Services {
   @memoize()
   get metamask() {
-    return new MetamaskService();
+    return new MetamaskService(window as any);
   }
 
   @memoize()
   get blockchain() {
-    const service = new BlockchainService();
-    this.metamask.ready$.subscribe(async upstream => {
-      await service.updateAddress(upstream);
-    });
-    return service;
+    return new BlockchainService(this.metamask.ready$);
   }
 
   @memoize()

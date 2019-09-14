@@ -21,8 +21,8 @@ export class SettingsService {
     });
     this.store.setLoading(true);
     this.query = new SettingsQuery(this.store);
-    this.space$Subject = new BehaviorSubject(undefined)
-    this.space$ = this.space$Subject.pipe(filter(s => !!s))
+    this.space$Subject = new BehaviorSubject(undefined);
+    this.space$ = this.space$Subject.pipe(filter(s => !!s));
   }
 
   async openSpace(web3: Web3, address: string) {
@@ -32,12 +32,12 @@ export class SettingsService {
   }
 
   async writeWatchedAddresses(addresses: string[]) {
-    const space = await this.space$.pipe(first()).toPromise()
+    const space = await this.space$.pipe(first()).toPromise();
     const toWrite = addresses.map(a => a.toLowerCase());
-    await space.private.set(ADDRESS_KEY, toWrite)
+    await space.private.set(ADDRESS_KEY, toWrite);
     this.store.update({
       watchedAddresses: toWrite
-    })
+    });
   }
 
   readWatchedAddresses() {

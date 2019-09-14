@@ -2,7 +2,7 @@ import { Query } from "@datorama/akita";
 import { ProposalsStore, ProposalsState } from "./proposals.store";
 import { Observable, zip } from "rxjs";
 import { filter, map } from "rxjs/operators";
-import { VoteProposal } from "../../backbone/votes.service";
+import { VoteProposal } from "../../model/vote-proposal";
 
 export class ProposalsQuery extends Query<ProposalsState> {
   isLoading: boolean = true;

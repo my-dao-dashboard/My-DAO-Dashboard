@@ -1,7 +1,8 @@
-import { DaoInstanceState, DaoKind } from "../../backbone/State";
 import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
-import { BalanceService } from "../../backbone/balance.service";
+import { BalanceService } from "../balance.service";
+import { DaoKind } from "../../model/dao-kind";
+import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class DaostackService {
   private readonly daostackApollo: ApolloClient<unknown>;

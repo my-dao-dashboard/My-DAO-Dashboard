@@ -9,12 +9,15 @@ export class BlockchainService {
   readonly query: BlockchainQuery;
   private web3: Web3;
 
-  constructor() {
+  constructor(upstream$: Observable<any>) {
     this.store = new BlockchainStore({
       address: ""
     });
     this.query = new BlockchainQuery(this.store);
     this.web3 = new Web3();
+    upstream$.subscribe(async upstream => {
+      await this.updateUpstream(upstream);
+    });
   }
 
   get ready$(): Observable<{ address: string; web3: Web3 }> {
@@ -29,18 +32,20 @@ export class BlockchainService {
     );
   }
 
-  async updateAddress(upstream: any) {
-    this.web3 = new Web3(upstream);
-    const address = upstream.selectedAddress;
-    if (address) {
-      this.store.update({
-        address
-      });
-    } else {
-      const accounts = await this.web3.eth.getAccounts();
-      this.store.update({
-        address: accounts[0]
-      });
+  async updateUpstream(upstream: any) {
+    if (upstream) {
+      this.web3 = new Web3(upstream);
+      const address = upstream.selectedAddress;
+      if (address) {
+        this.store.update({
+          address
+        });
+      } else {
+        const accounts = await this.web3.eth.getAccounts();
+        this.store.update({
+          address: accounts[0]
+        });
+      }
     }
   }
 }

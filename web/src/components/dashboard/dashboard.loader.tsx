@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DaosContext } from "../../contexts/daos.context";
-import Loader from "../Layout/Loader/Loader";
+import LoaderView from "../layout/loader/loader.view";
 import { SettingsContext } from "../../contexts/settings.context";
 import { zip } from "rxjs";
 import { map } from "rxjs/operators";
@@ -22,7 +22,7 @@ export const DashboardLoader: React.FC = props => {
   }, [daosContext.query.isLoading$, settingsContext.query.isLoading$]);
 
   if (isLoading) {
-    return <Loader message={"Loading DAOs..."} />;
+    return <LoaderView message={"Loading DAOs..."} />;
   } else {
     return <>{props.children}</>;
   }
