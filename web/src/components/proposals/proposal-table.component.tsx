@@ -28,13 +28,13 @@ export default class ProposalTableComponent extends Component<IProps> {
     if (this.props.open) {
       return (
         <>
-          <a onClick={this.voteProposal.bind(this, true, vote)}>
+          <a href="#" onClick={this.voteProposal.bind(this, true, vote)}>
             <Tooltip title="Vote for">
               <Icon type="like" theme="twoTone" twoToneColor="#52c41a" />
             </Tooltip>
           </a>
           <Divider type="vertical" />
-          <a onClick={this.voteProposal.bind(this, false, vote)}>
+          <a href="#" onClick={this.voteProposal.bind(this, false, vote)}>
             <Tooltip title="Vote against">
               <Icon type="dislike" theme="twoTone" twoToneColor="#eb2f96" />
             </Tooltip>
