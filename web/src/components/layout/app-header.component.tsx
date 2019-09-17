@@ -1,8 +1,8 @@
-import { Avatar, Col, Divider, Layout, Row, Tooltip } from "antd";
-import makeBlockie from "ethereum-blockies-base64";
+import { Col, Divider, Layout, Row } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BlockchainContext } from "../../contexts/blockchain.context";
+import AccountInfoComponent from "../account/info/account-info.component";
 
 const { Header } = Layout;
 
@@ -17,8 +17,6 @@ export const AppHeaderComponent: React.FC = () => {
     };
   }, [blockchain.query.address$]);
 
-  const shortAddress = address.substring(0, 5);
-
   const renderUserInfo = () => {
     if (address) {
       return (
@@ -27,15 +25,9 @@ export const AppHeaderComponent: React.FC = () => {
           &nbsp;
           <Divider type="vertical" />
           &nbsp;
-          <Tooltip title={address} placement="left">
-            <Avatar src={makeBlockie(address || "unknown")} />
-            &nbsp; &nbsp;
-            <small>{shortAddress}</small>
-          </Tooltip>
+          <AccountInfoComponent address={address} />
         </>
       );
-    } else {
-      return "";
     }
   };
 
