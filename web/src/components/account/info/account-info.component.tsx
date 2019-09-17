@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tooltip, Avatar, Menu } from "antd";
+import { Tooltip, Avatar } from "antd";
 import makeBlockie from "ethereum-blockies-base64";
 
 interface IProps {
