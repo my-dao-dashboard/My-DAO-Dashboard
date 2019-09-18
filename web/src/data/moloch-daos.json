@@ -9,6 +9,21 @@
       "name": "MetaCartel",
       "address": "0x0372f3696fa7dc99801f435fd6737e57818239f2",
       "website": "https://www.metacartel.org/"
+    },
+    {
+      "name": "YangDAO",
+      "address": "0xb3c02f093e6140ed2ad91be66b302f938cd8434f",
+      "website": "https://dao.yangdao.org/"
+    },
+    {
+      "name": "TrojanDAO",
+      "address": "0xcc7dcdb700eed457c8180406d7d699877f4eee24",
+      "website": "https://www.trojandao.com/"
+    },
+    {
+      "name": "DAOsaka DAICO",
+      "address": "0x7D1a4fC6Df3B16eB894004A4586A29f39Ba6d205",
+      "website": "https://twitter.com/DAO_saka"
     }
   ]
 }
