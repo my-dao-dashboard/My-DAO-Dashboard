@@ -9,13 +9,14 @@ import daolist from "../../data/daolist.json";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
 import { Dao } from "../../model/dao";
+import { IDaoService } from "./dao.service";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
   const code = await web3.eth.getCode(contractAddress);
   return code.indexOf(signature.slice(2, signature.length)) > 0;
 }
 
-export class AragonService {
+export class AragonService implements IDaoService {
   private readonly ensApollo: ApolloClient<unknown>;
   private names: any | undefined;
 
@@ -25,7 +26,7 @@ export class AragonService {
     });
   }
 
-  public async fetchAllNames() {
+  private async fetchAllNames() {
     if (!this.names) {
       try {
         const endpoint = `https://daolist.1hive.org`;
@@ -38,7 +39,7 @@ export class AragonService {
     return this.names;
   }
 
-  public async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
+  private async fetchName(parent: string, labelhash: string, skip: number = 0): Promise<string | null> {
     const page = await this.ensApollo.query({
       query: gql`
           query {
@@ -60,7 +61,15 @@ export class AragonService {
     }
   }
 
-  public async all(address: string): Promise<Dao[]> {
+  public async getDao(address: string): Promise<Dao> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaos(): Promise<Dao[]> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaosByAccount(address: string): Promise<Dao[]> {
     const endpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`;
     const data = await fetch(endpoint);
     const body = await data.json();

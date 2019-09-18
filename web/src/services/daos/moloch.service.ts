@@ -7,20 +7,12 @@ import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
 import { Dao } from "../../model/dao";
+import { IDaoService } from "./dao.service";
 
-export class MolochService {
+export class MolochService implements IDaoService {
   constructor(private readonly web3: Web3, private readonly balanceService: BalanceService) {}
 
-  public async all(account: string): Promise<Dao[]> {
-    const all = await Promise.all(
-      KNOWN_MOLOCHS.daos.map(daoDetails => {
-        return this.getOneMolochDao(daoDetails.address, daoDetails.name, account);
-      })
-    );
-    return all.filter(dao => dao.shareBalance !== 0);
-  }
-
-  public async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<Dao> {
+  private async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<Dao> {
     const contract = new this.web3.eth.Contract(molochABI, daoAddress);
     const memberInfo = await contract.methods.members(account).call();
     const totalShares = await contract.methods.totalShares().call();
@@ -47,5 +39,22 @@ export class MolochService {
       balance,
       usdBalance: ethBalanceUsd.toNumber()
     };
+  }
+
+  public async getDao(address: string): Promise<Dao> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaos(): Promise<Dao[]> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaosByAccount(account: string): Promise<Dao[]> {
+    const all = await Promise.all(
+      KNOWN_MOLOCHS.daos.map(daoDetails => {
+        return this.getOneMolochDao(daoDetails.address, daoDetails.name, account);
+      })
+    );
+    return all.filter(dao => dao.shareBalance !== 0);
   }
 }

@@ -3,8 +3,9 @@ import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
 import { Dao } from "../../model/dao";
+import { IDaoService } from "./dao.service";
 
-export class DaostackService {
+export class DaostackService implements IDaoService {
   private readonly daostackApollo: ApolloClient<unknown>;
 
   constructor(private readonly balanceService: BalanceService) {
@@ -13,7 +14,15 @@ export class DaostackService {
     });
   }
 
-  public async all(address: string): Promise<Dao[]> {
+  public async getDao(address: string): Promise<Dao> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaos(): Promise<Dao[]> {
+    throw new Error("Method not implemented.");
+  }
+
+  public async getDaosByAccount(address: string): Promise<Dao[]> {
     const results = await this.daostackApollo.query({
       query: gql`
           query {

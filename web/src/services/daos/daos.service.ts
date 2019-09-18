@@ -45,9 +45,9 @@ export class DaosService {
   }
 
   async allByAccount(address: string): Promise<Dao[]> {
-    const molochDaos$ = this.molochService$.pipe(flatMap(s => s.all(address)));
-    const aragonDaos$ = this.aragonService$.pipe(flatMap(s => s.all(address)));
-    const daostackDaos$ = this.daostackService$.pipe(flatMap(s => s.all(address)));
+    const molochDaos$ = this.molochService$.pipe(flatMap(s => s.getDaosByAccount(address)));
+    const aragonDaos$ = this.aragonService$.pipe(flatMap(s => s.getDaosByAccount(address)));
+    const daostackDaos$ = this.daostackService$.pipe(flatMap(s => s.getDaosByAccount(address)));
     const daos = zip(molochDaos$, aragonDaos$, daostackDaos$).pipe(
       map(d => d.flat()),
       first()
