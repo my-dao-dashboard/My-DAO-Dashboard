@@ -1,9 +1,9 @@
 import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
-import { BalanceService } from "../balance.service";
-import { DaoType } from "../../model/dao-type";
-import { Dao } from "../../model/dao";
-import { IDaoService } from "./dao.service";
+import { BalanceService } from "../../balance.service";
+import { DaoType } from "../../../model/dao-type";
+import { Dao } from "../../../model/dao";
+import { IDaoService } from "../dao.service";
 
 export class DaostackService implements IDaoService {
   private readonly daostackApollo: ApolloClient<unknown>;

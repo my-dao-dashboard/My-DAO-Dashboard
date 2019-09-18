@@ -3,9 +3,9 @@ import { DaosQuery } from "./daos.query";
 import { Observable, zip } from "rxjs";
 import Web3 from "web3";
 import { first, flatMap, map } from "rxjs/operators";
-import { MolochService } from "./moloch.service";
-import { AragonService } from "./aragon.service";
-import { DaostackService } from "./daostack.service";
+import { MolochService } from "./protocols/moloch.service";
+import { AragonService } from "./protocols/aragon.service";
+import { DaostackService } from "./protocols/daostack.service";
 import { BalanceService } from "../balance.service";
 import { Dao } from "../../model/dao";
 
