@@ -5,7 +5,7 @@ import DaoIconLinkComponent from "./dao-icon-link.component";
 import DaoTagView from "../dao-tag.view";
 import { ProposalColumn } from "../../model/proposal-column";
 import { VoteCount } from "../../model/vote-count";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 interface IProps {
   open: boolean;
@@ -42,7 +42,13 @@ export default class ProposalTableComponent extends Component<IProps> {
               return 0;
             }}
           />
-          <Column title="Type" dataIndex="type" key="type" render={text => <DaoTagView type={text} />} sorter={(a: any, b: any) => a.type - b.type} />
+          <Column
+            title="Type"
+            dataIndex="type"
+            key="type"
+            render={text => <DaoTagView type={text} />}
+            sorter={(a: any, b: any) => a.type - b.type}
+          />
           <Column
             title="Yes-No (Total)"
             dataIndex="votes"
@@ -54,8 +60,21 @@ export default class ProposalTableComponent extends Component<IProps> {
               return "";
             }}
           />
-          <Column title="Created" dataIndex="deadline" key="deadline" render={text => text.toLocaleDateString()} sorter={(a: any, b: any) => a.deadline - b.deadline} />
-          <Column title="" dataIndex="dao" key="dao" render={(dao: DaoInstanceState, vote: ProposalColumn) => <DaoIconLinkComponent type={dao.kind} dao={dao.address} vote={String(vote.id)} />} />
+          <Column
+            title="Created"
+            dataIndex="deadline"
+            key="deadline"
+            render={text => text.toLocaleDateString()}
+            sorter={(a: any, b: any) => a.deadline - b.deadline}
+          />
+          <Column
+            title=""
+            dataIndex="dao"
+            key="dao"
+            render={(dao: Dao, vote: ProposalColumn) => (
+              <DaoIconLinkComponent type={dao.kind} dao={dao.address} vote={String(vote.id)} />
+            )}
+          />
         </Table>
       </>
     );

@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 
-export interface BalanceEntry {
+export interface Asset {
   symbol: string;
   name: string;
   contractAddress: string;

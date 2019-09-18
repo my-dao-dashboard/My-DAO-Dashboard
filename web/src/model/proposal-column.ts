@@ -1,7 +1,7 @@
 import { VoteCount } from "./vote-count";
 import { VoteProposal } from "./vote-proposal";
 import { VoteStatus } from "./vote-status";
-import { DaoInstanceState } from "./dao-instance-state";
+import { Dao } from "./dao";
 
 export interface ProposalColumn {
   key: string;
@@ -14,7 +14,7 @@ export interface ProposalColumn {
   createdBy: string;
   deadline: Date;
   votes: VoteCount;
-  dao: DaoInstanceState;
+  dao: Dao;
 }
 
 export function formatProposal(proposal: VoteProposal): ProposalColumn {

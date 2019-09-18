@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";
 import DaoLinkComponent from "../dao/dao-link.component";
 import DaoTagView from "../dao-tag.view";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 interface Props {
-  daos: DaoInstanceState[];
+  daos: Dao[];
 }
 
 export const DaoListView: React.FC<Props> = props => {

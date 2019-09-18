@@ -8,7 +8,7 @@ import Web3 from "web3";
 import daolist from "../../data/daolist.json";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
   const code = await web3.eth.getCode(contractAddress);
@@ -60,7 +60,7 @@ export class AragonService {
     }
   }
 
-  public async all(address: string): Promise<DaoInstanceState[]> {
+  public async all(address: string): Promise<Dao[]> {
     const endpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`;
     const data = await fetch(endpoint);
     const body = await data.json();
@@ -112,7 +112,7 @@ export class AragonService {
           const totalSupply = new BigNumber(await tokenContract.methods.totalSupply().call())
             .dividedBy(10 ** decimals)
             .toNumber();
-          const dao: DaoInstanceState = {
+          const dao: Dao = {
             address: kernel.toLowerCase(),
             name: graphqlName || hiveName || kernel,
             kind: DaoType.ARAGON,

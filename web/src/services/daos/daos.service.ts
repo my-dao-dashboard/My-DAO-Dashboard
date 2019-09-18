@@ -7,7 +7,7 @@ import { MolochService } from "./moloch.service";
 import { AragonService } from "./aragon.service";
 import { DaostackService } from "./daostack.service";
 import { BalanceService } from "../balance.service";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 export class DaosService {
   private readonly store: DaosStore;
@@ -39,12 +39,12 @@ export class DaosService {
       });
   }
 
-  async allWatched(watchedAddresses: string[]): Promise<DaoInstanceState[]> {
+  async allWatched(watchedAddresses: string[]): Promise<Dao[]> {
     const daos = await Promise.all(watchedAddresses.map(address => this.allByAccount(address)));
     return daos.flat();
   }
 
-  async allByAccount(address: string): Promise<DaoInstanceState[]> {
+  async allByAccount(address: string): Promise<Dao[]> {
     const molochDaos$ = this.molochService$.pipe(flatMap(s => s.all(address)));
     const aragonDaos$ = this.aragonService$.pipe(flatMap(s => s.all(address)));
     const daostackDaos$ = this.daostackService$.pipe(flatMap(s => s.all(address)));

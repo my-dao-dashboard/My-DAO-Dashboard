@@ -6,12 +6,12 @@ import erc20ABI from "../../abis/erc20.abi.json";
 import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 export class MolochService {
   constructor(private readonly web3: Web3, private readonly balanceService: BalanceService) {}
 
-  public async all(account: string): Promise<DaoInstanceState[]> {
+  public async all(account: string): Promise<Dao[]> {
     const all = await Promise.all(
       KNOWN_MOLOCHS.daos.map(daoDetails => {
         return this.getOneMolochDao(daoDetails.address, daoDetails.name, account);
@@ -20,7 +20,7 @@ export class MolochService {
     return all.filter(dao => dao.shareBalance !== 0);
   }
 
-  public async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<DaoInstanceState> {
+  public async getOneMolochDao(daoAddress: string, daoName: string, account: string): Promise<Dao> {
     const contract = new this.web3.eth.Contract(molochABI, daoAddress);
     const memberInfo = await contract.methods.members(account).call();
     const totalShares = await contract.methods.totalShares().call();

@@ -2,10 +2,10 @@ import React from "react";
 import DaoTagView from "../dao-tag.view";
 import DaoLinkComponent from "./dao-link.component";
 import { Progress, Statistic, Tooltip } from "antd";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 interface Props {
-  dao: DaoInstanceState;
+  dao: Dao;
 }
 
 export const DaoOverviewContainer: React.FC<Props> = props => {

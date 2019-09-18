@@ -1,11 +1,11 @@
 import { TransactionKind } from "./transaction-kind";
 import { VoteCount } from "./vote-count";
 import { VoteStatus } from "./vote-status";
-import { DaoInstanceState } from "./dao-instance-state";
+import { Dao } from "./dao";
 
 export interface VoteProposal {
   kind: TransactionKind;
-  dao: DaoInstanceState;
+  dao: Dao;
   creator: string;
   voteId: number;
   votes: VoteCount;

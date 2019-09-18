@@ -1,8 +1,8 @@
 import { Store, StoreConfig } from "@datorama/akita";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 export interface DaosState {
-  daos: DaoInstanceState[];
+  daos: Dao[];
 }
 
 @StoreConfig({ name: "daos" })

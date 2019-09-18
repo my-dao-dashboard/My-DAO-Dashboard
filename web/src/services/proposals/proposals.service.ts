@@ -12,7 +12,7 @@ import { VoteProposal } from "../../model/vote-proposal";
 import { VoteCount } from "../../model/vote-count";
 import { TransactionKind } from "../../model/transaction-kind";
 import { DaoType } from "../../model/dao-type";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 const MINTING_MARK = "40c10f19";
 
@@ -31,7 +31,7 @@ async function parseMinting(
   blockNumber: number,
   votingAddress: string,
   voteStatus: VoteStatus,
-  dao: DaoInstanceState
+  dao: Dao
 ): Promise<VoteProposal> {
   const markIndex = txInput.indexOf(MINTING_MARK);
   const txStuff = txInput.slice(markIndex, txInput.length);
@@ -71,7 +71,7 @@ async function parseTx(
   blockNumber: number,
   votingAddress: string,
   voteStatus: VoteStatus,
-  dao: DaoInstanceState
+  dao: Dao
 ): Promise<VoteProposal> {
   const block = await web3.eth.getBlock(blockNumber);
   const timestamp = new Date(block.timestamp * 1000);
@@ -109,7 +109,7 @@ export class ProposalsService {
   private readonly molochApollo: ApolloClient<unknown>;
   private readonly daostackApollo: ApolloClient<unknown>;
 
-  constructor(private readonly web3$: Observable<Web3>, private readonly daos$: Observable<DaoInstanceState[]>) {
+  constructor(private readonly web3$: Observable<Web3>, private readonly daos$: Observable<Dao[]>) {
     this.store = new ProposalsStore({
       proposals: []
     });
@@ -130,7 +130,7 @@ export class ProposalsService {
     });
   }
 
-  async loadAllProposals(daos: DaoInstanceState[]) {
+  async loadAllProposals(daos: Dao[]) {
     const proposals = await Promise.all(
       daos.map(dao => {
         return this.byDao(dao);
@@ -139,7 +139,7 @@ export class ProposalsService {
     return proposals.flat();
   }
 
-  byDao(dao: DaoInstanceState) {
+  byDao(dao: Dao) {
     switch (dao.kind) {
       case DaoType.ARAGON:
         return this.getAragonVotes(dao);
@@ -152,7 +152,7 @@ export class ProposalsService {
     }
   }
 
-  public async getDaostackVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+  public async getDaostackVotes(dao: Dao): Promise<VoteProposal[]> {
     const page = await this.daostackApollo.query({
       query: gql`
           query {
@@ -200,7 +200,7 @@ export class ProposalsService {
     });
   }
 
-  public async getMolochVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+  public async getMolochVotes(dao: Dao): Promise<VoteProposal[]> {
     const page = await this.molochApollo.query({
       query: gql`
         query {
@@ -244,7 +244,7 @@ export class ProposalsService {
     });
   }
 
-  public async getAragonVotes(dao: DaoInstanceState): Promise<VoteProposal[]> {
+  public async getAragonVotes(dao: Dao): Promise<VoteProposal[]> {
     const kernelAddress = dao.address;
     const web3 = await this.web3$.pipe(first()).toPromise();
     const kernelContract = new web3.eth.Contract(aragonKernelABI, kernelAddress);

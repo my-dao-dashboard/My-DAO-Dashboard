@@ -2,7 +2,7 @@ import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
 import { DaoType } from "../../model/dao-type";
-import { DaoInstanceState } from "../../model/dao-instance-state";
+import { Dao } from "../../model/dao";
 
 export class DaostackService {
   private readonly daostackApollo: ApolloClient<unknown>;
@@ -13,7 +13,7 @@ export class DaostackService {
     });
   }
 
-  public async all(address: string): Promise<DaoInstanceState[]> {
+  public async all(address: string): Promise<Dao[]> {
     const results = await this.daostackApollo.query({
       query: gql`
           query {
@@ -42,7 +42,7 @@ export class DaostackService {
       `
     });
 
-    const holdings: DaoInstanceState[] = await Promise.all(
+    const holdings: Dao[] = await Promise.all(
       await results.data.reputationHolders.map(async (holder: any) => {
         const balance = await this.balanceService.balance(holder.dao.id);
         const usdBalance = balance.reduce((acc, cur) => acc + cur.usdValue, 0);
@@ -55,7 +55,7 @@ export class DaostackService {
           totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
           balance,
           usdBalance
-        } as DaoInstanceState;
+        } as Dao;
       })
     );
 

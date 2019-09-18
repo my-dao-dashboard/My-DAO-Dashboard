@@ -1,12 +1,12 @@
 import { DaoType } from "./dao-type";
-import { BalanceEntry } from "./balance-entry";
+import { Asset } from "./asset";
 
-export interface DaoInstanceState {
+export interface Dao {
   address: string;
   name: string | null;
   kind: DaoType;
   shareBalance: number;
   totalSupply: number;
-  balance: BalanceEntry[];
+  balance: Asset[];
   usdBalance: number;
 }
