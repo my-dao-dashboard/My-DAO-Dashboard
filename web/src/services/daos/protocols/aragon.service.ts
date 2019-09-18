@@ -78,7 +78,7 @@ export class AragonService implements IDaoService {
     const aragonKernels = [];
     for await (const contractAddress of tokenContracts) {
       const tokenContract = new this.web3.eth.Contract(aragonTokenABI, contractAddress);
-      const signature = await tokenContract.methods.controller().encodeABI();
+      const signature = tokenContract.methods.controller().encodeABI();
       const isAragonToken = await hasMethod(this.web3, contractAddress, signature);
       if (isAragonToken) {
         try {
