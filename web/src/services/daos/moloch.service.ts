@@ -5,7 +5,7 @@ import molochABI from "../../abis/moloch.abi.json";
 import erc20ABI from "../../abis/erc20.abi.json";
 import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
-import { DaoKind } from "../../model/dao-kind";
+import { DaoType } from "../../model/dao-type";
 import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class MolochService {
@@ -41,7 +41,7 @@ export class MolochService {
     return {
       address: daoAddress,
       name: daoName,
-      kind: DaoKind.MOLOCH,
+      kind: DaoType.MOLOCH,
       shareBalance: Number(memberInfo.shares),
       totalSupply: Number(totalShares),
       balance,

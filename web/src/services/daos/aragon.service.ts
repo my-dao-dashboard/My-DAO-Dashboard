@@ -7,7 +7,7 @@ import _ from "underscore";
 import Web3 from "web3";
 import daolist from "../../data/daolist.json";
 import { BalanceService } from "../balance.service";
-import { DaoKind } from "../../model/dao-kind";
+import { DaoType } from "../../model/dao-type";
 import { DaoInstanceState } from "../../model/dao-instance-state";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
@@ -115,7 +115,7 @@ export class AragonService {
           const dao: DaoInstanceState = {
             address: kernel.toLowerCase(),
             name: graphqlName || hiveName || kernel,
-            kind: DaoKind.ARAGON,
+            kind: DaoType.ARAGON,
             shareBalance,
             totalSupply,
             balance,

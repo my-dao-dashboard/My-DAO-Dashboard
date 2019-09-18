@@ -1,7 +1,7 @@
 import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
 import { BalanceService } from "../balance.service";
-import { DaoKind } from "../../model/dao-kind";
+import { DaoType } from "../../model/dao-type";
 import { DaoInstanceState } from "../../model/dao-instance-state";
 
 export class DaostackService {
@@ -50,7 +50,7 @@ export class DaostackService {
         return {
           address: holder.dao.id,
           name: holder.dao.name,
-          kind: DaoKind.DAOSTACK,
+          kind: DaoType.DAOSTACK,
           shareBalance: new BigNumber(holder.balance).dividedBy(10 ** 18).toNumber(),
           totalSupply: new BigNumber(holder.dao.nativeReputation.totalSupply).dividedBy(10 ** 18).toNumber(),
           balance,

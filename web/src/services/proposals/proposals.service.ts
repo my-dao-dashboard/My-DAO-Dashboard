@@ -11,7 +11,7 @@ import { VoteStatus } from "../../model/vote-status";
 import { VoteProposal } from "../../model/vote-proposal";
 import { VoteCount } from "../../model/vote-count";
 import { TransactionKind } from "../../model/transaction-kind";
-import { DaoKind } from "../../model/dao-kind";
+import { DaoType } from "../../model/dao-type";
 import { DaoInstanceState } from "../../model/dao-instance-state";
 
 const MINTING_MARK = "40c10f19";
@@ -141,11 +141,11 @@ export class ProposalsService {
 
   byDao(dao: DaoInstanceState) {
     switch (dao.kind) {
-      case DaoKind.ARAGON:
+      case DaoType.ARAGON:
         return this.getAragonVotes(dao);
-      case DaoKind.MOLOCH:
+      case DaoType.MOLOCH:
         return this.getMolochVotes(dao);
-      case DaoKind.DAOSTACK:
+      case DaoType.DAOSTACK:
         return this.getDaostackVotes(dao);
       default:
         return assertNever(dao.kind);

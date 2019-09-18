@@ -1,5 +1,6 @@
 import { Icon } from "antd";
 import React, { Component } from "react";
+import { DAO_ARAGON_LINK, ETHERSCAN_LINK, DAO_DAOSTACK_LINK, DAO_MOLOCH_LINK } from "../../constants";
 
 interface IProps {
   type: string;
@@ -11,13 +12,13 @@ export default class DaoIconLinkComponent extends Component<IProps> {
   private getDaoLink(): string {
     switch (this.props.type) {
       case "ARAGON":
-        return `https://mainnet.aragon.org/#/${this.props.dao}`;
+        return DAO_ARAGON_LINK + this.props.dao;
       case "MOLOCH":
-        return `https://molochdao.com/proposals/${this.props.vote}`;
+        return `${DAO_MOLOCH_LINK}proposals/${this.props.vote}`;
       case "DAOSTACK":
-        return `https://alchemy.daostack.io/dao/${this.props.dao}/proposal/${this.props.vote}`;
+        return `${DAO_DAOSTACK_LINK}${this.props.dao}/proposal/${this.props.vote}`;
       default:
-        return `https://etherscan.io/address/${this.props.dao}`;
+        return ETHERSCAN_LINK + this.props.dao;
     }
   }
   public render() {
