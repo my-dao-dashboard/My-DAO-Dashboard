@@ -32,7 +32,6 @@ As a primary font, My-DAO-Dashboard uses ['Lato'](#https://fonts.google.com/spec
 
 
 ## <a id="Colours"></a> Colours
-![Colourpallete My DAO Dashboard](https://imgur.com/a/piAEVhj "Colourpallete My DAO Dashboard")
 
   * Primary colour: #EF5050
   * Secondary colours: #EAEFF0, #2B565F
