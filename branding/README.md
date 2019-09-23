@@ -1,7 +1,9 @@
-### Branding
-Here you'll find the branding guidelines of the My-DAO-Dashboard styling.
+# Branding
+These are the branding guidelines for the My-DAO-Dashboard styling.
+Find these subjects below:
+⋅⋅* [Logo](#Logo)?
 
-## Logo
+## <a id="Logo"></a> Logo
 
 ## Typography
 
