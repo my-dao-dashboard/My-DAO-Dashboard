@@ -1,4 +1,10 @@
-## Branding
-============
+### Branding
+Here you'll find the branding guidelines of the My-DAO-Dashboard styling.
 
-My DAO Dashboard branding be here
+## Logo
+
+## Typography
+
+## Colours
+
+## Iconography
