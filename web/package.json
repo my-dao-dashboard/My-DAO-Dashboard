@@ -43,7 +43,6 @@
     "@datorama/akita": "^4.10.2",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
-    "axios": "^0.19.0",
     "bignumber.js": "^9.0.0",
     "ethereum-blockies-base64": "^1.0.2",
     "graphql": "^14.5.3",
@@ -57,6 +56,7 @@
   },
   "devDependencies": {
     "@machinomy/hdwallet-provider": "^1.7.1",
+    "@types/fetch-mock": "^7.3.1",
     "@types/jest": "24.0.18",
     "@types/memoizee": "^0.4.2",
     "@types/node": "12.7.2",
@@ -69,6 +69,7 @@
     "@types/web3": "^1.0.19",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "fetch-mock": "^7.3.9",
     "jest-marbles": "^2.5.0",
     "prettier": "^1.18.2",
     "react-scripts": "3.1.1",
