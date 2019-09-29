@@ -5,6 +5,7 @@ import { SettingsService } from "./settings/settings.service";
 import { DaosService } from "./daos/daos.service";
 import { map } from "rxjs/operators";
 import { ProposalsService } from "./proposals/proposals.service";
+import { EtherscanService } from "./etherscan.service";
 
 export class Services {
   @memoize()
@@ -32,7 +33,13 @@ export class Services {
     const watchedAddresses$ = this.settings.query.loadedWatchedAddresses$;
     const web3$ = this.blockchain.ready$.pipe(map(p => p.web3));
     const account$ = this.blockchain.ready$.pipe(map(p => p.address));
-    return new DaosService(watchedAddresses$, web3$, account$);
+    const etherscan = this.etherscanService;
+    return new DaosService(watchedAddresses$, web3$, account$, etherscan);
+  }
+
+  @memoize()
+  get etherscanService() {
+    return new EtherscanService();
   }
 
   @memoize()

@@ -3,13 +3,13 @@ import aragonTokenControllerABI from "../../../abis/aragon-token-controller.abi.
 import aragonKernelABI from "../../../abis/aragon-kernel.abi.json";
 import ApolloClient, { gql } from "apollo-boost";
 import BigNumber from "bignumber.js";
-import _ from "underscore";
 import Web3 from "web3";
 import daolist from "../../../data/daolist.json";
 import { BalanceService } from "../../balance.service";
 import { DaoType } from "../../../model/dao-type";
 import { Dao } from "../../../model/dao";
 import { IDaoService } from "../dao.service";
+import { EtherscanService } from "../../etherscan.service";
 
 async function hasMethod(web3: Web3, contractAddress: string, signature: string): Promise<boolean> {
   const code = await web3.eth.getCode(contractAddress);
@@ -20,7 +20,11 @@ export class AragonService implements IDaoService {
   private readonly ensApollo: ApolloClient<unknown>;
   private names: any | undefined;
 
-  constructor(private readonly web3: Web3, private readonly balanceService: BalanceService) {
+  constructor(
+    private readonly web3: Web3,
+    private readonly balanceService: BalanceService,
+    private readonly etherscanService: EtherscanService
+  ) {
     this.ensApollo = new ApolloClient({
       uri: "https://api.thegraph.com/subgraphs/name/ensdomains/ens"
     });
@@ -70,11 +74,7 @@ export class AragonService implements IDaoService {
   }
 
   public async getDaosByAccount(address: string): Promise<Dao[]> {
-    const endpoint = `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}#tokentxns&startblock=0&endblock=999999999&sort=asc&apikey=YourApiKeyToken`;
-    const data = await fetch(endpoint);
-    const body = await data.json();
-    const tokenTransactions = body.result;
-    const tokenContracts = _.uniq<string, string>(tokenTransactions.map((t: any) => t.contractAddress));
+    const tokenContracts = await this.etherscanService.tokenContractsByAccount(address);
     const aragonKernels = [];
     for await (const contractAddress of tokenContracts) {
       const tokenContract = new this.web3.eth.Contract(aragonTokenABI, contractAddress);
