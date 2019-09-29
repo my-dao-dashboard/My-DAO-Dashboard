@@ -18,7 +18,12 @@ export class DaosService {
   private readonly aragonService$: Observable<AragonService>;
   private readonly daostackService$: Observable<DaostackService>;
 
-  constructor(watchedAddresses$: Observable<string[]>, web3$: Observable<Web3>, account$: Observable<string>, etherscanService: EtherscanService) {
+  constructor(
+    watchedAddresses$: Observable<string[]>,
+    web3$: Observable<Web3>,
+    account$: Observable<string>,
+    etherscanService: EtherscanService
+  ) {
     this.store = new DaosStore({
       daos: []
     });
@@ -26,7 +31,9 @@ export class DaosService {
     this.query = new DaosQuery(this.store);
     this.balanceService$ = web3$.pipe(map(web3 => new BalanceService(web3)));
     this.molochService$ = zip(web3$, this.balanceService$).pipe(map(p => new MolochService(p[0], p[1])));
-    this.aragonService$ = zip(web3$, this.balanceService$).pipe(map(p => new AragonService(p[0], p[1], etherscanService)));
+    this.aragonService$ = zip(web3$, this.balanceService$).pipe(
+      map(p => new AragonService(p[0], p[1], etherscanService))
+    );
     this.daostackService$ = this.balanceService$.pipe(map(bs => new DaostackService(bs)));
 
     zip(watchedAddresses$, account$)
