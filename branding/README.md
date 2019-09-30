@@ -15,14 +15,14 @@ In these guidelines, following topics will be covered:
 The My DAO Dashboard-logo is a visual reference to the radar of a dashboard and the letter D. It is ideally used as a standalone image. The title 'My DAO Dashboard' is added when so required to avoid confusion (e.g. in a sponsorship-context, on swag, on top of the app).
 
 ### Do's:
-![MDD Do's](https://i.imgur.com/1u91WiM.png "MDD Do's")
-
+![MDD Do's](https://i.imgur.com/94GlAp7.png "MDD Do's")
   * Give the logo enough space around it (visually 2/5)
   * Use the positive version on a light background
   * Use the negative version on a dark background
   * Only show the logo in the [brand colours](#Colours) 
 
 ### Don'ts:
+![MDD Don'ts](https://i.imgur.com/OdDGHTL.png "MDD Don'ts")
   * Don't alter, rotate, skew, morph or transform the logo
   * Don't trim the space surrounding the logo
   * Don’t accessorize the logo with extra elements
