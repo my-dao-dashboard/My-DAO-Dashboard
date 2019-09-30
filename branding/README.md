@@ -1,7 +1,8 @@
-# Branding
 ![MDD Mood](https://i.imgur.com/M7thpm5.png "MDD-moodboard")
 
-These are the branding guidelines for the My-DAO-Dashboard styling.<br>
+# Branding
+
+Below are the branding guidelines for the My-DAO-Dashboard styling.<br>
 In these guidelines, following topics will be covered:
 
   * [Logo](#Logo)
