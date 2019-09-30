@@ -15,7 +15,7 @@ In these guidelines, following topics will be covered:
 
 The My DAO Dashboard-logo is a visual reference to the radar of a dashboard and the letter D. It can be used as a standalone image or in combination with the title 'My DAO Dashboard', dependant on the situation.
 
-![MDD Mood 2](https://i.imgur.com/Kn1sgzg.png "MDD-moodboard2")
+<!-- ![MDD Mood 2](https://i.imgur.com/Kn1sgzg.png "MDD-moodboard2") -->
 
 
 ### Do's:
