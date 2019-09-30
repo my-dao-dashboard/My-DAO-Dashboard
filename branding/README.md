@@ -13,6 +13,7 @@ In these guidelines, following topics will be covered:
 ## <a id="Logo"></a> Logo
 
 The My DAO Dashboard-logo is a visual reference to the radar of a dashboard and the letter D. It is ideally used as a standalone image. The title 'My DAO Dashboard' is added when so required to avoid confusion (e.g. in a sponsorship-context, on swag, on top of the app).
+![MDD Do's](https://i.imgur.com/1u91WiM.png "MDD Do's")
 
 ### Do's:
   * Give the logo enough space around it (visually 2/5)
