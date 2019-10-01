@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
 import _ from "underscore";
-import { useProgress } from "../../hooks/use-progress";
 import { isAddress } from "../../util/is-address";
+import { useProgress } from "../../util/use-progress";
 
 export const AddressesFormComponent: React.FC = props => {
   const settings = useContext(SettingsContext);
-  const [watchedAddresses, setWatchedAddresses] = useState(settings.query.watchedAddresses);
+  const [watchedAddresses, setWatchedAddresses] = useState(settings.query.watchedAddresses$.value);
   const [addressesToStore, setAddressesToStore] = useState<string[]>([]);
   const savingProgress = useProgress(false);
 
@@ -53,7 +53,7 @@ export const AddressesFormComponent: React.FC = props => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [settings.query.watchedAddresses$]);
+  }, [settings.query.watchedAddresses$.value]);
 
   return (
     <>
