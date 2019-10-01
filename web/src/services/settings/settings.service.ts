@@ -4,13 +4,12 @@ import Web3 from "web3";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, first } from "rxjs/operators";
 import { THREEBOX_NAMESPACE, THREEBOX_ADDRESS_KEY } from "../../constants";
-
-const ThreeBox = require("3box");
+import ThreeBox, { Space } from "3box";
 
 export class SettingsService {
   private readonly store: SettingsStore;
   readonly query: SettingsQuery;
-  private readonly space$Subject: BehaviorSubject<any>;
+  private readonly space$Subject: BehaviorSubject<Space | undefined>;
   private readonly space$: Observable<any>;
 
   constructor() {
@@ -19,7 +18,7 @@ export class SettingsService {
     });
     this.store.setLoading(true);
     this.query = new SettingsQuery(this.store);
-    this.space$Subject = new BehaviorSubject(undefined);
+    this.space$Subject = new BehaviorSubject<Space | undefined>(undefined);
     this.space$ = this.space$Subject.pipe(filter(s => !!s));
   }
 
@@ -30,7 +29,7 @@ export class SettingsService {
   }
 
   async writeWatchedAddresses(addresses: string[]) {
-    const space = await this.space$.pipe(first()).toPromise();
+    const space: Space = await this.space$.pipe(first()).toPromise();
     const toWrite = addresses.map(a => a.toLowerCase());
     await space.private.set(THREEBOX_ADDRESS_KEY, toWrite);
     this.store.update({
@@ -39,8 +38,8 @@ export class SettingsService {
   }
 
   readWatchedAddresses() {
-    this.space$.pipe(first()).subscribe(async space => {
-      const boxedAddresses = await space.private.get(THREEBOX_ADDRESS_KEY);
+    this.space$.pipe(first()).subscribe(async (space: Space) => {
+      const boxedAddresses = await space.private.get<string[]>(THREEBOX_ADDRESS_KEY);
       const watchedAddresses = boxedAddresses || [];
       this.store.update({
         watchedAddresses
