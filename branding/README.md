@@ -1,5 +1,8 @@
+![MDD Mood](https://i.imgur.com/M7thpm5.png "MDD-moodboard")
+
 # Branding
-These are the branding guidelines for the My-DAO-Dashboard styling.<br>
+
+Below are the branding guidelines for the My-DAO-Dashboard styling.<br>
 In these guidelines, following topics will be covered:
 
   * [Logo](#Logo)
@@ -7,22 +10,28 @@ In these guidelines, following topics will be covered:
   * [Colours](#Colours)
   * [Iconography](#Iconography)
 
+
 ## <a id="Logo"></a> Logo
 
-The My DAO Dashboard-logo is a visual reference to the radar of a dashboard and the letter D. It is ideally used as a standalone image. The title 'My DAO Dashboard' is added when so required to avoid confusion (e.g. in a sponsorship-context, on swag, on top of the app).
+The My DAO Dashboard-logo is a visual reference to the radar of a dashboard and the letter D. It can be used as a standalone image or in combination with the title 'My DAO Dashboard', dependant on the situation.
+
+<!-- ![MDD Mood 2](https://i.imgur.com/Kn1sgzg.png "MDD-moodboard2") -->
+
 
 ### Do's:
   * Give the logo enough space around it (visually 2/5)
   * Use the positive version on a light background
   * Use the negative version on a dark background
   * Only show the logo in the [brand colours](#Colours) 
+![MDD Do's](https://i.imgur.com/94GlAp7.png "MDD Do's")
+
 
 ### Don'ts:
   * Don't alter, rotate, skew, morph or transform the logo
   * Don't trim the space surrounding the logo
   * Don’t accessorize the logo with extra elements
-  
 
+![MDD Don'ts](https://i.imgur.com/OdDGHTL.png "MDD Don'ts")
 
 
 ## <a id="Typography"></a> Typography
@@ -32,7 +41,7 @@ As a primary font, My-DAO-Dashboard uses ['Lato'](#https://fonts.google.com/spec
 
 
 ## <a id="Colours"></a> Colours
-
+![MDD Colours](https://i.imgur.com/2ddG7xh.png "MDD Colours")
   * Primary colour: #EF5050
   * Secondary colours: #EAEFF0, #2B565F
 
