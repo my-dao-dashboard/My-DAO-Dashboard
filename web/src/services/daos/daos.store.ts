@@ -3,6 +3,7 @@ import { Dao } from "../../model/dao";
 
 export interface DaosState {
   daos: Dao[];
+  isRead: boolean;
 }
 
 @StoreConfig({ name: "daos" })

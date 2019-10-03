@@ -25,9 +25,9 @@ export class DaosService {
     etherscanService: EtherscanService
   ) {
     this.store = new DaosStore({
-      daos: []
+      daos: [],
+      isRead: false
     });
-    this.store.setLoading(true);
     this.query = new DaosQuery(this.store);
     this.balanceService$ = web3$.pipe(map(web3 => new BalanceService(web3)));
     this.molochService$ = zip(web3$, this.balanceService$).pipe(map(p => new MolochService(p[0], p[1])));
@@ -41,9 +41,9 @@ export class DaosService {
       .pipe(flatMap(watchedAddresses => this.allWatched(watchedAddresses)))
       .subscribe(daos => {
         this.store.update({
+          isRead: true,
           daos
         });
-        this.store.setLoading(false);
       });
   }
 

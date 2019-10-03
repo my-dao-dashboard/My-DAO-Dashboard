@@ -3,6 +3,7 @@ import Web3 from "web3";
 import { BlockchainQuery } from "./blockchain.query";
 import { filter, map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { BlockchainReady } from "./blockchain-ready";
 
 export class BlockchainService {
   private readonly store: BlockchainStore;
@@ -20,7 +21,7 @@ export class BlockchainService {
     });
   }
 
-  get ready$(): Observable<{ address: string; web3: Web3 }> {
+  get ready$(): Observable<BlockchainReady> {
     return this.query.address$.pipe(
       filter(a => !!a),
       map(a => {

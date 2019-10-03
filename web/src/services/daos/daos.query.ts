@@ -1,28 +1,26 @@
-import { Query } from "@datorama/akita";
 import { DaosState, DaosStore } from "./daos.store";
 import { Observable, zip } from "rxjs";
 import { filter, map } from "rxjs/operators";
 import { Dao } from "../../model/dao";
+import { ImmediateQuery } from "../../util/immediate-query";
 
-export class DaosQuery extends Query<DaosState> {
-  isLoading: boolean = true;
-
-  isLoading$ = this.selectLoading();
-  daos$: Observable<Dao[]> = this.select(s => s.daos);
-  loadedDaos$: Observable<Dao[]> = zip(this.isLoading$, this.daos$).pipe(
+export class DaosQuery extends ImmediateQuery<DaosState> {
+  isRead$ = this.immediate(s => s.isRead);
+  loadedDaos$: Observable<Dao[]> = zip(this.isRead$, this.select(s => s.daos)).pipe(
     filter(p => !p[0]),
     map(p => p[1])
   );
 
   constructor(protected store: DaosStore) {
     super(store);
-    this.isLoading$.subscribe(isLoading => {
-      this.isLoading = isLoading;
-    });
   }
 
   get daos() {
     return this.getValue().daos;
+  }
+
+  get isRead() {
+    return this.getValue().isRead;
   }
 
   byAddress(address: string) {

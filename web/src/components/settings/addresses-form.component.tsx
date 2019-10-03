@@ -1,24 +1,21 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
 import _ from "underscore";
-import { useProgress } from "../../hooks/use-progress";
 import { isAddress } from "../../util/is-address";
+import { useProgress } from "../../util/use-progress";
+import { useImmediateObservable } from "../../util/use-immediate-observable";
 
 export const AddressesFormComponent: React.FC = props => {
   const settings = useContext(SettingsContext);
-  const [watchedAddresses, setWatchedAddresses] = useState(settings.query.watchedAddresses);
+  const watchedAddresses = useImmediateObservable(settings.watchedAddresses$());
   const [addressesToStore, setAddressesToStore] = useState<string[]>([]);
   const savingProgress = useProgress(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    try {
-      savingProgress.start();
-      await settings.writeWatchedAddresses(addressesToStore);
-      savingProgress.stop();
-    } catch (e) {
-      savingProgress.stop(e);
-    }
+    savingProgress.start();
+    const stop = savingProgress.stop.bind(savingProgress);
+    settings.updateWatchedAddresses(addressesToStore).subscribe(stop, stop, stop);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,13 +44,6 @@ export const AddressesFormComponent: React.FC = props => {
       return <button type={"submit"}>Save</button>;
     }
   };
-
-  useEffect(() => {
-    const subscription = settings.query.watchedAddresses$.subscribe(setWatchedAddresses);
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [settings.query.watchedAddresses$]);
 
   return (
     <>

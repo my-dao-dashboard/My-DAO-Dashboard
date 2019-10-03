@@ -1,21 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { SettingsContext } from "../../contexts/settings.context";
 import LoaderView from "../layout/loader/loader.view";
+import { useImmediateObservable } from "../../util/use-immediate-observable";
 
-export const SettingsLoader: React.FC = (props) => {
+export const SettingsLoader: React.FC = props => {
   const settings = useContext(SettingsContext);
-  const [isLoaded, setLoaded] = useState<boolean>(settings.query.isLoading);
+  const isRead = useImmediateObservable(settings.isRead$());
 
-  useEffect(() => {
-    const subscription = settings.query.selectLoading().subscribe(isLoading => {
-      setLoaded(!isLoading);
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  });
-
-  if (isLoaded) {
+  if (isRead) {
     return <>{props.children}</>;
   } else {
     return <LoaderView message={"Opening 3Box profile..."} />;
