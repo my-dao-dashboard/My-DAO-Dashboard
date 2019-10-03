@@ -7,7 +7,7 @@ import { BlockchainReady } from "../blockchain/blockchain-ready";
 import ThreeBox, { Space } from "3box";
 
 export interface LocalStorageSettings {
-  watchedAddresses: string[]
+  watchedAddresses: string[];
 }
 
 export class SettingsService {
@@ -31,12 +31,12 @@ export class SettingsService {
     if (stored) {
       return JSON.parse(stored);
     } else {
-      return undefined
+      return undefined;
     }
   }
 
   private toLocalStorage(settings: LocalStorageSettings) {
-    localStorage.setItem(THREEBOX_NAMESPACE, JSON.stringify(settings))
+    localStorage.setItem(THREEBOX_NAMESPACE, JSON.stringify(settings));
   }
 
   private observe() {
@@ -46,7 +46,7 @@ export class SettingsService {
         this.store.update({
           watchedAddresses: localSettings.watchedAddresses,
           isRead: true
-        })
+        });
       }
       this.ready$
         .pipe(

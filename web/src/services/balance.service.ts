@@ -21,7 +21,10 @@ export class BalanceService {
   }
 
   public async assetPrice(symbol: string): Promise<number> {
-    return this.messariService.assetPrice(symbol).pipe(first()).toPromise()
+    return this.messariService
+      .assetPrice(symbol)
+      .pipe(first())
+      .toPromise();
   }
 
   public async balance(address: string): Promise<Asset[]> {
