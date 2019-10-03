@@ -6,6 +6,8 @@ import Application from "./application";
 import * as serviceWorker from "./serviceWorker";
 import { akitaDevtools } from "@datorama/akita";
 
+
+
 akitaDevtools();
 
 ReactDOM.render(<Application />, document.getElementById("root"));

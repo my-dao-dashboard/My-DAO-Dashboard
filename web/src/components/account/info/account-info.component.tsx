@@ -14,11 +14,14 @@ export default class AccountInfoComponent extends Component<IProps> {
       const shortAddress = `${first}...${last}`;
 
       return (
-        <Tooltip title={this.props.address} placement="left">
-          <Avatar shape="square" size="small" src={makeBlockie(this.props.address)} />
-          &nbsp; &nbsp;
-          <small>{shortAddress}</small>
-        </Tooltip>
+        <div className="accountinfo">
+          <p>{shortAddress}</p>
+          <Avatar shape="circle" size={32} src={makeBlockie(this.props.address)} />
+        </div>
+        // <Tooltip title={this.props.address}>
+        //   <small>{shortAddress}</small>
+        //   <Avatar shape="circle" size="small" src={makeBlockie(this.props.address)} />
+        // </Tooltip>
       );
     }
 

@@ -35,23 +35,24 @@ export const LoginComponent: React.FC<Props> = props => {
   const renderButton = () => {
     if (progress.isRunning()) {
       return (
-        <Button type="primary" data-test-id={"connect-button"} disabled>
+        <Button className="MDDprimarybtn fixed261" data-test-id={"connect-button"} disabled>
           Connecting..
         </Button>
       );
     } else {
       return (
-        <Button type="primary" data-test-id={"connect-button"} onClick={onClick}>
-          Connect
+        <Button className="MDDprimarybtn fixed261" data-test-id={"connect-button"} onClick={onClick}>
+          Connect with Metamask
         </Button>
       );
     }
   };
 
   return (
-    <div data-test-id={"login-component"} style={{ textAlign: "center" }}>
-      <Avatar size={64} icon="user" />
-      <p data-test-id={"login-component-welcome"}>You are not logged in</p>
+    <div data-test-id={"login-component"} className="login_canvas">
+      <h2>You’re not connected.</h2>
+      {/* <Avatar size={64} icon="user" />
+      <p data-test-id={"login-component-welcome"}>You are not logged in</p> */}
       {renderError()}
       {renderButton()}
     </div>

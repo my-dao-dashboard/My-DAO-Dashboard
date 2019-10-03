@@ -1,12 +1,10 @@
-import { Icon, Layout } from "antd";
+import { Icon } from "antd";
 import React from "react";
-
-const { Footer } = Layout;
 
 export const AppFooterComponent: React.FC = () => {
   return (
     <>
-      <Footer style={{ textAlign: "center" }}>
+      <div className="MDDfooter">
         <a
           href="https://github.com/my-dao-dashboard/My-DAO-Dashboard"
           target="_blank"
@@ -16,7 +14,7 @@ export const AppFooterComponent: React.FC = () => {
           <Icon type="github" />
         </a>{" "}
         &nbsp; ETHBerlin Zwei
-      </Footer>
+      </div>
     </>
   );
 };
