@@ -20,12 +20,7 @@ export class Services {
 
   @memoize()
   get settings() {
-    const service = new SettingsService();
-    this.blockchain.ready$.subscribe(async payload => {
-      await service.openSpace(payload.web3, payload.address);
-      service.readWatchedAddresses();
-    });
-    return service;
+    return new SettingsService(this.blockchain.ready$);
   }
 
   @memoize()

@@ -5,7 +5,7 @@ import { useImmediateObservable } from "../../util/use-immediate-observable";
 
 export const SettingsLoader: React.FC = props => {
   const settings = useContext(SettingsContext);
-  const isRead = useImmediateObservable(settings.query.isRead$);
+  const isRead = useImmediateObservable(settings.isRead$());
 
   if (isRead) {
     return <>{props.children}</>;
