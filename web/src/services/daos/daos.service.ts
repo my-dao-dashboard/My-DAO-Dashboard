@@ -9,6 +9,7 @@ import { DaostackService } from "./protocols/daostack.service";
 import { BalanceService } from "../balance.service";
 import { Dao } from "../../model/dao";
 import { EtherscanService } from "../etherscan.service";
+import { MessariService } from "../messari.service";
 
 export class DaosService {
   private readonly store: DaosStore;
@@ -29,7 +30,8 @@ export class DaosService {
       isRead: false
     });
     this.query = new DaosQuery(this.store);
-    this.balanceService$ = web3$.pipe(map(web3 => new BalanceService(web3)));
+    const messariService = new MessariService();
+    this.balanceService$ = web3$.pipe(map(web3 => new BalanceService(web3, messariService)));
     this.molochService$ = zip(web3$, this.balanceService$).pipe(map(p => new MolochService(p[0], p[1])));
     this.aragonService$ = zip(web3$, this.balanceService$).pipe(
       map(p => new AragonService(p[0], p[1], etherscanService))
