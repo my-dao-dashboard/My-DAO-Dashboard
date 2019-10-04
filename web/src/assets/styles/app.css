@@ -126,18 +126,65 @@ body {
   color: #2B565F;
   font-size: 1.65em;
   line-height: 1.3em;
-  margin-bottom: 40px;
+  margin-bottom: 6px;
   font-weight: 200;
 }
+.login_canvas p {
+  color: #2B565F;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
 .accountinfo {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 10px;
+  margin: 0px 0px 0px 10px;
 }
 .accountinfo p {
   color: #2B565F;
   font-weight: bold;
   margin: 0px 10px 0px 0px;
+}
+
+
+/* Toggle btn & menu */
+
+.ant-popover-inner-content {
+  padding: 0px;
+}
+
+.togglemenu {
+  box-sizing: border-box;
+  padding-top: 5px;
+  display:flex;
+  flex-direction: column;
+}
+
+.togglemenu a {
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-bottom: 1px dotted rgba(0,0,0,0.2);
+}
+.togglemenu a:last-child {
+  border-bottom: none;
+}
+
+.togglebtn {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  height: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  border-color: transparent;
+  box-shadow: none;
+  animation-duration: 0s !important;
+}
+.togglebtn::after {
+  border: none !important;
+  animation-duration: 0s !important;
 }

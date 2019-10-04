@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
 import { useProgress } from "../../hooks/use-progress";
 
+
 interface Props {
   onError?: (message: string) => void;
 }

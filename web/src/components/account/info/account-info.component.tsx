@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tooltip, Avatar } from "antd";
+import { Avatar } from "antd";
 import makeBlockie from "ethereum-blockies-base64";
 
 interface IProps {
@@ -16,7 +16,7 @@ export default class AccountInfoComponent extends Component<IProps> {
       return (
         <div className="accountinfo">
           <p>{shortAddress}</p>
-          <Avatar shape="circle" size={32} src={makeBlockie(this.props.address)} />
+          <Avatar shape="circle" size={32} src={makeBlockie(this.props.address)}/>
         </div>
         // <Tooltip title={this.props.address}>
         //   <small>{shortAddress}</small>

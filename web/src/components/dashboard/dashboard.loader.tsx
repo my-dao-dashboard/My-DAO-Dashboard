@@ -22,7 +22,7 @@ export const DashboardLoader: React.FC = props => {
   }, [daosContext.query.isLoading$, settingsContext.query.isLoading$]);
 
   if (isLoading) {
-    return <LoaderView message={"Loading DAOs..."} />;
+    return <LoaderView/>;
   } else {
     return <>{props.children}</>;
   }
