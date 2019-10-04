@@ -9,18 +9,14 @@ export const AppHeaderComponent: React.FC = () => {
   const blockchain = useContext(BlockchainContext);
   const [address, setAddress] = useState(blockchain.query.address);
   const [visible, setVisible] = useState(false);
-
-  console.log(visible);
+  const [ethscanurl] = useState("https://etherscan.io/address/"+address);
 
   const hide = () => {
     setVisible(false)
   };
 
   const handleVisibleChange = () => {
-      if(visible) {
-        setVisible(false)
-
-      }
+      if(visible) {setVisible(false)}
   };
 
   useEffect(() => {
@@ -32,7 +28,7 @@ export const AppHeaderComponent: React.FC = () => {
 
   const togglemenu = (
     <div className="togglemenu">
-      <a onClick={hide} target="blank" href="/">Show on Etherscan</a>
+      <a onClick={hide} target="blank" href={ethscanurl}>Show on Etherscan</a>
       <Link onClick={hide} to={"/settings"}>My watchlist</Link>
       <a onClick={hide}>Logout</a>
     </div>

@@ -11,7 +11,7 @@ export class DummyProposalListComponent extends React.Component<Props> {
   public renderActiveProposals() {
     if (this.props.openProposals.length > 0) {
       return <>
-        <div>
+        <div className="proposals">
           <h3>Active Proposals</h3>
           <ProposalTableComponent open={true} source={this.props.openProposals} />
         </div>
@@ -26,7 +26,7 @@ export class DummyProposalListComponent extends React.Component<Props> {
   public render() {
       return <>
         {this.renderActiveProposals()}
-        <div>
+        <div className="proposals">
           <h3>Sealed Proposals</h3>
           <ProposalTableComponent open={false} source={this.props.proposals} />
         </div>

@@ -9,6 +9,10 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: #2B565F;
+}
+
 
 /* .link { 
   color: #1890ff;
@@ -26,6 +30,8 @@ body {
 
 .content { 
   width: 100%;
+  box-sizing: border-box;
+  padding: 0px 5vw;
   flex:1;
   display: flex;
   flex-direction: column;
@@ -85,8 +91,6 @@ body {
 .MDDlogofill {
   fill:#EF5050;
 }
-
-
 .MDDfooter {
   box-sizing: border-box;
   padding: 25px 0px;
@@ -97,7 +101,6 @@ body {
 
 
 /* Buttons */
-
 .MDDprimarybtn {
   color: #2B565F;
   font-weight: bold;
@@ -107,10 +110,10 @@ body {
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
 }
-
 .fixed261 {
   width: 261px;
 }
+
 
 
 /* Login */
@@ -136,7 +139,6 @@ body {
   margin-bottom: 50px;
   font-weight: 600;
 }
-
 .accountinfo {
   display: flex;
   flex-direction: row;
@@ -151,19 +153,17 @@ body {
 }
 
 
-/* Toggle btn & menu */
 
+/* Toggle btn & menu */
 .ant-popover-inner-content {
   padding: 0px;
 }
-
 .togglemenu {
   box-sizing: border-box;
   padding-top: 5px;
   display:flex;
   flex-direction: column;
 }
-
 .togglemenu a {
   box-sizing: border-box;
   padding: 10px 20px;
@@ -172,7 +172,6 @@ body {
 .togglemenu a:last-child {
   border-bottom: none;
 }
-
 .togglebtn {
   margin: 0px;
   padding: 0px;
@@ -187,4 +186,21 @@ body {
 .togglebtn::after {
   border: none !important;
   animation-duration: 0s !important;
+}
+
+
+
+/* Dashboard stuff */
+.DAOs {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 30px;
+}
+
+
+/* Proposal stuff */
+.proposals {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 30px;
 }
