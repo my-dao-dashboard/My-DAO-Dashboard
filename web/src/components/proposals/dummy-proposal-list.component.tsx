@@ -15,8 +15,6 @@ export class DummyProposalListComponent extends React.Component<Props> {
           <h3>Active Proposals</h3>
           <ProposalTableComponent open={true} source={this.props.openProposals} />
         </div>
-
-        <br/>
       </>
     } else {
       return <></>

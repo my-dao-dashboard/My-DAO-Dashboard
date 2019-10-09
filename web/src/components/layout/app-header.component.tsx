@@ -28,8 +28,8 @@ export const AppHeaderComponent: React.FC = () => {
 
   const togglemenu = (
     <div className="togglemenu">
+      <Link onClick={hide} to={"/settings"}>Settings</Link>
       <a onClick={hide} target="blank" href={ethscanurl}>Show on Etherscan</a>
-      <Link onClick={hide} to={"/settings"}>My watchlist</Link>
       <a onClick={hide}>Logout</a>
     </div>
   );
@@ -43,7 +43,7 @@ export const AppHeaderComponent: React.FC = () => {
 
           <Popover
             content={togglemenu}
-            placement="bottom"
+            placement="bottomRight"
             trigger="click"
             visible={visible}
             onVisibleChange={handleVisibleChange}

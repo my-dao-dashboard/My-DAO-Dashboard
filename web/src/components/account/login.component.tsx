@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
 import { useProgress } from "../../hooks/use-progress";
 
-
 interface Props {
   onError?: (message: string) => void;
 }
@@ -52,6 +51,7 @@ export const LoginComponent: React.FC<Props> = props => {
   return (
     <div data-test-id={"login-component"} className="login_canvas">
       <h2>You’re not connected.</h2>
+      <div className="spacer"></div>
       {/* <Avatar size={64} icon="user" />
       <p data-test-id={"login-component-welcome"}>You are not logged in</p> */}
       {renderError()}

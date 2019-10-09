@@ -9,9 +9,10 @@ interface Props {
 const LoaderView: React.FC<Props> = props => {
   const message = props.message ? <div>{props.message}</div> : undefined;
   return (
-    <div className="login_canvas">
+    <div className="loader_canvas">
       <h2>Succesfully connected!</h2>
       <p>Loading DAO's...</p>
+      <div className="spacer"></div>
       <img src={spinner} alt="Spinner" />
     </div>
   );

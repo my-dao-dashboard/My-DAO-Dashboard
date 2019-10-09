@@ -1,5 +1,6 @@
 body {
   background: #EAEFF0;
+  font-family: 'Lato', sans-serif;
 }
 
 .ant-layout {
@@ -11,6 +12,11 @@ body {
 
 a {
   color: #2B565F;
+}
+
+.spacer {
+  width: 100%;
+  height: 20px;
 }
 
 
@@ -31,7 +37,7 @@ a {
 .content { 
   width: 100%;
   box-sizing: border-box;
-  padding: 0px 5vw;
+  /* padding: 0px 5vw; */
   flex:1;
   display: flex;
   flex-direction: column;
@@ -64,6 +70,9 @@ a {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.04);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.04);
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.04);
 }
 .logo_container {
   display: flex;
@@ -78,7 +87,7 @@ a {
   line-height: 0;
 }
 .txt {
-  font-weight: bold;
+  font-weight: 900;
   color: #EF5050;
 }
 .usersection {
@@ -103,12 +112,13 @@ a {
 /* Buttons */
 .MDDprimarybtn {
   color: #2B565F;
-  font-weight: bold;
+  font-weight: 700;
   border: none;
   padding: 24px 42px 24px;
   height: auto;
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+  font-size: 1.15em;
 }
 .fixed261 {
   width: 261px;
@@ -124,6 +134,8 @@ a {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: url(./../imgs/metamask_faded.png) center left no-repeat;
+  width: 100%;
 }
 .login_canvas h2 {
   color: #2B565F;
@@ -151,7 +163,30 @@ a {
   font-weight: bold;
   margin: 0px 10px 0px 0px;
 }
-
+.loader_canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: none;
+  width: 100%;
+}
+.loader_canvas h2 {
+  color: #2B565F;
+  font-size: 1.65em;
+  line-height: 1.3em;
+  margin-bottom: 6px;
+  font-weight: 200;
+}
+.loader_canvas p {
+  color: #2B565F;
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
 
 
 /* Toggle btn & menu */
@@ -168,6 +203,7 @@ a {
   box-sizing: border-box;
   padding: 10px 20px;
   border-bottom: 1px dotted rgba(0,0,0,0.2);
+  /* font-weight: 700; */
 }
 .togglemenu a:last-child {
   border-bottom: none;
@@ -190,7 +226,15 @@ a {
 
 
 
+
 /* Dashboard stuff */
+.dashboard_canvas {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 5vw;
+  display: flex;
+  flex-direction: column;
+}
 .DAOs {
   width: 100%;
   box-sizing: border-box;
