@@ -30,13 +30,13 @@ export class ProgressTracker {
     this.setProgress = state[1];
   }
 
-  start() {
+  start(): void {
     this.setProgress({
       kind: ProgressKind.RUNNING
     });
   }
 
-  stop(reason?: Error) {
+  stop(reason?: Error | void): void {
     if (reason) {
       this.setProgress({
         kind: ProgressKind.FAILED,

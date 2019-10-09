@@ -1,7 +1,7 @@
 import { Avatar, Button } from "antd";
 import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
-import { useProgress } from "../../hooks/use-progress";
+import { useProgress } from "../../util/use-progress";
 
 interface Props {
   onError?: (message: string) => void;

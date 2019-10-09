@@ -1,29 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { DaosContext } from "../../contexts/daos.context";
 import LoaderView from "../layout/loader/loader.view";
-import { SettingsContext } from "../../contexts/settings.context";
-import { zip } from "rxjs";
-import { map } from "rxjs/operators";
+import { useImmediateObservable } from "../../util/use-immediate-observable";
 
 export const DashboardLoader: React.FC = props => {
   const daosContext = useContext(DaosContext);
-  const settingsContext = useContext(SettingsContext);
-  const [isLoading, setIsLoading] = useState(daosContext.query.isLoading || settingsContext.query.isLoading);
+  const isRead = useImmediateObservable(daosContext.query.isRead$);
 
-  useEffect(() => {
-    const isLoading$ = zip(daosContext.query.isLoading$, settingsContext.query.isLoading$).pipe(map(t => t[0] && t[1]));
-    const subscription = isLoading$.subscribe(isLoading => {
-      setIsLoading(isLoading);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [daosContext.query.isLoading$, settingsContext.query.isLoading$]);
-
-  if (isLoading) {
-    return <LoaderView/>;
-  } else {
+  if (isRead) {
     return <>{props.children}</>;
+  } else {
+    return <LoaderView message={"Loading DAOs..."} />;
   }
 };

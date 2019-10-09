@@ -47,6 +47,12 @@ For demo use, e.g.; `0x039ae2898d257f4c9d7e381d478ee1ed042fe2f4, 0x59a5493513ba2
 Adding this acts as if you're logged-in as one of those address and populates the dashboard with data.
 This is added as a feature, to create an aggregated view for all accounts you have and joined a DAO with.
 
+## Join the community
+
+Join [the MyDAODashboard community channel on Telegram](https://t.me/mydaodashboard).
+
+View the inner-workings of [the MyDAODashboard DAO](https://mainnet.aragon.org/#/mydaodashboard/), and request a voting token if you would like to join the DAO.
+
 ## Bounty integrations
 
 - [The Graph - Build Or Use A Subgraph](https://github.com/ethberlinzwei/Bounties/issues/11)

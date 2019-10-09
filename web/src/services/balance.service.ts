@@ -4,6 +4,8 @@ import Contract from "web3/eth/contract";
 import erc20ABI from "../abis/erc20.abi.json";
 import { Asset } from "../model/asset";
 import { ANT_ADDRESS, DAI_ADDRESS, GEN_ADDRESS, TACO_ADDRESS } from "../constants";
+import { MessariService } from "./messari.service";
+import { first } from "rxjs/operators";
 
 export class BalanceService {
   private readonly antContract: Contract;
@@ -11,7 +13,7 @@ export class BalanceService {
   private readonly genContract: Contract;
   private readonly tacoContract: Contract;
 
-  constructor(private readonly web3: Web3) {
+  constructor(private readonly web3: Web3, private readonly messariService: MessariService) {
     this.antContract = new this.web3.eth.Contract(erc20ABI, ANT_ADDRESS);
     this.daiContract = new this.web3.eth.Contract(erc20ABI, DAI_ADDRESS);
     this.genContract = new this.web3.eth.Contract(erc20ABI, GEN_ADDRESS);
@@ -19,10 +21,10 @@ export class BalanceService {
   }
 
   public async assetPrice(symbol: string): Promise<number> {
-    const endpoint = `https://data.messari.io/api/v1/assets/${symbol}/metrics`;
-    const response = await fetch(endpoint);
-    const payload = await response.json();
-    return payload.data.market_data.price_usd;
+    return this.messariService
+      .assetPrice(symbol)
+      .pipe(first())
+      .toPromise();
   }
 
   public async balance(address: string): Promise<Asset[]> {

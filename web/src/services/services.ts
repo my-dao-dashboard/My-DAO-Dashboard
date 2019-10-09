@@ -20,17 +20,12 @@ export class Services {
 
   @memoize()
   get settings() {
-    const service = new SettingsService();
-    this.blockchain.ready$.subscribe(async payload => {
-      await service.openSpace(payload.web3, payload.address);
-      service.readWatchedAddresses();
-    });
-    return service;
+    return new SettingsService(this.blockchain.ready$);
   }
 
   @memoize()
   get daos() {
-    const watchedAddresses$ = this.settings.query.loadedWatchedAddresses$;
+    const watchedAddresses$ = this.settings.query.watchedAddresses$;
     const web3$ = this.blockchain.ready$.pipe(map(p => p.web3));
     const account$ = this.blockchain.ready$.pipe(map(p => p.address));
     const etherscan = this.etherscanService;
