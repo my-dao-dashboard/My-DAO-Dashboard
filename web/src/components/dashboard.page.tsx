@@ -6,10 +6,8 @@ import { ProposalsComponent } from "../components/proposals/proposals.component"
 export const DashboardPage: React.FC = () => {
   return (
     <DashboardLoader>
-      <div className="dashboard_canvas">
       <DaoListComponent />
       <ProposalsComponent />
-      </div>
     </DashboardLoader>
   );
 };
