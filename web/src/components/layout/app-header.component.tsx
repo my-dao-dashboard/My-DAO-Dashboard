@@ -30,7 +30,7 @@ export const AppHeaderComponent: React.FC = () => {
     <div className="togglemenu">
       <Link onClick={hide} to={"/settings"}>Settings</Link>
       <a onClick={hide} target="blank" href={ethscanurl}>Show on Etherscan</a>
-      <a onClick={hide}>Logout</a>
+      <a onClick={hide} href="https://google.com">Logout</a>
     </div>
   );
 

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const LoaderView: React.FC<Props> = props => {
-  const message = props.message ? <div>{props.message}</div> : undefined;
+  // const message = props.message ? <div>{props.message}</div> : undefined;
   return (
     <div className="loader_canvas">
       <h2>Succesfully connected!</h2>

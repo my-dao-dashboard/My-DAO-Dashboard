@@ -1,4 +1,4 @@
-import { Avatar, Button } from "antd";
+import { Button } from "antd";
 import React, { useContext } from "react";
 import { MetamaskContext } from "../../contexts/metamask.context";
 import { useProgress } from "../../util/use-progress";
