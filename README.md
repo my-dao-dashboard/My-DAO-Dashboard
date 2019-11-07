@@ -47,6 +47,15 @@ For demo use, e.g.; `0x039ae2898d257f4c9d7e381d478ee1ed042fe2f4, 0x59a5493513ba2
 Adding this acts as if you're logged-in as one of those address and populates the dashboard with data.
 This is added as a feature, to create an aggregated view for all accounts you have and joined a DAO with.
 
+## Installation
+
+Instead of using NPM, use Yarn. Also, due to how Yarn treats updated packages, it is better to make it use what is in lockfile.
+```bash
+cd web/ && yarn install --pure-lockfile
+``` 
+
+Overall, use Yarn instead of NPM.
+
 ## Join the community
 
 Join [the MyDAODashboard community channel on Telegram](https://t.me/mydaodashboard).
