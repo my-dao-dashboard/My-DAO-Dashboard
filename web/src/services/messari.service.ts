@@ -15,7 +15,9 @@ export class MessariService {
       const response = ajax(endpoint);
       return response.pipe(
         map(r => r.response.data.market_data.price_usd as number),
-        tap(price => this.cache.set(symbol, price)),
+        tap(price => {
+          this.cache.set(symbol, price || 0)
+        }),
         catchError(err => {
           console.warn(err);
           return of(0);
