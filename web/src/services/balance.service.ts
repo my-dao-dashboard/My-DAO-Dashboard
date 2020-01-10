@@ -25,7 +25,7 @@ export class BalanceService {
       .assetPrice(symbol)
       .pipe(first())
       .toPromise();
-    return balance || 0
+    return balance || 0;
   }
 
   public async balance(address: string): Promise<Asset[]> {
@@ -37,7 +37,7 @@ export class BalanceService {
     const daiBalanceUsd = daiBalance.dividedBy(10 ** 18).multipliedBy(await this.assetPrice("DAI"));
     const genBalance = new BigNumber(await this.genContract.methods.balanceOf(address).call());
     const genBalanceUsd = genBalance.dividedBy(10 ** 18).multipliedBy(await this.assetPrice("GEN"));
-    console.log('genBalanceUsd', genBalanceUsd, await this.assetPrice("GEN"))
+    console.log("genBalanceUsd", genBalanceUsd, await this.assetPrice("GEN"));
     const tacoBalance = await this.tacoContract.methods.balanceOf(address).call();
     return [
       {
