@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,700,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato';
+}
+
+
 .App {
   text-align: center;
 }
@@ -27,4 +36,307 @@
   .content { 
     padding: 15px;
   }
+}
+
+
+
+/* Bennisan Styling - Landingpage */
+
+
+.landingpage h1 {
+  font-size: 34px;
+  color: #2B565F;
+  font-weight: 900;
+}
+.landingpage p {
+  font-size: 20px;
+  line-height: 26px;
+  color: #2B565F;
+  font-weight: 300;
+}
+.landingpage a {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.landingpage .redlink {
+  text-decoration: underline;
+  color: #EF5050;
+}
+
+
+.landingpage .intro {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 110px 40px 80px 10vw;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: url('../images/MDD-landing-bg.png');
+}
+.landingpage .intro_txt {
+  padding-top: 60px;
+  /* max-width: 900px; */
+flex: 1;
+}
+.landingpage .intro_txt p {
+  margin: 30px 0 ;
+}
+.landingpage .intro_txt_logo img {
+  width: 120px;
+  margin: 0 0 30px 0;
+}
+.landingpage .intro_img {
+  width: 58vw;
+  min-width: 400px;
+  max-width: 835px;
+  margin-left: -60px;
+}
+.landingpage .intro_img img {
+  width: 100%;
+}
+
+
+.landingpage .usps_and_btn {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 100px 10vw 120px 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+}
+
+.landingpage .usps {
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.landingpage .usps_and_btn button {
+  background-color: #F0F3F4;
+  border: none;
+  box-sizing: border-box;
+  margin-top: 70px;
+  padding: 22px 55px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
+  }
+.landingpage .usps_and_btn button a {
+  color:#2B565F;
+  font-size: 20px;
+}
+.landingpage .usp {
+  width: 22vw;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.landingpage .usp_txt h2 {
+  font-size: 20px;
+  line-height: 26px;
+  color: #2B565F;
+  font-weight: 700;
+}
+.landingpage .usp_img, .usp_img img {
+  width: 100%;
+}
+
+.landingpage .components {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 120px 10vw 140px 10vw;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: url('../images/MDD-landing-bg3.png') repeat-x;
+  justify-content: space-evenly;
+}
+
+.landingpage .component {
+  display: flex;
+  flex-direction: column;
+  width: 34vw;
+}
+
+
+.landingpage .component h2 {
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.landingpage .component h2, .landingpage .component p {
+  color: white;
+}
+
+.landingpage .component .component_github_link a {
+  text-decoration: underline;
+  color: white;
+
+}
+
+.landingpage .component .component_github_link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+
+.landingpage .component .component_github_link img, 
+.landingpage .component .component_github_link svg {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+  fill: white;
+}
+
+.left {
+  text-align: right;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.right {
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.component_github_link_right {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.landingpage .supportedDAOs_and_txt {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 100px 10vw 80px 10vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+}
+
+
+.landingpage .supportedDAOs_and_txt p {
+  width: 32vw;
+}
+
+
+
+.landingpage .supportedDAOs_and_txt a {
+  text-decoration: underline;
+  color:#2B565F;
+  font-weight: 400;
+}
+
+
+.landingpage .supportedDAOs {
+  box-sizing: border-box;
+  flex: 1;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.landingpage .supportedDAO {
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  width: 100px;
+  flex-direction: column;
+}
+
+.landingpage .supportedDAO img {
+  width: 100px;
+}
+
+
+.landingpage .footer {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 100px 10vw 160px 10vw;
+  display: flex;
+  flex-direction: row;
+  background-color: #EAEFF0;
+}
+
+.landingpage .footer_and_txt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.landingpage .footer .logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.landingpage .footer .logo img {
+  width: 42px;
+}
+
+.landingpage .footer .logo h2 {
+  font-weight: 900;
+  font-size: 24px;
+  color: #EF5050;
+  margin: 0 16px;
+}
+
+
+.landingpage .footer_and_txt p {
+  width: 32vw;
+  margin: 25px 0 20px 0;
+  min-width: 300px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
+.landingpage .footer_and_txt a {
+  font-size: 16px;
+  line-height: 20px;
+  color: #2B565F;
+}
+
+
+.landingpage .sociallinks_and_txt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.landingpage .sociallinks_and_txt p {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
+
+.landingpage .sociallinks {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.landingpage .sociallinks img, .landingpage .sociallinks svg {
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
 }
