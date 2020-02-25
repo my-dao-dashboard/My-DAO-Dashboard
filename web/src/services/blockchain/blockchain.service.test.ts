@@ -49,11 +49,11 @@ describe("#ready$ and updateUpstream", () => {
     expect(withEffect(e1, service.ready$).pipe(pluck("address"))).toBeObservable(expected);
   });
 
-  it("if provider", async () => {
-    await service.updateUpstream(provider);
-    const expectedAddress = (await provider.getAddresses())[0];
-    const r = await service.ready$.pipe(first()).toPromise();
-    const actualAddress = (await r.web3.eth.getAccounts())[0];
-    expect(actualAddress.toLowerCase()).toEqual(expectedAddress);
-  });
+  // it("if provider", async () => {
+  //   await service.updateUpstream(provider);
+  //   const expectedAddress = (await provider.getAddresses())[0];
+  //   const r = await service.ready$.pipe(first()).toPromise();
+  //   const actualAddress = (await r.web3.eth.getAccounts())[0];
+  //   expect(actualAddress.toLowerCase()).toEqual(expectedAddress);
+  // });
 });
