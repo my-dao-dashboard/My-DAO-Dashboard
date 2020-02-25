@@ -16,8 +16,9 @@ function LoginLink(props: React.PropsWithChildren<{ className?: string }>) {
   const metamask = useContext(MetamaskContext);
   const progress = useProgress(false);
   const history = useHistory();
+  const isAvailable = metamask.query.isAvailable;
 
-  const login = async () => {
+  const enableMetamask = async () => {
     if (!progress.isRunning()) {
       progress.start();
       try {
@@ -26,6 +27,14 @@ function LoginLink(props: React.PropsWithChildren<{ className?: string }>) {
       } catch (e) {
         progress.stop(e);
       }
+    }
+  };
+
+  const login = async () => {
+    if (isAvailable) {
+      await enableMetamask();
+    } else {
+      alert("Browser is not enabled with Web3. Please, open the web page in web3-enabled browser");
     }
   };
 
