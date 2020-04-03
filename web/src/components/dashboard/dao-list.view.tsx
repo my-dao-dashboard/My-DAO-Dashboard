@@ -13,7 +13,6 @@ interface Props {
 export const DaoListView: React.FC<Props> = props => {
   return (
     <div>
-      <h2>Participating DAO's</h2>
       <List
         grid={{
           gutter: 16,

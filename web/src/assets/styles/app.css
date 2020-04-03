@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Lato';
+  background: #EAEFF0;
 }
 
 
@@ -340,3 +341,78 @@ flex: 1;
   height: 30px;
   margin: 0 5px;
 }
+
+
+
+/* DASHBOARD */
+.ant-layout-header {
+  background: white;
+  height: 115px;
+  -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
+  -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
+  box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5vw;
+}
+
+.ant-layout {
+  background: transparent;
+}
+.ant-layout-content {
+  box-sizing: border-box;
+  padding: 5vw;
+}
+
+.logo_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex:1;
+}
+
+.logo_box img {
+ width: 32px;
+ height: 32px;
+}
+
+.logo_box p {
+  font-weight: 900;
+  font-size: 1.125rem;
+  color: #EF5050;
+  margin: 0 0 0 1em;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo_box p {
+    display: none;
+  }
+  .ant-layout-header {
+    padding: 10vw;
+  }
+
+}
+
+.user_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.user_box p {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #2B565F;
+  margin: 0 1em 0 0;
+}
+.user_box img {
+  width: 32px;
+  height: 32px;
+  background: lightgrey;
+  border-radius: 50%;
+}
+
