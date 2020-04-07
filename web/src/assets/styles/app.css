@@ -1,58 +1,54 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,700,900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato:300,700,900&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Lato';
-  background: #EAEFF0;
+  font-family: "Lato";
+  background: #eaeff0;
 }
-
 
 .App {
   text-align: center;
 }
 
-.link { 
+.link {
   color: #1890ff;
   cursor: pointer;
 }
-.container { 
+.container {
   padding: 0 50px;
   margin: 64px 0 0 0;
 }
 
-.content { 
+.content {
   background: #fff;
   padding: 24px;
   min-height: 380px;
 }
 
 @media (max-width: 500px) {
-  .ant-layout-header { 
+  .ant-layout-header {
     padding: 0 15px;
   }
-  .container { 
+  .container {
     padding: 0;
   }
-  .content { 
+  .content {
     padding: 15px;
   }
 }
 
-
-
 /* Bennisan Styling - Landingpage */
-
 
 .landingpage h1 {
   font-size: 34px;
-  color: #2B565F;
+  color: #2b565f;
   font-weight: 900;
 }
 .landingpage p {
   font-size: 20px;
   line-height: 26px;
-  color: #2B565F;
+  color: #2b565f;
   font-weight: 300;
 }
 .landingpage a {
@@ -64,9 +60,8 @@ body {
 
 .landingpage .redlink {
   text-decoration: underline;
-  color: #EF5050;
+  color: #ef5050;
 }
-
 
 .landingpage .intro {
   box-sizing: border-box;
@@ -76,15 +71,15 @@ body {
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  background: url('../images/MDD-landing-bg.png');
+  background: url("../images/MDD-landing-bg.png");
 }
 .landingpage .intro_txt {
   padding-top: 60px;
   /* max-width: 900px; */
-flex: 1;
+  flex: 1;
 }
 .landingpage .intro_txt p {
-  margin: 30px 0 ;
+  margin: 30px 0;
 }
 .landingpage .intro_txt_logo img {
   width: 120px;
@@ -99,7 +94,6 @@ flex: 1;
 .landingpage .intro_img img {
   width: 100%;
 }
-
 
 .landingpage .usps_and_btn {
   box-sizing: border-box;
@@ -120,18 +114,18 @@ flex: 1;
   justify-content: space-evenly;
 }
 .landingpage .usps_and_btn button {
-  background-color: #F0F3F4;
+  background-color: #f0f3f4;
   border: none;
   box-sizing: border-box;
   margin-top: 70px;
   padding: 22px 55px;
   border-radius: 4px;
-  -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
-  }
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+}
 .landingpage .usps_and_btn button a {
-  color:#2B565F;
+  color: #2b565f;
   font-size: 20px;
 }
 .landingpage .usp {
@@ -143,10 +137,11 @@ flex: 1;
 .landingpage .usp_txt h2 {
   font-size: 20px;
   line-height: 26px;
-  color: #2B565F;
+  color: #2b565f;
   font-weight: 700;
 }
-.landingpage .usp_img, .usp_img img {
+.landingpage .usp_img,
+.usp_img img {
   width: 100%;
 }
 
@@ -157,7 +152,7 @@ flex: 1;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background: url('../images/MDD-landing-bg3.png') repeat-x;
+  background: url("../images/MDD-landing-bg3.png") repeat-x;
   justify-content: space-evenly;
 }
 
@@ -167,20 +162,19 @@ flex: 1;
   width: 34vw;
 }
 
-
 .landingpage .component h2 {
   font-weight: 900;
   font-size: 24px;
 }
 
-.landingpage .component h2, .landingpage .component p {
+.landingpage .component h2,
+.landingpage .component p {
   color: white;
 }
 
 .landingpage .component .component_github_link a {
   text-decoration: underline;
   color: white;
-
 }
 
 .landingpage .component .component_github_link {
@@ -190,9 +184,7 @@ flex: 1;
   justify-content: flex-start;
 }
 
-
-
-.landingpage .component .component_github_link img, 
+.landingpage .component .component_github_link img,
 .landingpage .component .component_github_link svg {
   width: 30px;
   height: 30px;
@@ -229,19 +221,15 @@ flex: 1;
   background-color: white;
 }
 
-
 .landingpage .supportedDAOs_and_txt p {
   width: 32vw;
 }
 
-
-
 .landingpage .supportedDAOs_and_txt a {
   text-decoration: underline;
-  color:#2B565F;
+  color: #2b565f;
   font-weight: 400;
 }
-
 
 .landingpage .supportedDAOs {
   box-sizing: border-box;
@@ -264,14 +252,13 @@ flex: 1;
   width: 100px;
 }
 
-
 .landingpage .footer {
   box-sizing: border-box;
   margin: 0;
   padding: 100px 10vw 160px 10vw;
   display: flex;
   flex-direction: row;
-  background-color: #EAEFF0;
+  background-color: #eaeff0;
 }
 
 .landingpage .footer_and_txt {
@@ -293,10 +280,9 @@ flex: 1;
 .landingpage .footer .logo h2 {
   font-weight: 900;
   font-size: 24px;
-  color: #EF5050;
+  color: #ef5050;
   margin: 0 16px;
 }
-
 
 .landingpage .footer_and_txt p {
   width: 32vw;
@@ -306,13 +292,11 @@ flex: 1;
   line-height: 20px;
 }
 
-
 .landingpage .footer_and_txt a {
   font-size: 16px;
   line-height: 20px;
-  color: #2B565F;
+  color: #2b565f;
 }
-
 
 .landingpage .sociallinks_and_txt {
   flex: 1;
@@ -327,8 +311,6 @@ flex: 1;
   line-height: 20px;
 }
 
-
-
 .landingpage .sociallinks {
   display: flex;
   flex-direction: row;
@@ -336,21 +318,20 @@ flex: 1;
   justify-content: flex-end;
 }
 
-.landingpage .sociallinks img, .landingpage .sociallinks svg {
+.landingpage .sociallinks img,
+.landingpage .sociallinks svg {
   width: 30px;
   height: 30px;
   margin: 0 5px;
 }
 
-
-
 /* DASHBOARD */
 .ant-layout-header {
   background: white;
   height: 115px;
-  -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
-  -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
-  box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.04);
+  -webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.04);
+  -moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -372,18 +353,18 @@ flex: 1;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  flex:1;
+  flex: 1;
 }
 
 .logo_box img {
- width: 32px;
- height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .logo_box p {
   font-weight: 900;
   font-size: 1.125rem;
-  color: #EF5050;
+  color: #ef5050;
   margin: 0 0 0 1em;
 }
 
@@ -394,7 +375,6 @@ flex: 1;
   .ant-layout-header {
     padding: 10vw;
   }
-
 }
 
 .user_box {
@@ -406,13 +386,15 @@ flex: 1;
 .user_box p {
   font-weight: 700;
   font-size: 0.875rem;
-  color: #2B565F;
+  color: #2b565f;
   margin: 0 1em 0 0;
 }
-.user_box img {
+
+.user_box .jazzicon {
   width: 32px;
   height: 32px;
-  background: lightgrey;
-  border-radius: 50%;
 }
 
+.user_box .jazzicon div {
+  display: block !important;
+}
