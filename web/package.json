@@ -41,6 +41,7 @@
   "dependencies": {
     "3box": "^1.10.7",
     "@datorama/akita": "^4.10.2",
+    "@ukstv/jazzicon-react": "^1.0.0",
     "antd": "^3.22.0",
     "apollo-boost": "^0.4.4",
     "bignumber.js": "^9.0.0",
