@@ -9,6 +9,12 @@ import { Jazzicon } from "@ukstv/jazzicon-react";
 
 const { Header, Content } = Layout;
 
+function ellipsis(address: string) {
+  const head = address.slice(0, 7);
+  const tail = address.slice(address.length - 7);
+  return `${head} … ${tail}`;
+}
+
 export const DashboardPage: React.FC = () => {
   const blockchain = useContext(BlockchainContext);
 
@@ -21,7 +27,7 @@ export const DashboardPage: React.FC = () => {
             <p>My DAO dashboard</p>
           </div>
           <div className="user_box">
-            <p>{blockchain.query.address}</p>
+            <p>{ellipsis(blockchain.query.address)}</p>
             <Jazzicon address={blockchain.query.address} className={"jazzicon"} />
           </div>
         </Header>
